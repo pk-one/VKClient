@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Login Form Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="LoginFormController" customModule="VKClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dcC-my-gOJ">
+                                <rect key="frame" x="0.0" y="44" width="390" height="766"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VK-Logo-2016" translatesAutoresizingMaskIntoConstraints="NO" id="JPm-Tt-tvN">
+                                        <rect key="frame" x="120" y="50" width="150" height="150"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="VZc-Vd-0w5"/>
+                                            <constraint firstAttribute="height" constant="150" id="uNJ-GB-tyd"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1vP-x8-NLU" customClass="LeftPaddedTextField" customModule="VKClient" customModuleProvider="target">
+                                        <rect key="frame" x="10" y="341" width="370" height="40"/>
+                                        <color key="backgroundColor" red="0.4196078479" green="0.4196078479" blue="0.4196078479" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="370" id="B9Z-ch-GLT"/>
+                                            <constraint firstAttribute="height" constant="40" id="GKw-n4-fWK"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IQM-qM-BCQ">
+                                        <rect key="frame" x="10" y="466" width="370" height="40"/>
+                                        <color key="backgroundColor" red="0.77254903320000001" green="0.78823530669999997" blue="0.8078432083" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="2ju-DM-6br"/>
+                                            <constraint firstAttribute="width" constant="370" id="r41-nG-S6h"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <state key="normal" title="Войти">
+                                            <color key="titleColor" red="0.1843137443" green="0.1843137443" blue="0.1843137443" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="IBACtion:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yz4-c7-V0H"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K3x-Eb-aVj" customClass="LeftPaddedTextField" customModule="VKClient" customModuleProvider="target">
+                                        <rect key="frame" x="10" y="381" width="370" height="40"/>
+                                        <color key="backgroundColor" red="0.4196078479" green="0.4196078479" blue="0.4196078479" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="370" id="eeK-M2-vE7"/>
+                                            <constraint firstAttribute="height" constant="40" id="plB-xZ-eo9"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="IQM-qM-BCQ" firstAttribute="centerX" secondItem="dcC-my-gOJ" secondAttribute="centerX" id="Aja-iu-YrU"/>
+                                    <constraint firstItem="K3x-Eb-aVj" firstAttribute="top" secondItem="1vP-x8-NLU" secondAttribute="bottom" id="Cfu-bi-gwX"/>
+                                    <constraint firstItem="JPm-Tt-tvN" firstAttribute="centerX" secondItem="dcC-my-gOJ" secondAttribute="centerX" id="SbO-Eu-3ur"/>
+                                    <constraint firstItem="JPm-Tt-tvN" firstAttribute="top" secondItem="dcC-my-gOJ" secondAttribute="top" constant="50" id="ZAs-JU-RBw"/>
+                                    <constraint firstAttribute="trailing" secondItem="JPm-Tt-tvN" secondAttribute="trailing" constant="120" id="ZlA-5N-OjZ"/>
+                                    <constraint firstItem="IQM-qM-BCQ" firstAttribute="top" secondItem="K3x-Eb-aVj" secondAttribute="bottom" constant="45" id="dXc-lw-8vB"/>
+                                    <constraint firstItem="1vP-x8-NLU" firstAttribute="centerX" secondItem="dcC-my-gOJ" secondAttribute="centerX" id="g9c-ep-aT0"/>
+                                    <constraint firstItem="K3x-Eb-aVj" firstAttribute="centerX" secondItem="dcC-my-gOJ" secondAttribute="centerX" id="hOB-l3-zYX"/>
+                                    <constraint firstItem="1vP-x8-NLU" firstAttribute="top" secondItem="JPm-Tt-tvN" secondAttribute="bottom" constant="141" id="iV4-cW-MIz"/>
+                                    <constraint firstAttribute="bottom" secondItem="IQM-qM-BCQ" secondAttribute="bottom" constant="260" id="yrw-D1-Z2U"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="em8-9X-DwZ"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="55I-cZ-XfY"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dcC-my-gOJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="V2j-LT-nvd"/>
+                            <constraint firstItem="dcC-my-gOJ" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Ynv-i1-TgA"/>
+                            <constraint firstItem="dcC-my-gOJ" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="dwO-eL-wfS"/>
+                            <constraint firstItem="dcC-my-gOJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ros-Ep-oyn"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="UIScrollView" destination="dcC-my-gOJ" id="Kfa-eg-eHz"/>
+                        <outlet property="loginTextField" destination="1vP-x8-NLU" id="j17-TV-OOs"/>
+                        <outlet property="passwordTextField" destination="K3x-Eb-aVj" id="gXL-y1-x48"/>
+                        <outlet property="signInButton" destination="IQM-qM-BCQ" id="rYk-5U-sHY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="28.985507246376812" y="83.705357142857139"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="VK-Logo-2016" width="1600" height="1200"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
