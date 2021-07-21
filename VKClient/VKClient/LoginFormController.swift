@@ -9,10 +9,13 @@ import UIKit
 import Foundation
 
 class LoginFormController: UIViewController {
-    
+    /// Это скролВью
     @IBOutlet var scrollView: UIScrollView!
+    /// Это текстовое поле для логина
     @IBOutlet var loginTextField: UITextField!
+    /// Это текстовое поле для пароля
     @IBOutlet var passwordTextField: UITextField!
+    /// Это кнопка входа
     @IBOutlet var signInButton: UIButton!
     
     override func viewDidLoad() {
@@ -22,6 +25,17 @@ class LoginFormController: UIViewController {
         customButtonSignIn()
         let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         scrollView?.addGestureRecognizer(hideKeyboardGesture)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillBeHidden(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc func keyboardWasShown(notification: Notification) {
@@ -63,28 +77,33 @@ class LoginFormController: UIViewController {
         signInButton.layer.cornerRadius = 8
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillBeHidden(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @IBAction func IBACtion(_ sender: Any) {
-        let login = loginTextField.text
-        let password = passwordTextField.text
-        
+    func checkAuth() -> Bool {
+        guard let login = loginTextField.text,
+              let password = passwordTextField.text else { return false }
         if login == "admin" && password == "123456" {
-            print("It`s okay")
+            return true
         } else {
-            print("It`s bad")
+            return false
+        }
+    }
+    
+    func showAuthError() {
+        // Создаем контроллер
+        let alert = UIAlertController(title: "Oшибка", message: "Введены некоректные данные", preferredStyle: .alert)
+        // Создаем кнопку для UIAlertController
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        // Добавляем кнопку на UIAlertController
+        alert.addAction(action)
+        //Показываем алерт
+        present(alert, animated: true, completion: nil)
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "LoginSegue" && checkAuth() {
+            return true
+        } else {
+            showAuthError()
+            return false
         }
     }
 }
-
-
-
