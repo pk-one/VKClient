@@ -15,7 +15,7 @@ struct User {
     }
     
     let avatarImage: String
-    let photos: [String]
+    var photos: [String]
     let firstName: String
     let secondName: String
     let gender: Gender

@@ -13,7 +13,10 @@ class UserFriendsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        ///добавляем аватарку юзера в колекцию фоток
+        for (index, element) in UserFriendsTableViewController.userFriends.enumerated() {
+            UserFriendsTableViewController.userFriends[index].photos.append(element.avatarImage)
+        }
     }
 
     // MARK: - Table view data source
