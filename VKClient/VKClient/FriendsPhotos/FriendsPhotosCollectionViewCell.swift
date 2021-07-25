@@ -8,8 +8,6 @@
 import UIKit
 
 class FriendsPhotosCollectionViewCell: UICollectionViewCell {
-    
     @IBOutlet var photosFriendImage: UIImageView!
-    
 }
 

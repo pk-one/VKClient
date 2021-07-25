@@ -8,7 +8,6 @@
 import UIKit
 
 class UserGroupsTableViewCell: UITableViewCell {
-
     @IBOutlet var imageGroupImage: UIImageView!
     @IBOutlet var groupNameLabel: UILabel!
     @IBOutlet var descriptionGroupLabel: UILabel!
@@ -18,11 +17,8 @@ class UserGroupsTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-
 }

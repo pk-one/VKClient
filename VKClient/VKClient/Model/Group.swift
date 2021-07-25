@@ -13,7 +13,6 @@ struct Group {
         case open = "Открытая"
         case close = "Закрытая"
     }
-    
     let image: String
     let groupName: String
     let description: String
@@ -22,7 +21,6 @@ struct Group {
 }
 
 extension Group : Equatable {
-    
     static func == (lhs: Group, rhs: Group) -> Bool {
         return lhs.groupName == rhs.groupName
     }

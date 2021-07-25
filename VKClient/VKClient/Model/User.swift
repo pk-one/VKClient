@@ -26,10 +26,10 @@ struct User {
 
 func getUser() -> [User]{
     let data: [(String, [String], String, String, User.Gender, Int)] =
-                                                             [("user-1", ["user-1-1", "user-1-2"], "Джаред", "Летто", .male, 65),
-                                                              ("user-2", ["user-2-1", "user-2-2", "user-2-3"], "Марк", "Уолберг", .male, 50),
-                                                              ("user-3", ["user-3-1", "user-3-2"], "Джереми", "Реннер", .male, 47),
-                                                              ("user-4", ["user-4-1", "user-4-2"], "Илон", "Маск", .male, 62)]
+        [("user-1", ["user-1-1", "user-1-2"], "Джаред", "Летто", .male, 65),
+         ("user-2", ["user-2-1", "user-2-2", "user-2-3"], "Марк", "Уолберг", .male, 50),
+         ("user-3", ["user-3-1", "user-3-2"], "Джереми", "Реннер", .male, 47),
+         ("user-4", ["user-4-1", "user-4-2"], "Илон", "Маск", .male, 62)]
     
     var users = [User]()
     
