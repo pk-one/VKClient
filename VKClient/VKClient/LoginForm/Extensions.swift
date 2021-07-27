@@ -11,10 +11,10 @@ import UIKit
 extension UIView {
     func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
         let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-                let mask = CAShapeLayer()
-                mask.path = path.cgPath
-                self.layer.mask = mask
-           }
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        self.layer.mask = mask
+    }
 }
 
 public extension UIColor {
@@ -46,5 +46,15 @@ extension UIView {
         border.frame = CGRect(x: 0, y: self.frame.size.height - width,
                               width: self.frame.size.width, height: width)
         self.layer.addSublayer(border)
+    }
+}
+
+extension FriendsPhotosCollectionViewController: UICollectionViewDelegateFlowLayout {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let frameVC = collectionView.frame
+        let widthCell = frameVC.width / 2
+        let heightCell = widthCell
+        let spacing = CGFloat((countCells + 1)) * offSet / CGFloat(countCells)
+        return CGSize(width: widthCell - spacing, height: heightCell - (offSet * 2))
     }
 }
