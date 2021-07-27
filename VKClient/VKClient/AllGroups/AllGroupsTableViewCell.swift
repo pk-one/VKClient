@@ -8,16 +8,8 @@
 import UIKit
 
 class AllGroupsTableViewCell: UITableViewCell {
-    @IBOutlet var imageGroupImage: UIImageView!
+    @IBOutlet var imageGroupImageView: UIImageView!
     @IBOutlet var nameGroupLabel: UILabel!
     @IBOutlet var descriptionGroupLabel: UILabel!
     @IBOutlet var countFollowGroupLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
 }

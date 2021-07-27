@@ -8,11 +8,7 @@
 import UIKit
 
 class UserGroupsTableViewController: UITableViewController {
-    static var userGroups = [Group]()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    private var userGroups = [Group]()
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -21,41 +17,34 @@ class UserGroupsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return UserGroupsTableViewController.userGroups.count
+        return userGroups.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserGroupsTableViewCell", for: indexPath) as! UserGroupsTableViewCell
-        cell.imageGroupImage.image = UIImage(named: UserGroupsTableViewController.userGroups[indexPath.row].image)
-        cell.groupNameLabel.text = UserGroupsTableViewController.userGroups[indexPath.row].groupName
-        cell.descriptionGroupLabel.text = UserGroupsTableViewController.userGroups[indexPath.row].description
-        cell.countFollowGroupLabel.text = String(UserGroupsTableViewController.userGroups[indexPath.row].countFollowers)
+        cell.imageGroupImageView.image = UIImage(named: userGroups[indexPath.row].image)
+        cell.groupNameLabel.text = userGroups[indexPath.row].groupName
+        cell.descriptionGroupLabel.text = userGroups[indexPath.row].description
+        cell.countFollowGroupLabel.text = String(userGroups[indexPath.row].countFollowers)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let group = UserGroupsTableViewController.userGroups[indexPath.row]
-            UserGroupsTableViewController.userGroups.remove(at: indexPath.row)
-            if !AllGroupsTableViewController.allGroups.contains(group){
-                AllGroupsTableViewController.allGroups.append(group)
-            }
+            userGroups.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
         }    
     }
     
     @IBAction func addGroup(segue: UIStoryboardSegue) {
-        if segue.identifier == "addGroup" {
-            let allGroupsTableViewController = segue.source as! AllGroupsTableViewController
-            if let indexPath = allGroupsTableViewController.tableView.indexPathForSelectedRow {
-                let group = AllGroupsTableViewController.allGroups[indexPath.row]
-                if !UserGroupsTableViewController.userGroups.contains(group){
-                    UserGroupsTableViewController.userGroups.append(group)
-                    AllGroupsTableViewController.allGroups.remove(at: indexPath.row)
-                    self.tableView.reloadData()
-                }
-            }
+        guard segue.identifier == "addGroup",
+              let source = segue.source as? AllGroupsTableViewController,
+              let indexPath = source.tableView.indexPathForSelectedRow else { return }
+        let group = source.allGroups[indexPath.row]
+        if !userGroups.contains(group){
+            userGroups.append(group)
+            self.tableView.reloadData()
         }
     }
 }

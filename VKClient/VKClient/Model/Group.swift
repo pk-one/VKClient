@@ -26,7 +26,6 @@ extension Group : Equatable {
     }
 }
 
-
 func getAllGroups() -> [Group] {
     
     let data: [(String, String, String, Int, Group.Status)] = [("group-1", "GeekBrains", "Образование", 23500, .open), ("group-2", "SwiftMe", "Образование", 773, .open), ("group-3", "FUN", "Юмор", 4446752, .open), ("group-4", "Blog For Men", "Бизнес", 489623, .close), ("group-5", "Хитрости жизни", "Творчество", 3311974, .open)]

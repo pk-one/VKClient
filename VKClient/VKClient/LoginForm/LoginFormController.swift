@@ -80,7 +80,7 @@ class LoginFormController: UIViewController {
     func checkAuth() -> Bool {
         guard let login = loginTextField.text,
               let password = passwordTextField.text else { return false }
-        if login == "admin" && password == "123456" {
+        if login == "" && password == "" {
             return true
         } else {
             return false
