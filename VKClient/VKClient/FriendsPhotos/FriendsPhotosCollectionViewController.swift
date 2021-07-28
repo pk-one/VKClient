@@ -15,7 +15,6 @@ class FriendsPhotosCollectionViewController: UICollectionViewController {
     let countCells = 2
     let offSet: CGFloat = 2
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

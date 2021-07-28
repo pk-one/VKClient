@@ -26,21 +26,12 @@ extension Group : Equatable {
     }
 }
 
-func getAllGroups() -> [Group] {
-    
-    let data: [(String, String, String, Int, Group.Status)] = [("group-1", "GeekBrains", "Образование", 23500, .open), ("group-2", "SwiftMe", "Образование", 773, .open), ("group-3", "FUN", "Юмор", 4446752, .open), ("group-4", "Blog For Men", "Бизнес", 489623, .close), ("group-5", "Хитрости жизни", "Творчество", 3311974, .open)]
-    
-    var groups = [Group]()
-    
-    for i in 0 ..< data.count {
-        let group = Group(
-            image: data[i].0,
-            groupName: data[i].1,
-            description: data[i].2,
-            countFollowers: data[i].3,
-            statusGroup: data[i].4
-        )
-        groups.append(group)
-    }
-    return groups
+extension Group {
+    static let groupAllCases = [
+        Group(image: "group-1", groupName: "GeekBrains", description: "Образование", countFollowers: 23500, statusGroup: .open),
+        Group(image: "group-2", groupName: "SwiftMe", description: "Образование", countFollowers: 773, statusGroup: .open),
+        Group(image: "group-3", groupName: "FUN", description: "Юмор", countFollowers: 4446752, statusGroup: .open),
+        Group(image: "group-4", groupName: "Blog For Men", description: "Бизнес", countFollowers: 489623, statusGroup: .close),
+        Group(image: "group-5", groupName: "Хитрости жизни", description: "Творчество", countFollowers: 3311974, statusGroup: .open)
+    ]
 }
