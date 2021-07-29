@@ -321,52 +321,52 @@
         <scene sceneID="4eo-KB-ZGG">
             <objects>
                 <tableViewController modalTransitionStyle="flipHorizontal" modalPresentationStyle="fullScreen" id="Nes-2D-ZE7" customClass="UserFriendsTableViewController" customModule="VKClient" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="45" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="gPh-P7-jXn">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="gPh-P7-jXn">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserFriendsTableViewCell" rowHeight="45" id="KfO-82-vIb" customClass="UserFriendsTableViewCell" customModule="VKClient" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24.333333969116211" width="390" height="45"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserFriendsTableViewCell" rowHeight="70" id="KfO-82-vIb" customClass="UserFriendsTableViewCell" customModule="VKClient" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="390" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KfO-82-vIb" id="mNv-U4-oyj">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="45"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="70"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Van-Wm-GgV" customClass="Shadow" customModule="VKClient" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="5" width="35" height="35"/>
+                                            <rect key="frame" x="20" y="10" width="50" height="50"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EHX-Nk-8Tp">
-                                                    <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="35" id="XDx-d4-HNb"/>
-                                                        <constraint firstAttribute="height" constant="35" id="uRT-oO-lgt"/>
-                                                    </constraints>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EHX-Nk-8Tp" customClass="RoundedImageView" customModule="VKClient" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="EHX-Nk-8Tp" firstAttribute="top" secondItem="Van-Wm-GgV" secondAttribute="top" id="7af-Ls-coO"/>
+                                                <constraint firstAttribute="bottom" secondItem="EHX-Nk-8Tp" secondAttribute="bottom" id="Evg-i6-gpv"/>
                                                 <constraint firstItem="EHX-Nk-8Tp" firstAttribute="centerY" secondItem="Van-Wm-GgV" secondAttribute="centerY" id="eLa-VV-dzz"/>
+                                                <constraint firstAttribute="trailing" secondItem="EHX-Nk-8Tp" secondAttribute="trailing" id="lF4-An-6AI"/>
                                                 <constraint firstItem="EHX-Nk-8Tp" firstAttribute="centerX" secondItem="Van-Wm-GgV" secondAttribute="centerX" id="ljg-eV-4cv"/>
-                                                <constraint firstAttribute="height" constant="35" id="mvM-Hx-hnT"/>
-                                                <constraint firstAttribute="width" constant="35" id="sjw-uC-2Cl"/>
+                                                <constraint firstAttribute="height" constant="50" id="mvM-Hx-hnT"/>
+                                                <constraint firstAttribute="width" constant="50" id="sjw-uC-2Cl"/>
+                                                <constraint firstItem="EHX-Nk-8Tp" firstAttribute="leading" secondItem="Van-Wm-GgV" secondAttribute="leading" id="wj7-eR-ddx"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="Color">
+                                                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                                     <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="Opacity">
+                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                                     <real key="value" value="1"/>
                                                 </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="Radius">
+                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
                                                     <real key="value" value="7"/>
                                                 </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="size" keyPath="Offset">
+                                                <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
                                                     <size key="value" width="0.0" height="0.0"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0n-YT-VFx">
-                                            <rect key="frame" x="63" y="12.666666666666664" width="317" height="20"/>
+                                            <rect key="frame" x="80" y="25" width="300" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -376,13 +376,13 @@
                                         <constraint firstItem="n0n-YT-VFx" firstAttribute="centerY" secondItem="EHX-Nk-8Tp" secondAttribute="centerY" id="HbY-U1-do2"/>
                                         <constraint firstItem="Van-Wm-GgV" firstAttribute="leading" secondItem="mNv-U4-oyj" secondAttribute="leading" constant="20" symbolic="YES" id="K14-YW-Nbo"/>
                                         <constraint firstItem="Van-Wm-GgV" firstAttribute="centerY" secondItem="mNv-U4-oyj" secondAttribute="centerY" id="K90-Do-vRR"/>
+                                        <constraint firstItem="n0n-YT-VFx" firstAttribute="leading" secondItem="Van-Wm-GgV" secondAttribute="trailing" constant="10" id="jkx-nj-qsc"/>
                                         <constraint firstAttribute="trailing" secondItem="n0n-YT-VFx" secondAttribute="trailing" constant="10" id="ofn-1s-aI8"/>
-                                        <constraint firstItem="n0n-YT-VFx" firstAttribute="leading" secondItem="EHX-Nk-8Tp" secondAttribute="trailing" constant="8" symbolic="YES" id="xtJ-tj-dWG"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="fullNameFriendLabel" destination="n0n-YT-VFx" id="Ffq-RP-4fa"/>
-                                    <outlet property="imageFriendImageView" destination="EHX-Nk-8Tp" id="8K0-ie-aCp"/>
+                                    <outlet property="imageFriendImageView" destination="EHX-Nk-8Tp" id="jpj-xQ-SPv"/>
                                     <segue destination="vis-Mg-NMb" kind="show" identifier="SegueFriendPhoto" id="zMt-XD-x0F"/>
                                 </connections>
                             </tableViewCell>

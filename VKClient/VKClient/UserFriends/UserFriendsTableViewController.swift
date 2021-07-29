@@ -8,7 +8,7 @@
 import UIKit
 
 class UserFriendsTableViewController: UITableViewController {
-    @IBOutlet var friendsAvatarImage: UIImageView!
+
     private var userFriends = getUser()
     
     override func viewDidLoad() {

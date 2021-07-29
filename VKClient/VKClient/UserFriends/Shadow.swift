@@ -10,25 +10,25 @@ import UIKit
 //@IBDesignable
 class Shadow: UIView {
 
-    @IBInspectable var Color: UIColor = .black {
+    @IBInspectable var shadowColor: UIColor = .black {
         didSet{
             self.updateColors()
         }
     }
     
-    @IBInspectable var Opacity: Float = 7 {
+    @IBInspectable var shadowOpacity: Float = 7 {
         didSet {
             self.updateOpacity()
         }
     }
     
-    @IBInspectable var Radius: CGFloat = 7 {
+    @IBInspectable var shadowRadius: CGFloat = 7 {
         didSet{
             self.updateRadius()
         }
     }
     
-    @IBInspectable var Offset: CGSize = .zero {
+    @IBInspectable var shadowOffset: CGSize = .zero {
         didSet{
             self.updateOffset()
         }
@@ -42,21 +42,19 @@ class Shadow: UIView {
         return self.layer as! CAShapeLayer
     }
     
-    var masksToBounds: Bool = false
-    
-    func updateColors() {
-        self.shadowLayer.shadowColor = self.Color.cgColor
+    private func updateColors() {
+        self.shadowLayer.shadowColor = self.shadowColor.cgColor
     }
     
-    func updateOpacity() {
-        self.shadowLayer.shadowOpacity = self.Opacity
+    private func updateOpacity() {
+        self.shadowLayer.shadowOpacity = self.shadowOpacity
     }
     
-    func updateRadius() {
-        self.shadowLayer.shadowRadius = self.Radius
+    private func updateRadius() {
+        self.shadowLayer.shadowRadius = self.shadowRadius
     }
     
-    func updateOffset() {
-        self.shadowLayer.shadowOffset = self.Offset
+    private func updateOffset() {
+        self.shadowLayer.shadowOffset = self.shadowOffset
     }
 }
