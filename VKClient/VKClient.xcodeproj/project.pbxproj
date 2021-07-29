@@ -25,6 +25,8 @@
 		A0B109ED26AD9132003DCEA1 /* UserFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B109EC26AD9132003DCEA1 /* UserFriendsTableViewCell.swift */; };
 		A0B109EF26AD9690003DCEA1 /* FriendsPhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B109EE26AD9690003DCEA1 /* FriendsPhotosCollectionViewController.swift */; };
 		A0B109F126AD96A4003DCEA1 /* FriendsPhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B109F026AD96A4003DCEA1 /* FriendsPhotosCollectionViewCell.swift */; };
+		A0B109FB26B0A0D6003DCEA1 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B109FA26B0A0D6003DCEA1 /* Shadow.swift */; };
+		A0B109FD26B2F81C003DCEA1 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B109FC26B2F81C003DCEA1 /* RoundedImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		A0B109EC26AD9132003DCEA1 /* UserFriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendsTableViewCell.swift; sourceTree = "<group>"; };
 		A0B109EE26AD9690003DCEA1 /* FriendsPhotosCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsPhotosCollectionViewController.swift; sourceTree = "<group>"; };
 		A0B109F026AD96A4003DCEA1 /* FriendsPhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsPhotosCollectionViewCell.swift; sourceTree = "<group>"; };
+		A0B109FA26B0A0D6003DCEA1 /* Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadow.swift; sourceTree = "<group>"; };
+		A0B109FC26B2F81C003DCEA1 /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +142,8 @@
 			children = (
 				A0B109EA26AD9125003DCEA1 /* UserFriendsTableViewController.swift */,
 				A0B109EC26AD9132003DCEA1 /* UserFriendsTableViewCell.swift */,
+				A0B109FA26B0A0D6003DCEA1 /* Shadow.swift */,
+				A0B109FC26B2F81C003DCEA1 /* RoundedImageView.swift */,
 			);
 			path = UserFriends;
 			sourceTree = "<group>";
@@ -230,12 +236,14 @@
 				A0B109F126AD96A4003DCEA1 /* FriendsPhotosCollectionViewCell.swift in Sources */,
 				A0B109E626AD7DFB003DCEA1 /* AllGroupsTableViewController.swift in Sources */,
 				A0B109D726AD7AC8003DCEA1 /* User.swift in Sources */,
+				A0B109FD26B2F81C003DCEA1 /* RoundedImageView.swift in Sources */,
 				A01A3386269A0D3200FC0A63 /* AppDelegate.swift in Sources */,
 				092F94FC269A376C0030AB4C /* LeftPaddedTextField.swift in Sources */,
 				A01A3388269A0D3200FC0A63 /* SceneDelegate.swift in Sources */,
 				A0B109DF26AD7CF7003DCEA1 /* AllGroupsTableViewCell.swift in Sources */,
 				A0B109E426AD7DE3003DCEA1 /* UserGroupsTableViewController.swift in Sources */,
 				A0B109EF26AD9690003DCEA1 /* FriendsPhotosCollectionViewController.swift in Sources */,
+				A0B109FB26B0A0D6003DCEA1 /* Shadow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

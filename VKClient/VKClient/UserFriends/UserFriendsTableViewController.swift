@@ -8,6 +8,7 @@
 import UIKit
 
 class UserFriendsTableViewController: UITableViewController {
+
     private var userFriends = getUser()
     
     override func viewDidLoad() {
@@ -41,5 +42,9 @@ class UserFriendsTableViewController: UITableViewController {
               let destination = segue.destination as? FriendsPhotosCollectionViewController,
               let indexPath = source.tableView.indexPathForSelectedRow else { return }
         destination.photos = userFriends[indexPath.row].photos
+    }
+    
+    func setupAvatar() {
+        
     }
 }
