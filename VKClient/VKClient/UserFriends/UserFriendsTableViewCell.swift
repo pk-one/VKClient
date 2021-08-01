@@ -10,10 +10,6 @@ import UIKit
 class UserFriendsTableViewCell: UITableViewCell {
     @IBOutlet var imageFriendImageView: RoundedImageView!
     @IBOutlet var fullNameFriendLabel: UILabel!
-    
-    override func awakeFromNib() {
-     
-    }
 }
 
 

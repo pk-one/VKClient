@@ -10,6 +10,11 @@ import UIKit
 class UserGroupsTableViewController: UITableViewController {
     private var userGroups = [Group]()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.tableFooterView = UIView()
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1

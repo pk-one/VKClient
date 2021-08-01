@@ -321,10 +321,11 @@
         <scene sceneID="4eo-KB-ZGG">
             <objects>
                 <tableViewController modalTransitionStyle="flipHorizontal" modalPresentationStyle="fullScreen" id="Nes-2D-ZE7" customClass="UserFriendsTableViewController" customModule="VKClient" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="gPh-P7-jXn">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="scrollableAxes" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="gPh-P7-jXn">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="separatorColor" systemColor="systemGrayColor"/>
+                        <color key="sectionIndexBackgroundColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserFriendsTableViewCell" rowHeight="70" id="KfO-82-vIb" customClass="UserFriendsTableViewCell" customModule="VKClient" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="24.333333969116211" width="390" height="70"/>
@@ -423,12 +424,31 @@
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A52-Cb-LAz">
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         </imageView>
+                                        <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tfi-ri-0ya">
+                                            <rect key="frame" x="0.0" y="103" width="128" height="25"/>
+                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="mnT-Wd-ecv"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qmr-Cn-1aJ" customClass="CustomLikeControl" customModule="VKClient" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="103" width="50" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="Qmr-Cn-1aJ" secondAttribute="height" multiplier="2:1" id="C6O-V5-Rmx"/>
+                                                <constraint firstAttribute="height" constant="25" id="fg3-fC-XQL"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="Qmr-Cn-1aJ" firstAttribute="leading" secondItem="X8g-qY-JVw" secondAttribute="leading" id="Hgd-bU-OgN"/>
                                         <constraint firstItem="A52-Cb-LAz" firstAttribute="leading" secondItem="X8g-qY-JVw" secondAttribute="leading" id="Hj1-LI-c49"/>
                                         <constraint firstAttribute="trailing" secondItem="A52-Cb-LAz" secondAttribute="trailing" id="MgY-H2-cUf"/>
                                         <constraint firstAttribute="bottom" secondItem="A52-Cb-LAz" secondAttribute="bottom" id="NN3-Hh-g59"/>
+                                        <constraint firstItem="Tfi-ri-0ya" firstAttribute="leading" secondItem="X8g-qY-JVw" secondAttribute="leading" id="OSm-9k-Ovu"/>
                                         <constraint firstItem="A52-Cb-LAz" firstAttribute="top" secondItem="X8g-qY-JVw" secondAttribute="top" id="Z39-GM-H3t"/>
+                                        <constraint firstItem="Qmr-Cn-1aJ" firstAttribute="bottom" secondItem="A52-Cb-LAz" secondAttribute="bottom" id="nug-4K-HG1"/>
+                                        <constraint firstAttribute="bottom" secondItem="Tfi-ri-0ya" secondAttribute="bottom" id="zNT-Pi-bOc"/>
+                                        <constraint firstAttribute="trailing" secondItem="Tfi-ri-0ya" secondAttribute="trailing" id="zyJ-jc-Jxe"/>
                                     </constraints>
                                 </collectionViewCellContentView>
                                 <connections>
@@ -445,7 +465,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qvr-M7-gE3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3672" y="-251"/>
+            <point key="canvasLocation" x="3670.7692307692305" y="-251.65876777251182"/>
         </scene>
         <!--Сообщества-->
         <scene sceneID="X2X-5l-2bL">
@@ -493,6 +513,9 @@
         <image name="person.3.fill" catalog="system" width="128" height="61"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
