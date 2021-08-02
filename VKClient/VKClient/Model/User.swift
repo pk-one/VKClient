@@ -29,7 +29,13 @@ func getUser() -> [User]{
         [("user-1", ["user-1-1", "user-1-2"], "Джаред", "Летто", .male, 65),
          ("user-2", ["user-2-1", "user-2-2", "user-2-3"], "Марк", "Уолберг", .male, 50),
          ("user-3", ["user-3-1", "user-3-2"], "Джереми", "Реннер", .male, 47),
-         ("user-4", ["user-4-1", "user-4-2"], "Илон", "Маск", .male, 62)]
+         ("user-4", ["user-4-1", "user-4-2"], "Илон", "Маск", .male, 62),
+         ("noavatar", [], "Питер", "Дженсос", .male, 65),
+         ("noavatar", [], "Фред", "Фендорсон", .male, 65),
+         ("noavatar", [], "Алика", "Терпер", .female ,65),
+         ("noavatar", [], "Валерий", "Меладзе", .male, 65),
+         ("noavatar", [], "Арнольд", "Шварценеггер", .male, 65),
+         ("noavatar", [], "Том", "Круз", .male, 65)]
     
     var users = [User]()
     
@@ -45,6 +51,3 @@ func getUser() -> [User]{
     }
     return users
 }
-
-
-
