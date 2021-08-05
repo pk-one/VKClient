@@ -25,7 +25,7 @@ class NewsTableViewCell: UITableViewCell{
     @IBOutlet var countViewsLabel: UILabel!
     @IBOutlet private var viewsImageView: UIImageView!
     
-    ///
+    ///заполнение сердца
     public var isHeartFilled = false {
         didSet {
             likesImageView.image = isHeartFilled ? CellConsts.hearthFilled : CellConsts.hearthEmpty
@@ -33,7 +33,6 @@ class NewsTableViewCell: UITableViewCell{
     }
     public var isCommentTap = false
     public var isRepostTap = false
-    
     public var heartWasPressed = { }
     public var commentWasPressed = { }
     public var repostWasPressed = { }
