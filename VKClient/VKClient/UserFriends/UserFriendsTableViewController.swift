@@ -8,8 +8,14 @@
 import UIKit
 
 class UserFriendsTableViewController: UITableViewController {
+    @IBOutlet var searchBar: UISearchBar!
     
     private var groupsUser = groupUsersByFirstLetter()
+    private var textSearch: String = "" {
+        didSet {
+            groupsUser = groupUsersByFirstLetter(textSearch: textSearch)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +25,7 @@ class UserFriendsTableViewController: UITableViewController {
         tableView.tableFooterView = UIView()
         self.navigationController?.view.addSubview(lettersControl)
         lettersControl.addTarget(self, action: #selector(lettersChange(_:)), for: .valueChanged)
+        searchBar.delegate = self
     }
     
     private let lettersControl: LettersControl = {
@@ -26,12 +33,12 @@ class UserFriendsTableViewController: UITableViewController {
         lettersControl.translatesAutoresizingMaskIntoConstraints = false
         return lettersControl
     }()
-    
+    ///показываем контрол букв
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         lettersControl.isHidden = false
     }
-    
+    ///убираем контрол букв
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(false)
         lettersControl.isHidden = true
@@ -66,10 +73,6 @@ class UserFriendsTableViewController: UITableViewController {
         cell.fullNameFriendLabel.text = user.fullName
         return cell
     }
-    ///задаем название секции
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return groupsUser[section].firstLetter
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "SegueFriendPhoto",
@@ -78,6 +81,19 @@ class UserFriendsTableViewController: UITableViewController {
               let indexPath = source.tableView.indexPathForSelectedRow else { return }
         let user = self.groupsUser[indexPath.section].users[indexPath.row]
         destination.photos = user.photos
+    }
+    ///задаем название секции и перерисовываем
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor.lightGray
+        view.alpha = 0.5
+        let label = UILabel()
+        label.text = groupsUser[section].firstLetter
+        label.font = UIFont(name: "Arial", size: 15)
+        label.textColor = UIColor.black
+        label.frame = CGRect(x: 25, y: 7, width: 100, height: 15)
+        view.addSubview(label)
+        return view
     }
     ///метод добавление аватарки в коллекцию фоток
     private func addAvatarForCollectionPhotos() {
@@ -88,5 +104,12 @@ class UserFriendsTableViewController: UITableViewController {
                 }
             }
         }
+    }
+}
+
+extension UserFriendsTableViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.textSearch = searchText
+        self.tableView.reloadData()
     }
 }

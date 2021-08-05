@@ -15,10 +15,6 @@ class FriendsPhotosCollectionViewController: UICollectionViewController {
     let countCells = 2
     let offSet: CGFloat = 2
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1

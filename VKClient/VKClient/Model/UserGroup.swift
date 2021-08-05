@@ -17,12 +17,15 @@ class GroupUser {
     }
 }
 
-func groupUsersByFirstLetter() -> [GroupUser]{
-    
+func groupUsersByFirstLetter(textSearch: String = "") -> [GroupUser]{
     let friends = getUser()
     var groupUsers : [GroupUser] = []
-    let sorted = friends.sorted {$0.firstName.first! < $1.firstName.first!}
-    
+    var sorted: [User] = []
+    if textSearch != "" {
+        sorted = friends.filter {$0.fullName.contains(textSearch)}
+    } else {
+        sorted = friends.sorted {$0.firstName.first! < $1.firstName.first!}
+    }
     for user in sorted {
         let firstLetter = String(user.firstName.first!)
         if groupUsers.count == 0 {
@@ -37,3 +40,4 @@ func groupUsersByFirstLetter() -> [GroupUser]{
     }
     return groupUsers
 }
+
