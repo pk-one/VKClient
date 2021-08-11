@@ -34,3 +34,4 @@ class AllGroupsTableViewController: UITableViewController {
         return cell
     }
 }
+
