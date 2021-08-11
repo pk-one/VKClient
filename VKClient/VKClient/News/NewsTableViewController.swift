@@ -21,29 +21,20 @@ class NewsTableViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return News.allPostCases.count
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 500
+        return UITableView.automaticDimension
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell", for: indexPath) as! NewsTableViewCell
-        cell.headerNewsImageView.image = UIImage(named: news[indexPath.row].imageHeaderNews)
-        cell.newsAuthorNameLabel.text = news[indexPath.row].nameAuthorNews
-        cell.timeNewsLabel.text = news[indexPath.row].timeNews
-        cell.textNewsLabel.text = news[indexPath.row].textNews
-        cell.countLikesLabel.text = String(news[indexPath.row].countLikeNews)
-        cell.countCommentsLabel.text = String(news[indexPath.row].countCommentsNews)
-        cell.countRepostsLabel.text = String(news[indexPath.row].countRepostsNews)
-        cell.countViewsLabel.text = String(news[indexPath.row].countViewsNews)
+        cell.setup(model: news[indexPath.row])
         ///изображения
         if let images = news[indexPath.row].imageNews, !images.isEmpty {
             cell.newsImagesCollectionView.set(photos: images)

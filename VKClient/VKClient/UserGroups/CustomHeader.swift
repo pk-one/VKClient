@@ -7,15 +7,15 @@
 
 import UIKit
 
-class CustomHeaderTableView: UITableView {
+class CustomHeader: UITableView {
 
     @IBOutlet var heightHeaderImageViewConstraint: NSLayoutConstraint!
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        guard let header = tableHeaderView else { return }
-        let offsetY = -contentOffset.y
-        heightHeaderImageViewConstraint.constant = max(header.bounds.height, header.bounds.height + offsetY)
+            guard let header = tableHeaderView else { return }
+            let offsetY = -contentOffset.y
+            heightHeaderImageViewConstraint.constant = max(header.bounds.height, header.bounds.height + offsetY)
     }
 }

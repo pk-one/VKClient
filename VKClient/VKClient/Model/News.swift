@@ -23,7 +23,9 @@ struct News {
 }
 
 extension News {
-    static let allPostCases = [
+    
+    static let allPostCases =
+        [
         News(imageHeaderNews: allUsers[1].avatarImage, nameAuthorNews: allUsers[1].fullName, timeNews: "Вчера в 13:53", textNews: "Всем привет", imageNews: ["news-1-1", "news-1-2", "news-1-3", "news-1-4"], countLikeNews: 15, countCommentsNews: 15, countRepostsNews: 266, countViewsNews: 950),
         News(imageHeaderNews: allGroups[0].image, nameAuthorNews: allGroups[0].groupName, timeNews: "17 июля в 17:14", textNews: "", imageNews: ["news-1-1", "news-1-2", "news-1-3", "news-1-4"], countLikeNews: 3, countCommentsNews: 5, countRepostsNews: 0, countViewsNews: 1548)
     ]

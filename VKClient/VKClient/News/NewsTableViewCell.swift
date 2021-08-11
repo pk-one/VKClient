@@ -10,7 +10,7 @@ import UIKit
 class NewsTableViewCell: UITableViewCell{
     private let news = News.allPostCases
     
-    ///MARK: Outlets
+    //MARK:  - Outlets
     @IBOutlet var headerNewsImageView: RoundedImageView!
     @IBOutlet var newsAuthorNameLabel: UILabel!
     @IBOutlet var timeNewsLabel: UILabel!
@@ -25,6 +25,8 @@ class NewsTableViewCell: UITableViewCell{
     @IBOutlet var countViewsLabel: UILabel!
     @IBOutlet private var viewsImageView: UIImageView!
     
+    
+    //MARK: - Footer Cell
     ///заполнение сердца
     public var isHeartFilled = false {
         didSet {
@@ -37,8 +39,8 @@ class NewsTableViewCell: UITableViewCell{
     public var commentWasPressed = { }
     public var repostWasPressed = { }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override func awakeFromNib() {
+        super.awakeFromNib()
         likesImageView.image = CellConsts.hearthEmpty
         commentsImageView.image = CellConsts.commentEmpty
         repostsImageView.image = CellConsts.repostEmpty
@@ -78,7 +80,7 @@ class NewsTableViewCell: UITableViewCell{
             countCommentsLabel.text = String(countComments - 1)
         }
     }
-
+    
     @objc func repostTap() {
         isRepostTap.toggle()
         repostWasPressed()
@@ -90,11 +92,23 @@ class NewsTableViewCell: UITableViewCell{
         }
     }
     
+    //MARK: - Setup Cell
     private struct CellConsts {
         static let hearthEmpty = UIImage(named: "hearth-no-fill")
         static let hearthFilled = UIImage(named: "hearth-fill")
-        static let commentEmpty =  UIImage(named: "comment")
+        static let commentEmpty = UIImage(named: "comment")
         static let repostEmpty = UIImage(named: "repost")
+    }
+    
+    func setup(model: News) {
+        self.headerNewsImageView.image = UIImage(named: model.imageHeaderNews)
+        self.newsAuthorNameLabel.text = model.nameAuthorNews
+        self.timeNewsLabel.text = model.timeNews
+        self.textNewsLabel.text = model.textNews
+        self.countLikesLabel.text = String(model.countLikeNews)
+        self.countCommentsLabel.text = String(model.countCommentsNews)
+        self.countRepostsLabel.text = String(model.countRepostsNews)
+        self.countViewsLabel.text = String(model.countViewsNews)
     }
 }
 
