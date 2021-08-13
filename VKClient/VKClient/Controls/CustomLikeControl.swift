@@ -64,8 +64,8 @@ class CustomLikeControl: UIControl {
         isLiked = !isLiked
         likesCountLabel.text = isLiked ? "1" : "0"
         if isLiked {
-            setShapeLayer(color: UIColor.red)
             likesCountLabel.textColor = UIColor.red
+            setShapeLayer(color: UIColor.red)
         } else {
             setShapeLayer(color: UIColor.white)
             likesCountLabel.textColor = UIColor.black
@@ -89,6 +89,14 @@ class CustomLikeControl: UIControl {
         shapeLayer.fillColor = color.cgColor
         shapeLayer.strokeColor = UIColor.black.cgColor
         shapeLayer.path = hearthPath.cgPath
+        let animation = CASpringAnimation(keyPath: "transform.scale")
+        animation.fromValue = 0.8
+        animation.toValue = 1
+        animation.stiffness = 400
+        animation.mass = 2
+        animation.fillMode = .backwards
+        animation.duration = 1
         likeButton.layer.addSublayer(shapeLayer)
+        likeButton.layer.add(animation, forKey: nil)
     }
 }

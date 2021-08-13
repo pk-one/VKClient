@@ -60,6 +60,7 @@ class NewsTableViewCell: UITableViewCell{
     }
     
     @objc func heartTap() {
+        setupAnimationHearth()
         isHeartFilled.toggle()
         heartWasPressed()
         let countLikes = Int(countLikesLabel.text ?? "0") ?? 0
@@ -92,6 +93,19 @@ class NewsTableViewCell: UITableViewCell{
         }
     }
     
+    
+    ///анимация лайка
+    private func setupAnimationHearth() {
+        let degree: Double = 180
+        let rotationAngle = CGFloat(degree * Double.pi / 180)
+        let rotaionTransform = CATransform3DMakeRotation(rotationAngle, 0, 1, 0)
+        likesImageView.layer.transform = rotaionTransform
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
+            self.likesImageView.layer.transform = CATransform3DIdentity
+        }
+    }
+    
     //MARK: - Setup Cell
     private struct CellConsts {
         static let hearthEmpty = UIImage(named: "hearth-no-fill")
@@ -110,5 +124,7 @@ class NewsTableViewCell: UITableViewCell{
         self.countRepostsLabel.text = String(model.countRepostsNews)
         self.countViewsLabel.text = String(model.countViewsNews)
     }
+    
+    
 }
 
