@@ -11,7 +11,6 @@ class UserGroupsTableViewCell: UITableViewCell {
     @IBOutlet var imageGroupImageView: UIImageView!
     @IBOutlet var groupNameLabel: UILabel!
     @IBOutlet var descriptionGroupLabel: UILabel!
-    @IBOutlet var countFollowGroupLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

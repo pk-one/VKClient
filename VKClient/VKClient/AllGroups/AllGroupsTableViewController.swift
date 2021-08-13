@@ -30,7 +30,6 @@ class AllGroupsTableViewController: UITableViewController {
         cell.imageGroupImageView.image = UIImage(named: allGroups[indexPath.row].image)
         cell.nameGroupLabel.text = allGroups[indexPath.row].groupName
         cell.descriptionGroupLabel.text = allGroups[indexPath.row].description
-        cell.countFollowGroupLabel.text = String(allGroups[indexPath.row].countFollowers)
         return cell
     }
 }

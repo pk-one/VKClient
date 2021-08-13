@@ -11,5 +11,4 @@ class AllGroupsTableViewCell: UITableViewCell {
     @IBOutlet var imageGroupImageView: UIImageView!
     @IBOutlet var nameGroupLabel: UILabel!
     @IBOutlet var descriptionGroupLabel: UILabel!
-    @IBOutlet var countFollowGroupLabel: UILabel!
 }

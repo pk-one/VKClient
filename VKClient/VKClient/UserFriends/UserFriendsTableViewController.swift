@@ -10,7 +10,7 @@ import UIKit
 class UserFriendsTableViewController: UITableViewController {
     @IBOutlet var searchTextField: UITextField!
     @IBOutlet var cancelSearchButton: UIButton!
-    @IBOutlet var leadingContraintMagnifyingGlass: NSLayoutConstraint!
+    @IBOutlet var centerXContraintMagnifyingGlass: NSLayoutConstraint!
     @IBOutlet var trailingConstraintSearchTextField: NSLayoutConstraint!
     
     private var groupsUser = groupUsersByFirstLetter()
@@ -40,6 +40,7 @@ class UserFriendsTableViewController: UITableViewController {
     ///показываем контрол букв
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
+        self.view.layoutIfNeeded()
         lettersControl.isHidden = false
     }
     ///убираем контрол букв
@@ -51,11 +52,7 @@ class UserFriendsTableViewController: UITableViewController {
     ///считаем положение контрола
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let controlSize = lettersControl.bounds.size
-        let xPosition = view.frame.maxX - controlSize.width
-        let yPosition = view.frame.midY - (controlSize.height / 2)
-        let origin = CGPoint(x: xPosition, y: yPosition)
-        lettersControl.frame = CGRect(origin: origin, size: controlSize)
+        setupControl()
     }
     ///скролл до нужно секции
     @objc private func lettersChange(_ control: LettersControl){
@@ -122,6 +119,14 @@ class UserFriendsTableViewController: UITableViewController {
         }
     }
     
+    private func setupControl() {
+        let controlSize = lettersControl.bounds.size
+        let xPosition = view.frame.maxX - controlSize.width
+        let yPosition = view.frame.midY - (controlSize.height / 2)
+        let origin = CGPoint(x: xPosition, y: yPosition)
+        lettersControl.frame = CGRect(origin: origin, size: controlSize)
+    }
+    
     private func setupButton() {
         cancelSearchButton.layer.cornerRadius = 4
     }
@@ -133,6 +138,8 @@ class UserFriendsTableViewController: UITableViewController {
     }
     
     @objc private func editingBegan(_ textField: UITextField) {
+        let widthSearchField = searchTextField.bounds.size.width
+        let widthCancelButton = cancelSearchButton.bounds.size.width
         self.view.layoutIfNeeded()
         UIView.animate(withDuration: 0.3) {
             self.trailingConstraintSearchTextField.constant += 70
@@ -144,7 +151,7 @@ class UserFriendsTableViewController: UITableViewController {
                        initialSpringVelocity: 0,
                        options: [],
                        animations: {
-                        self.leadingContraintMagnifyingGlass.constant += 80
+                        self.centerXContraintMagnifyingGlass.constant += (widthSearchField / 2) - widthCancelButton - 30
                         self.view.layoutIfNeeded()
                        })
         UIView.animate(withDuration: 0.5, delay: 0.3) {
@@ -154,6 +161,8 @@ class UserFriendsTableViewController: UITableViewController {
     }
     
     @objc private func touchCancel(_ sender: UIButton) {
+        let widthSearchField = searchTextField.bounds.size.width
+        let widthCancelButton = cancelSearchButton.bounds.size.width
         self.view.layoutIfNeeded()
         UIView.animate(withDuration: 0.3, animations: {
             self.cancelSearchButton.alpha = 0
@@ -174,7 +183,7 @@ class UserFriendsTableViewController: UITableViewController {
                            initialSpringVelocity: 0,
                            options: [],
                            animations: {
-                            self.leadingContraintMagnifyingGlass.constant -= 80
+                            self.centerXContraintMagnifyingGlass.constant -= widthSearchField / 2 - widthCancelButton + 5
                             self.view.layoutIfNeeded()
                            })
         }
