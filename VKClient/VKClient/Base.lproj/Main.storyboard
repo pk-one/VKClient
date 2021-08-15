@@ -104,7 +104,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="vsQ-gJ-HRE">
             <objects>
-                <tabBarController modalTransitionStyle="flipHorizontal" modalPresentationStyle="fullScreen" id="Gux-VV-2gS" sceneMemberID="viewController">
+                <tabBarController modalPresentationStyle="fullScreen" id="Gux-VV-2gS" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="B7M-ws-b33"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tBU-wD-HnL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -288,12 +288,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hte-3n-vEe" customClass="LoaderView" customModule="VKClient" customModuleProvider="target">
-                                <rect key="frame" x="135" y="380" width="120" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hte-3n-vEe" customClass="VKLoaderView" customModule="VKClient" customModuleProvider="target">
+                                <rect key="frame" x="87.666666666666686" y="331" width="215" height="128"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Qes-0r-JoT"/>
-                                    <constraint firstAttribute="width" constant="119.99999999999989" id="Wey-UL-dOW"/>
+                                    <constraint firstAttribute="width" constant="215" id="5zD-3H-Jfi"/>
+                                    <constraint firstAttribute="height" constant="128" id="Hdp-zj-X4e"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ntq-6y-9BF">
@@ -347,6 +347,10 @@
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TAs-KX-7Ck" customClass="NewsImagesCollectionView" customModule="VKClient" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="99" width="350" height="350"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="350" id="6wY-Zx-Bn5"/>
+                                                        <constraint firstAttribute="height" constant="350" id="K3Q-75-2Tv"/>
+                                                    </constraints>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="92r-hS-WL3">
                                                         <size key="itemSize" width="128" height="128"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -487,17 +491,17 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Ntq-6y-9BF" firstAttribute="trailing" secondItem="pRA-2q-Ev2" secondAttribute="trailing" id="2pd-wE-B1M"/>
+                            <constraint firstItem="Hte-3n-vEe" firstAttribute="centerY" secondItem="hBZ-KB-Nlg" secondAttribute="centerY" id="9Ey-bS-XCa"/>
                             <constraint firstItem="Ntq-6y-9BF" firstAttribute="bottom" secondItem="pRA-2q-Ev2" secondAttribute="bottom" id="CNW-UL-BzF"/>
                             <constraint firstItem="Ntq-6y-9BF" firstAttribute="top" secondItem="pRA-2q-Ev2" secondAttribute="top" id="F88-ey-PWk"/>
                             <constraint firstItem="Ntq-6y-9BF" firstAttribute="leading" secondItem="pRA-2q-Ev2" secondAttribute="leading" id="OSI-J9-EPw"/>
-                            <constraint firstItem="Hte-3n-vEe" firstAttribute="centerX" secondItem="hBZ-KB-Nlg" secondAttribute="centerX" id="UfF-2v-50f"/>
-                            <constraint firstItem="Hte-3n-vEe" firstAttribute="centerY" secondItem="hBZ-KB-Nlg" secondAttribute="centerY" id="dyl-Ld-Xty"/>
+                            <constraint firstItem="Hte-3n-vEe" firstAttribute="centerX" secondItem="hBZ-KB-Nlg" secondAttribute="centerX" id="f3U-cx-uE4"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Новости" id="BUP-0R-GLp"/>
                     <connections>
-                        <outlet property="loaderView" destination="Hte-3n-vEe" id="pYc-PP-vjp"/>
                         <outlet property="newsTableView" destination="Ntq-6y-9BF" id="7u3-ip-kDh"/>
+                        <outlet property="vkLoaderView" destination="Hte-3n-vEe" id="8FE-4h-MeV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h3O-Z1-Zpz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -521,7 +525,6 @@
                                     <rect key="frame" x="10" y="7" width="370" height="30"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="8rh-K0-D2O"/>
-                                        <constraint firstAttribute="width" constant="394" id="tHA-Sl-UY4"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
@@ -699,10 +702,43 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="1sf-gj-crA"/>
+                    <connections>
+                        <segue destination="AB8-yr-bJu" kind="show" identifier="empty" id="QLd-Cd-M2M"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qvr-M7-gE3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="851" y="2453"/>
+        </scene>
+        <!--Survey Friends Photo View Controller-->
+        <scene sceneID="eM9-Bu-1nA">
+            <objects>
+                <viewController storyboardIdentifier="SurvayViewController" hidesBottomBarWhenPushed="YES" id="AB8-yr-bJu" customClass="SurveyFriendsPhotoViewController" customModule="VKClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vAn-xd-DMF">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8JS-L7-gYR">
+                                <rect key="frame" x="0.0" y="56" width="390" height="700"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="mRC-KO-ZMl"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="8JS-L7-gYR" firstAttribute="leading" secondItem="mRC-KO-ZMl" secondAttribute="leading" id="BJp-xS-MDd"/>
+                            <constraint firstItem="8JS-L7-gYR" firstAttribute="top" secondItem="mRC-KO-ZMl" secondAttribute="top" id="irR-0Z-A3d"/>
+                            <constraint firstItem="mRC-KO-ZMl" firstAttribute="bottom" secondItem="8JS-L7-gYR" secondAttribute="bottom" id="nkJ-Bh-d1R"/>
+                            <constraint firstItem="mRC-KO-ZMl" firstAttribute="trailing" secondItem="8JS-L7-gYR" secondAttribute="trailing" id="pm8-bq-sSn"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="D6t-Wb-qOA"/>
+                    <connections>
+                        <outlet property="surveyImageView" destination="8JS-L7-gYR" id="SC3-C1-780"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W5L-84-CAR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="851" y="3216"/>
         </scene>
         <!--Сообщества-->
         <scene sceneID="X2X-5l-2bL">
