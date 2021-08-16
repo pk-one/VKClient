@@ -24,6 +24,8 @@
 		A02F902D26BB122F00CD888D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A02F902C26BB122F00CD888D /* Assets.xcassets */; };
 		A02F903026BC331B00CD888D /* NewsImagesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02F902F26BC331B00CD888D /* NewsImagesCollectionView.swift */; };
 		A02F908126C2F07D00CD888D /* ExtensionNewsImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02F908026C2F07D00CD888D /* ExtensionNewsImage.swift */; };
+		A095C01126C7AFD000E26644 /* VKLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A095C01026C7AFD000E26644 /* VKLoaderView.swift */; };
+		A095C01426C7B2A700E26644 /* SurveyFriendsPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A095C01326C7B2A700E26644 /* SurveyFriendsPhotoViewController.swift */; };
 		A0B109D726AD7AC8003DCEA1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B109D626AD7AC8003DCEA1 /* User.swift */; };
 		A0B109D926AD7ACF003DCEA1 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B109D826AD7ACF003DCEA1 /* Group.swift */; };
 		A0B109DF26AD7CF7003DCEA1 /* AllGroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B109DE26AD7CF7003DCEA1 /* AllGroupsTableViewCell.swift */; };
@@ -60,6 +62,8 @@
 		A02F902C26BB122F00CD888D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A02F902F26BC331B00CD888D /* NewsImagesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsImagesCollectionView.swift; sourceTree = "<group>"; };
 		A02F908026C2F07D00CD888D /* ExtensionNewsImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionNewsImage.swift; sourceTree = "<group>"; };
+		A095C01026C7AFD000E26644 /* VKLoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKLoaderView.swift; sourceTree = "<group>"; };
+		A095C01326C7B2A700E26644 /* SurveyFriendsPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyFriendsPhotoViewController.swift; sourceTree = "<group>"; };
 		A0B109D626AD7AC8003DCEA1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A0B109D826AD7ACF003DCEA1 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		A0B109DE26AD7CF7003DCEA1 /* AllGroupsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsTableViewCell.swift; sourceTree = "<group>"; };
@@ -131,6 +135,7 @@
 				A02F901C26B9AF2B00CD888D /* NewsTableViewCell.swift */,
 				A0FC982C26C402000035EDE5 /* NewsViewController.swift */,
 				A0FC982826C4001F0035EDE5 /* LoaderView.swift */,
+				A095C01026C7AFD000E26644 /* VKLoaderView.swift */,
 				A02F902E26BC32C600CD888D /* Gallery */,
 			);
 			path = News;
@@ -144,6 +149,14 @@
 				A02F908026C2F07D00CD888D /* ExtensionNewsImage.swift */,
 			);
 			path = Gallery;
+			sourceTree = "<group>";
+		};
+		A095C01226C7B28F00E26644 /* SurveyFriendsPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				A095C01326C7B2A700E26644 /* SurveyFriendsPhotoViewController.swift */,
+			);
+			path = SurveyFriendsPhoto;
 			sourceTree = "<group>";
 		};
 		A0B109D526AD7A72003DCEA1 /* Model */ = {
@@ -201,6 +214,7 @@
 			children = (
 				A0B109EE26AD9690003DCEA1 /* FriendsPhotosCollectionViewController.swift */,
 				A0B109F026AD96A4003DCEA1 /* FriendsPhotosCollectionViewCell.swift */,
+				A095C01226C7B28F00E26644 /* SurveyFriendsPhoto */,
 			);
 			path = FriendsPhotos;
 			sourceTree = "<group>";
@@ -300,6 +314,8 @@
 				A0B109E626AD7DFB003DCEA1 /* AllGroupsTableViewController.swift in Sources */,
 				A0B109D726AD7AC8003DCEA1 /* User.swift in Sources */,
 				A02F901E26B9AF2B00CD888D /* NewsTableViewCell.swift in Sources */,
+				A095C01126C7AFD000E26644 /* VKLoaderView.swift in Sources */,
+				A095C01426C7B2A700E26644 /* SurveyFriendsPhotoViewController.swift in Sources */,
 				A0FC982926C4001F0035EDE5 /* LoaderView.swift in Sources */,
 				A0B109FD26B2F81C003DCEA1 /* RoundedImageView.swift in Sources */,
 				A01A3386269A0D3200FC0A63 /* AppDelegate.swift in Sources */,

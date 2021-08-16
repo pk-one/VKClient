@@ -31,4 +31,11 @@ class FriendsPhotosCollectionViewController: UICollectionViewController {
         cell.photosFriendImageView.image = UIImage(named: photosSelectedFriends)
         return cell
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let survayViewController = storyboard?.instantiateViewController(identifier: "SurvayViewController") as? SurveyFriendsPhotoViewController else { return }
+        survayViewController.photos = photos
+        survayViewController.index = indexPath.item
+        self.navigationController?.pushViewController(survayViewController, animated: true)
+    }
 }

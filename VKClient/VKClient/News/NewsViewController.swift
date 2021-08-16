@@ -11,8 +11,7 @@ class NewsViewController: UIViewController {
     ///MARK: Outlets
 
     @IBOutlet var newsTableView: UITableView!
-    @IBOutlet var loaderView: LoaderView!
-    
+    @IBOutlet var vkLoaderView: VKLoaderView!
     let news = News.allPostCases
     private var selectedLike = [IndexPath : Bool]()
     private var selectedComment = [IndexPath : Bool]()
@@ -25,9 +24,9 @@ class NewsViewController: UIViewController {
         newsTableView.tableFooterView = UIView()
         newsTableView.allowsSelection = false
         newsTableView.isHidden = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [self] in
-            UIView.transition(from: loaderView, to: newsTableView, duration: 1, options: .transitionCrossDissolve) { _ in
-                loaderView.removeFromSuperview()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.6) { [self] in
+            UIView.transition(from: vkLoaderView, to: newsTableView, duration: 0.5, options: .transitionCrossDissolve) { _ in
+                vkLoaderView.removeFromSuperview()
             }
             newsTableView.isHidden = false
         }
@@ -40,7 +39,7 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 500
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
