@@ -718,6 +718,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PyQ-9o-z4j">
+                                <rect key="frame" x="0.0" y="56" width="390" height="700"/>
+                            </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8JS-L7-gYR">
                                 <rect key="frame" x="0.0" y="56" width="390" height="700"/>
                             </imageView>
@@ -726,14 +729,19 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="8JS-L7-gYR" firstAttribute="leading" secondItem="mRC-KO-ZMl" secondAttribute="leading" id="BJp-xS-MDd"/>
+                            <constraint firstItem="PyQ-9o-z4j" firstAttribute="top" secondItem="mRC-KO-ZMl" secondAttribute="top" id="FMg-am-fEh"/>
+                            <constraint firstItem="PyQ-9o-z4j" firstAttribute="leading" secondItem="mRC-KO-ZMl" secondAttribute="leading" id="aB6-aC-Gdc"/>
+                            <constraint firstItem="mRC-KO-ZMl" firstAttribute="trailing" secondItem="PyQ-9o-z4j" secondAttribute="trailing" id="deX-pe-RnL"/>
                             <constraint firstItem="8JS-L7-gYR" firstAttribute="top" secondItem="mRC-KO-ZMl" secondAttribute="top" id="irR-0Z-A3d"/>
                             <constraint firstItem="mRC-KO-ZMl" firstAttribute="bottom" secondItem="8JS-L7-gYR" secondAttribute="bottom" id="nkJ-Bh-d1R"/>
                             <constraint firstItem="mRC-KO-ZMl" firstAttribute="trailing" secondItem="8JS-L7-gYR" secondAttribute="trailing" id="pm8-bq-sSn"/>
+                            <constraint firstItem="mRC-KO-ZMl" firstAttribute="bottom" secondItem="PyQ-9o-z4j" secondAttribute="bottom" id="zmD-oP-T43"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="D6t-Wb-qOA"/>
                     <connections>
-                        <outlet property="surveyImageView" destination="8JS-L7-gYR" id="SC3-C1-780"/>
+                        <outlet property="firstImageView" destination="8JS-L7-gYR" id="cZd-ei-MUu"/>
+                        <outlet property="secondImageView" destination="PyQ-9o-z4j" id="g9i-ee-FbL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5L-84-CAR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

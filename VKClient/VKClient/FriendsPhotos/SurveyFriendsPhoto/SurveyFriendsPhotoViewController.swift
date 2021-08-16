@@ -9,92 +9,132 @@ import UIKit
 
 class SurveyFriendsPhotoViewController: UIViewController {
     
-    @IBOutlet var surveyImageView: UIImageView!
+    @IBOutlet var firstImageView: UIImageView!
+    @IBOutlet var secondImageView: UIImageView!
     
     var photos: [String]!
     var index = 0
     
-    var swipeToRight: UIViewPropertyAnimator!
-    var swipeToLeft: UIViewPropertyAnimator!
+    private enum PanDirection {
+        case middle
+        case right
+        case left
+    }
+    
+    //rivate let transformZero = CGAffineTransform(scaleX: 0.0, y: 0.0)
+    private let transformIncrease = CGAffineTransform(scaleX: 1.15, y: 1.15)
+    
+    private var panGesture = UIPanGestureRecognizer()
+    private var currentPanGestureDirection: PanDirection = .middle
+    
+    private var currentPhotoImageView = UIImageView()
+    private var nextPhotoImageView = UIImageView()
+    
+    private var nextPhotoIndex: Int {
+        var photoIndex = 0
+        if currentPanGestureDirection == .left {
+            photoIndex = index + 1
+            if photoIndex > self.photos.count - 1 {
+                photoIndex = 0
+            }
+        } else if currentPanGestureDirection == .right {
+            photoIndex = index - 1
+            if photoIndex < 0 {
+               photoIndex = self.photos.count - 1
+            }
+        }
+        return photoIndex
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        surveyImageView.image = UIImage(named: photos[index])
-        let gestPan = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
-        view.addGestureRecognizer(gestPan)
+        setupViewController()
+    }
+    
+    private func setupViewController() {
+        currentPhotoImageView = firstImageView
+        nextPhotoImageView = secondImageView
+        
+        nextPhotoImageView.alpha = 0
+        nextPhotoImageView.transform = .identity
+        
+        currentPhotoImageView.image = UIImage(named: photos[index])
+        nextPhotoImageView.image = UIImage(named: photos[nextPhotoIndex])
+        
+        if photos.count > 1 {
+        panGesture = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
+        self.view.addGestureRecognizer(panGesture)
+        }
         self.title = "\(index + 1) из \(photos.count)"
     }
     
-    private func startAnimate(){
-        UIView.animate(withDuration: 1, delay: 0, options: [], animations: {
-            self.surveyImageView.transform = .identity
-        })
-    }
-    
-    @objc private func onPan(_ recognizer: UIPanGestureRecognizer){
+    @objc private func onPan(_ recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .began:
-            swipeToRight = UIViewPropertyAnimator(
-                duration: 0.5,
-                curve: .easeInOut,
-                animations: {
-                    UIView.animate(
-                        withDuration: 0.01,
-                        delay: 0,
-                        options: [],
-                        animations: {
-                            let scale = CGAffineTransform(scaleX: 0.6, y: 0.6)
-                            self.surveyImageView.transform = scale
-                        }, completion: { [self] _ in
-                            let translation = CGAffineTransform(translationX: self.view.bounds.width, y: 0)
-                            self.surveyImageView.transform = translation
-                            self.index -= 1
-                            if self.index < 0 {
-                                self.index = self.photos.count - 1
-                            }
-                            self.startAnimate()
-                            surveyImageView.image = UIImage(named: photos[index])
-                            self.title = "\(index + 1) из \(photos.count)"
-                        })
-                })
-            
-            swipeToLeft = UIViewPropertyAnimator(
-                duration: 0.5,
-                curve: .easeInOut,
-                animations: {
-                    UIView.animate(
-                        withDuration: 0.01,
-                        delay: 0,
-                        options: [],
-                        animations: {
-                            let scale = CGAffineTransform(scaleX: 0.6, y: 0.6)
-                            self.surveyImageView.transform = scale
-                        }, completion: { [self] _ in
-                            let translation = CGAffineTransform(translationX: -self.view.bounds.width, y: 0)
-                            self.surveyImageView.transform = translation
-                            self.index += 1
-                            if self.index > self.photos.count - 1 {
-                                self.index = 0
-                            }
-                            self.startAnimate()
-                            surveyImageView?.image = UIImage(named: self.photos[self.index])
-                            self.title = "\(index + 1) из \(photos.count)"
-                        })
-                })
-            
+            animatePhotoWithTransform(transformIncrease)
         case .changed:
-            let translationX = recognizer.translation(in: self.view).x
-            if translationX > 0 {
-                swipeToRight.fractionComplete = abs(translationX) / 100
-            } else {
-                swipeToLeft.fractionComplete = abs(translationX) / 100
-            }
-            
+            let translation = recognizer.translation(in: self.view)
+            currentPanGestureDirection = translation.x > 0 ? .right : .left
+            animatePhotoImageViewChanged(with: translation)
         case .ended:
-       swipeToRight.continueAnimation(withTimingParameters: nil, durationFactor: 0)
-       swipeToLeft.continueAnimation(withTimingParameters: nil, durationFactor: 0)
-        default:
-            return
+            animatePhotoImageViewEnd()
+        default: return
+        }
+    }
+    
+    private func animatePhotoWithTransform(_ transform: CGAffineTransform) {
+        UIView.animate(withDuration: 0.3) {
+            self.currentPhotoImageView.transform = transform
+        }
+    }
+    
+    private func animatePhotoImageViewChanged(with translation: CGPoint) {
+        currentPhotoImageView.transform = CGAffineTransform(translationX: translation.x, y: 0).concatenating(transformIncrease)
+    }
+    
+    private func animatePhotoImageViewEnd() {
+        if currentPanGestureDirection == .left {
+            
+            if currentPhotoImageView.frame.maxX < view.center.x {
+                animatePhotoSwap()
+            } else {
+                self.currentPhotoImageView.transform = .identity
+            }
+        } else if currentPanGestureDirection == .right {
+           
+            if currentPhotoImageView.frame.maxX > view.center.x {
+                animatePhotoSwap()
+            } else {
+                self.currentPhotoImageView.transform = .identity
+            }
+        }
+    }
+    
+    private func animatePhotoSwap() {
+        self.nextPhotoImageView.image = UIImage(named: photos[nextPhotoIndex])
+        
+        UIView.animate(withDuration: 0.5) {
+            self.currentPhotoImageView.alpha = 0
+            self.nextPhotoImageView.alpha = 1
+            self.nextPhotoImageView.transform = .identity
+            
+        } completion: { _ in
+            
+            self.reconfigureImages()
+        }
+    }
+    
+    private func reconfigureImages() {
+        index = nextPhotoIndex
+        currentPhotoImageView.transform = CGAffineTransform.identity
+        self.title = "\(index + 1) из \(photos.count)"
+
+        if currentPhotoImageView == firstImageView {
+            currentPhotoImageView = secondImageView
+            nextPhotoImageView = firstImageView
+        } else if currentPhotoImageView == secondImageView {
+            currentPhotoImageView = firstImageView
+            nextPhotoImageView = secondImageView
         }
     }
 }
