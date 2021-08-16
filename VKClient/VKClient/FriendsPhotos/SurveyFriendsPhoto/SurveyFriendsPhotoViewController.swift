@@ -102,7 +102,7 @@ class SurveyFriendsPhotoViewController: UIViewController {
             }
         } else if currentPanGestureDirection == .right {
            
-            if currentPhotoImageView.frame.maxX > view.center.x {
+            if currentPhotoImageView.frame.minX > view.center.x {
                 animatePhotoSwap()
             } else {
                 self.currentPhotoImageView.transform = .identity

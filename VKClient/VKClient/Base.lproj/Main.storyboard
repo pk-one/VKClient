@@ -561,7 +561,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserFriendsTableViewCell" rowHeight="70" id="KfO-82-vIb" customClass="UserFriendsTableViewCell" customModule="VKClient" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserFriendsTableViewCell" id="KfO-82-vIb" customClass="UserFriendsTableViewCell" customModule="VKClient" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="68.333333969116211" width="390" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KfO-82-vIb" id="mNv-U4-oyj">
