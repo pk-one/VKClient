@@ -9,6 +9,7 @@ import UIKit
 
 class NewsTableViewCell: UITableViewCell{
     private let news = News.allPostCases
+    var indexPath: Int!
     
     //MARK:  - Outlets
     @IBOutlet var headerNewsImageView: RoundedImageView!
@@ -63,36 +64,36 @@ class NewsTableViewCell: UITableViewCell{
         setupAnimationHearth()
         isHeartFilled.toggle()
         heartWasPressed()
-        let countLikes = Int(countLikesLabel.text ?? "0") ?? 0
+        let countLikes = news[indexPath].countLikeNews
         if isHeartFilled {
-            countLikesLabel.text = String(countLikes + 1)
+            countLikesLabel.text = formattedCounter(countLikes + 1)
+//                String(countLikes + 1)
         } else {
-            countLikesLabel.text = String(countLikes - 1)
+            countLikesLabel.text = formattedCounter(countLikes)
         }
     }
     
     @objc func commentTap() {
         isCommentTap.toggle()
         commentWasPressed()
-        let countComments = Int(countCommentsLabel.text ?? "0") ?? 0
+        let countComments = news[indexPath].countCommentsNews
         if isCommentTap {
-            countCommentsLabel.text = String(countComments + 1)
+            countCommentsLabel.text = formattedCounter(countComments + 1)
         } else {
-            countCommentsLabel.text = String(countComments - 1)
+            countCommentsLabel.text = formattedCounter(countComments)
         }
     }
     
     @objc func repostTap() {
         isRepostTap.toggle()
         repostWasPressed()
-        let countReposts = Int(countRepostsLabel.text ?? "0") ?? 0
+        let countReposts = news[indexPath].countRepostsNews
         if isRepostTap {
-            countRepostsLabel.text = String(countReposts + 1)
+            countRepostsLabel.text = formattedCounter(countReposts + 1)
         } else {
-            countRepostsLabel.text = String(countReposts - 1)
+            countRepostsLabel.text = formattedCounter(countReposts)
         }
     }
-    
     
     ///анимация лайка
     private func setupAnimationHearth() {
@@ -114,17 +115,15 @@ class NewsTableViewCell: UITableViewCell{
         static let repostEmpty = UIImage(named: "repost")
     }
     
-    func setup(model: News) {
-        self.headerNewsImageView.image = UIImage(named: model.imageHeaderNews)
-        self.newsAuthorNameLabel.text = model.nameAuthorNews
-        self.timeNewsLabel.text = model.timeNews
-        self.textNewsLabel.text = model.textNews
-        self.countLikesLabel.text = String(model.countLikeNews)
-        self.countCommentsLabel.text = String(model.countCommentsNews)
-        self.countRepostsLabel.text = String(model.countRepostsNews)
-        self.countViewsLabel.text = String(model.countViewsNews)
+    private func formattedCounter(_ counter: Int?) -> String? {
+        guard let counter = counter else { return nil }
+        var counterString = String(counter)
+        if 4...6 ~= counterString.count {
+            counterString = String(counterString.dropLast(3)) + "K"
+        } else if counterString.count > 6 {
+            counterString = String(counterString.dropLast(6)) + "M"
+        }
+        return counterString
     }
-    
-    
 }
 
