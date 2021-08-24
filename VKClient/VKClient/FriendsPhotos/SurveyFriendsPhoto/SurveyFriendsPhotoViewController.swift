@@ -14,15 +14,17 @@ class SurveyFriendsPhotoViewController: UIViewController {
     
     var photos: [String]!
     var index = 0
+    var selectedCell: UICollectionViewCell!
     
     private enum PanDirection {
         case middle
         case right
         case left
+        case bottom
     }
     
-    //rivate let transformZero = CGAffineTransform(scaleX: 0.0, y: 0.0)
-    private let transformIncrease = CGAffineTransform(scaleX: 1.15, y: 1.15)
+    private let transformReduction = CGAffineTransform(scaleX: 0.6, y: 0.6)
+    private let transformDefault = CGAffineTransform(scaleX: 1, y: 1)
     
     private var panGesture = UIPanGestureRecognizer()
     private var currentPanGestureDirection: PanDirection = .middle
@@ -45,10 +47,21 @@ class SurveyFriendsPhotoViewController: UIViewController {
         }
         return photoIndex
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewController()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        navigationController?.delegate = nil
+        setupTapBar(hidden: false, animated: true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setupTapBar(hidden: true, animated: true)
     }
     
     private func setupViewController() {
@@ -56,7 +69,7 @@ class SurveyFriendsPhotoViewController: UIViewController {
         nextPhotoImageView = secondImageView
         
         nextPhotoImageView.alpha = 0
-        nextPhotoImageView.transform = .identity
+        nextPhotoImageView.transform = transformReduction
         
         currentPhotoImageView.image = UIImage(named: photos[index])
         nextPhotoImageView.image = UIImage(named: photos[nextPhotoIndex])
@@ -70,11 +83,16 @@ class SurveyFriendsPhotoViewController: UIViewController {
     
     @objc private func onPan(_ recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
-        case .began:
-            animatePhotoWithTransform(transformIncrease)
         case .changed:
             let translation = recognizer.translation(in: self.view)
-            currentPanGestureDirection = translation.x > 0 ? .right : .left
+            if translation.x > 0 {
+                currentPanGestureDirection = .right
+            } else {
+                currentPanGestureDirection = .left
+            }
+            if translation.y > 0 {
+                currentPanGestureDirection = .bottom
+            }
             animatePhotoImageViewChanged(with: translation)
         case .ended:
             animatePhotoImageViewEnd()
@@ -83,13 +101,17 @@ class SurveyFriendsPhotoViewController: UIViewController {
     }
     
     private func animatePhotoWithTransform(_ transform: CGAffineTransform) {
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.5) {
             self.currentPhotoImageView.transform = transform
         }
     }
     
     private func animatePhotoImageViewChanged(with translation: CGPoint) {
-        currentPhotoImageView.transform = CGAffineTransform(translationX: translation.x, y: 0).concatenating(transformIncrease)
+        if currentPanGestureDirection == .bottom {
+            currentPhotoImageView.transform = CGAffineTransform(translationX: 0, y: translation.y)
+        } else {
+        currentPhotoImageView.transform = CGAffineTransform(translationX: translation.x, y: 0)
+        }
     }
     
     private func animatePhotoImageViewEnd() {
@@ -98,14 +120,19 @@ class SurveyFriendsPhotoViewController: UIViewController {
             if currentPhotoImageView.frame.maxX < view.center.x {
                 animatePhotoSwap()
             } else {
-                self.currentPhotoImageView.transform = .identity
+                animatePhotoWithTransform(transformDefault)
             }
         } else if currentPanGestureDirection == .right {
-           
             if currentPhotoImageView.frame.minX > view.center.x {
                 animatePhotoSwap()
             } else {
-                self.currentPhotoImageView.transform = .identity
+                animatePhotoWithTransform(transformDefault)
+            }
+        } else if currentPanGestureDirection == .bottom {
+            if currentPhotoImageView.frame.midY > view.center.y + 30{
+                self.navigationController?.popViewController(animated: true)
+            } else {
+                animatePhotoWithTransform(transformDefault)
             }
         }
     }
@@ -117,16 +144,14 @@ class SurveyFriendsPhotoViewController: UIViewController {
             self.currentPhotoImageView.alpha = 0
             self.nextPhotoImageView.alpha = 1
             self.nextPhotoImageView.transform = .identity
-            
         } completion: { _ in
-            
             self.reconfigureImages()
         }
     }
     
     private func reconfigureImages() {
         index = nextPhotoIndex
-        currentPhotoImageView.transform = CGAffineTransform.identity
+        currentPhotoImageView.transform = transformReduction
         self.title = "\(index + 1) из \(photos.count)"
 
         if currentPhotoImageView == firstImageView {
@@ -136,5 +161,24 @@ class SurveyFriendsPhotoViewController: UIViewController {
             currentPhotoImageView = firstImageView
             nextPhotoImageView = secondImageView
         }
+    }
+    //убираем вьюху с фотками
+    @IBAction func popButton(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    //показ tabbara
+    private func setupTapBar(hidden:Bool, animated: Bool){
+        guard let tabBar = self.tabBarController?.tabBar else { return; }
+        if tabBar.isHidden == hidden{ return }
+        let alphaCount = hidden ? 0 : 1
+        let duration:TimeInterval = (animated ? 0.5 : 0.0)
+        tabBar.isHidden = false
+
+        UIView.animate(withDuration: duration, animations: {
+            tabBar.alpha = CGFloat(alphaCount)
+        }, completion: { (true) in
+            tabBar.isHidden = hidden
+        })
     }
 }

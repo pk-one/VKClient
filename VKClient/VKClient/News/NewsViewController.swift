@@ -48,10 +48,11 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
         cell.newsAuthorNameLabel.text = news[indexPath.row].nameAuthorNews
         cell.timeNewsLabel.text = news[indexPath.row].timeNews
         cell.textNewsLabel.text = news[indexPath.row].textNews
-        cell.countLikesLabel.text = String(news[indexPath.row].countLikeNews)
-        cell.countCommentsLabel.text = String(news[indexPath.row].countCommentsNews)
-        cell.countRepostsLabel.text = String(news[indexPath.row].countRepostsNews)
-        cell.countViewsLabel.text = String(news[indexPath.row].countViewsNews)
+        cell.countLikesLabel.text = formattedCounter(news[indexPath.row].countLikeNews)
+        cell.countCommentsLabel.text = formattedCounter(news[indexPath.row].countCommentsNews)
+        cell.countRepostsLabel.text = formattedCounter(news[indexPath.row].countRepostsNews)
+        cell.countViewsLabel.text = formattedCounter(news[indexPath.row].countViewsNews)
+        cell.indexPath = indexPath.row
         ///изображения
         if let images = news[indexPath.row].imageNews, !images.isEmpty {
             cell.newsImagesCollectionView.set(photos: images)
@@ -78,5 +79,16 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
             self?.selectedReposts[indexPath] = cell.isRepostTap
         }
         return cell
+    }
+    
+    private func formattedCounter(_ counter: Int?) -> String? {
+        guard let counter = counter else { return nil }
+        var counterString = String(counter)
+        if 4...6 ~= counterString.count {
+            counterString = String(counterString.dropLast(3)) + "K"
+        } else if counterString.count > 6 {
+            counterString = String(counterString.dropLast(6)) + "M"
+        }
+        return counterString
     }
 }
