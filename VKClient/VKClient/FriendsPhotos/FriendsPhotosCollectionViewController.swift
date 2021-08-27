@@ -7,39 +7,35 @@
 
 import UIKit
 
-private let reuseIdentifier = "FriendsPhotosCollectionViewCell"
-
 class FriendsPhotosCollectionViewController: UICollectionViewController{
     
     var photos: [String]?
-    let countCells = 2
-    let offSet: CGFloat = 2
-    var selectedCell: UICollectionViewCell!
+    private let countCells = 2
+    private let offSet: CGFloat = 2
+    private var selectedIndexPath: IndexPath?
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return self.photos?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? FriendsPhotosCollectionViewCell,
-              let photosSelectedFriends = photos?[indexPath.item] else { return UICollectionViewCell() }
-        cell.photosFriendImageView.image = UIImage(named: photosSelectedFriends)
+        let cell = collectionView.dequeueReusableCell(FriendsPhotosCollectionViewCell.self, for: indexPath)
+        guard let photosSelectedFriends = photos?[indexPath.item] else { return UICollectionViewCell() }
+        cell.configure(with: photosSelectedFriends)
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let survayViewController = storyboard?.instantiateViewController(identifier: "SurvayViewController") as? SurveyFriendsPhotoViewController else { return }
-        selectedCell = collectionView.cellForItem(at: indexPath)
+        selectedIndexPath = indexPath
         survayViewController.photos = photos
         survayViewController.index = indexPath.item
         survayViewController.modalPresentationStyle = .fullScreen
-        survayViewController.selectedCell = selectedCell
+        //survayViewController.selectedIndexPath = selectedIndexPath
         navigationController?.delegate = self
         navigationController?.pushViewController(survayViewController, animated: true)
     }
@@ -52,6 +48,7 @@ extension FriendsPhotosCollectionViewController: UINavigationControllerDelegate 
                               to toVC: UIViewController) ->
     UIViewControllerAnimatedTransitioning? {
         var animatedTransitioning: UIViewControllerAnimatedTransitioning? = nil
+        guard let selectedIndexPath = selectedIndexPath, let selectedCell = collectionView.cellForItem(at: selectedIndexPath) else { return animatedTransitioning}
         switch operation {
         case .push:
             animatedTransitioning = FullPhotoAnimator(presentationStartCell: selectedCell, isPresenting: true)
@@ -63,7 +60,6 @@ extension FriendsPhotosCollectionViewController: UINavigationControllerDelegate 
         return animatedTransitioning
     }
 }
-
 
 extension FriendsPhotosCollectionViewController: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

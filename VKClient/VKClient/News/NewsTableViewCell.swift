@@ -7,10 +7,17 @@
 
 import UIKit
 
+protocol NewsTableViewCellDelegate: AnyObject {
+    func heartWasPressed(in indexPath: IndexPath, and isSelected: Bool)
+    func commentWasPressed(in indexPath: IndexPath, and isSelected: Bool)
+    func repostWasPressed(in indexPath: IndexPath, and isSelected: Bool)
+}
+
 class NewsTableViewCell: UITableViewCell{
-    private let news = News.allPostCases
-    var indexPath: Int!
     
+    private let news = News.allPostCases
+    var indexPath: Int?
+    var selectedIndexPath: IndexPath?
     //MARK:  - Outlets
     @IBOutlet var headerNewsImageView: RoundedImageView!
     @IBOutlet var newsAuthorNameLabel: UILabel!
@@ -36,9 +43,8 @@ class NewsTableViewCell: UITableViewCell{
     }
     public var isCommentTap = false
     public var isRepostTap = false
-    public var heartWasPressed = { }
-    public var commentWasPressed = { }
-    public var repostWasPressed = { }
+    
+    weak var delegate: NewsTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -51,6 +57,7 @@ class NewsTableViewCell: UITableViewCell{
         commentsImageView.addGestureRecognizer(tapCommentGR)
         let tapRepostGR = UITapGestureRecognizer(target: self, action: #selector(repostTap))
         repostsImageView.addGestureRecognizer(tapRepostGR)
+        
     }
     
     override func prepareForReuse() {
@@ -61,38 +68,35 @@ class NewsTableViewCell: UITableViewCell{
     }
     
     @objc func heartTap() {
+        guard let selectedIndexPath = selectedIndexPath,
+              let indexPath = indexPath else { return }
         setupAnimationHearth()
         isHeartFilled.toggle()
-        heartWasPressed()
+        delegate?.heartWasPressed(in: selectedIndexPath, and: isHeartFilled)
         let countLikes = news[indexPath].countLikeNews
-        if isHeartFilled {
-            countLikesLabel.text = formattedCounter(countLikes + 1)
-//                String(countLikes + 1)
-        } else {
-            countLikesLabel.text = formattedCounter(countLikes)
-        }
+        countLikesLabel.text = isHeartFilled ? formattedCounter(countLikes + 1) : formattedCounter(countLikes)
     }
     
     @objc func commentTap() {
+        guard let selectedIndexPath = selectedIndexPath,
+              let indexPath = indexPath else { return }
         isCommentTap.toggle()
-        commentWasPressed()
+        delegate?.commentWasPressed(in: selectedIndexPath, and: isCommentTap)
         let countComments = news[indexPath].countCommentsNews
-        if isCommentTap {
-            countCommentsLabel.text = formattedCounter(countComments + 1)
-        } else {
-            countCommentsLabel.text = formattedCounter(countComments)
-        }
+        countCommentsLabel.text = isCommentTap ? formattedCounter(countComments + 1) : formattedCounter(countComments)
     }
     
     @objc func repostTap() {
+        guard let selectedIndexPath = selectedIndexPath,
+              let indexPath = indexPath else { return }
         isRepostTap.toggle()
-        repostWasPressed()
+        delegate?.repostWasPressed(in: selectedIndexPath, and: isRepostTap)
         let countReposts = news[indexPath].countRepostsNews
-        if isRepostTap {
-            countRepostsLabel.text = formattedCounter(countReposts + 1)
-        } else {
-            countRepostsLabel.text = formattedCounter(countReposts)
-        }
+        countRepostsLabel.text = isRepostTap ? formattedCounter(countReposts + 1) : formattedCounter(countReposts)
+    }
+    
+    func configureIndexPath(with indexPath: IndexPath) {
+        self.selectedIndexPath = indexPath
     }
     
     ///анимация лайка
@@ -125,5 +129,16 @@ class NewsTableViewCell: UITableViewCell{
         }
         return counterString
     }
+    
+    func configure(with: News) {
+            self.headerNewsImageView.image = UIImage(named: with.imageHeaderNews)
+            self.newsAuthorNameLabel.text = with.nameAuthorNews
+            self.timeNewsLabel.text = with.timeNews
+            self.textNewsLabel.text = with.textNews
+            self.countLikesLabel.text = formattedCounter(with.countLikeNews)
+            self.countCommentsLabel.text = formattedCounter(with.countCommentsNews)
+            self.countRepostsLabel.text = formattedCounter(with.countRepostsNews)
+            self.countViewsLabel.text = formattedCounter(with.countViewsNews)
+        }
 }
 

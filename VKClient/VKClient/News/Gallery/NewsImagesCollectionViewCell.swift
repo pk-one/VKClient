@@ -7,7 +7,9 @@
 
 import UIKit
 
-class NewsImagesCollectionViewCell: UICollectionViewCell {
+class NewsImagesCollectionViewCell:
+    
+    UICollectionViewCell {
     static let reuseId = "NewsImagesCollectionViewCell"
     let newsImageView: UIImageView = {
         let imageView = UIImageView()

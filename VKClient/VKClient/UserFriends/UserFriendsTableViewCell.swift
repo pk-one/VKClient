@@ -8,8 +8,13 @@
 import UIKit
 
 class UserFriendsTableViewCell: UITableViewCell {
-    @IBOutlet var imageFriendImageView: RoundedImageView!
-    @IBOutlet var fullNameFriendLabel: UILabel!
+    @IBOutlet private var imageFriendImageView: RoundedImageView!
+    @IBOutlet private var fullNameFriendLabel: UILabel!
+    
+    func configure(with: User) {
+        imageFriendImageView.image = UIImage(named: with.avatarImage)
+        fullNameFriendLabel.text = with.fullName
+    }
 }
 
 

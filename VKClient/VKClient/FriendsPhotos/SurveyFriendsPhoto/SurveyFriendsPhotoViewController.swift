@@ -14,9 +14,9 @@ class SurveyFriendsPhotoViewController: UIViewController {
     
     var photos: [String]!
     var index = 0
-    var selectedCell: UICollectionViewCell!
+    var selectedIndexPath: IndexPath?
     
-    private enum PanDirection {
+    enum PanDirection {
         case middle
         case right
         case left
@@ -75,7 +75,7 @@ class SurveyFriendsPhotoViewController: UIViewController {
         nextPhotoImageView.image = UIImage(named: photos[nextPhotoIndex])
         
         if photos.count > 1 {
-        panGesture = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
+            panGesture = UIPanGestureRecognizer (target: self, action: #selector(onPan(_:)))
         self.view.addGestureRecognizer(panGesture)
         }
         self.title = "\(index + 1) из \(photos.count)"
@@ -85,13 +85,13 @@ class SurveyFriendsPhotoViewController: UIViewController {
         switch recognizer.state {
         case .changed:
             let translation = recognizer.translation(in: self.view)
+
             if translation.x > 0 {
                 currentPanGestureDirection = .right
+            } else if translation.y > 0 {
+                    currentPanGestureDirection = .bottom
             } else {
                 currentPanGestureDirection = .left
-            }
-            if translation.y > 0 {
-                currentPanGestureDirection = .bottom
             }
             animatePhotoImageViewChanged(with: translation)
         case .ended:
@@ -129,8 +129,7 @@ class SurveyFriendsPhotoViewController: UIViewController {
                 animatePhotoWithTransform(transformDefault)
             }
         } else if currentPanGestureDirection == .bottom {
-            if currentPhotoImageView.frame.midY > view.center.y + 30{
-                self.navigationController?.popViewController(animated: true)
+            if currentPhotoImageView.frame.midY > view.center.y + 30{                self.navigationController?.popViewController(animated: true)
             } else {
                 animatePhotoWithTransform(transformDefault)
             }
