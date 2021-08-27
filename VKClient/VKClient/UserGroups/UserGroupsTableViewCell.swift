@@ -28,4 +28,10 @@ class UserGroupsTableViewCell: UITableViewCell {
         animation.duration = 1
         imageGroupImageView.layer.add(animation, forKey: nil)
     }
+    
+    func configure(with: Group) {
+        imageGroupImageView.image = UIImage(named: with.image)
+        groupNameLabel.text = with.groupName
+        descriptionGroupLabel.text = with.description
+    }
 }

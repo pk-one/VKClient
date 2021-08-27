@@ -8,7 +8,14 @@
 import UIKit
 
 class AllGroupsTableViewCell: UITableViewCell {
-    @IBOutlet var imageGroupImageView: UIImageView!
-    @IBOutlet var nameGroupLabel: UILabel!
-    @IBOutlet var descriptionGroupLabel: UILabel!
+    
+    @IBOutlet private var imageGroupImageView: UIImageView!
+    @IBOutlet private var nameGroupLabel: UILabel!
+    @IBOutlet private var descriptionGroupLabel: UILabel!
+    
+    func configure(with: Group) {
+        imageGroupImageView.image = UIImage(named: with.image)
+        nameGroupLabel.text = with.groupName
+        descriptionGroupLabel.text = with.description
+    }
 }

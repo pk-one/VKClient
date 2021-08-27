@@ -80,10 +80,9 @@ class UserFriendsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UserFriendsTableViewCell", for: indexPath) as! UserFriendsTableViewCell
+        let cell = tableView.dequeueReusableCell(UserFriendsTableViewCell.self, for: indexPath )
         let user = self.groupsUser[indexPath.section].users[indexPath.row]
-        cell.imageFriendImageView.image = UIImage(named: user.avatarImage)
-        cell.fullNameFriendLabel.text = user.fullName
+        cell.configure(with: user)
         return cell
     }
     
@@ -109,6 +108,15 @@ class UserFriendsTableViewController: UITableViewController {
         return view
     }
     ///метод добавление аватарки в коллекцию фоток
+//    private func addAvatarForCollectionPhotos() {
+//        var users = groupsUser
+//            .flatMap { $0.users }
+//            .filter { $0.avatarImage != "noavatar" }
+//
+//        for (index, _) in users.enumerated() {
+//            users[index].photos.append(users[index].avatarImage)
+//        }
+//    }
     private func addAvatarForCollectionPhotos() {
         for (_, sectionItem) in groupsUser.enumerated() {
             for (userIndex, _) in sectionItem.users.enumerated() {
@@ -188,7 +196,6 @@ class UserFriendsTableViewController: UITableViewController {
                            })
         }
     }
-    
     
     @objc private func editingChanged(_ sender: UITextField) {
         guard searchTextField.text != "" else { return }

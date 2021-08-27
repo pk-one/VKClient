@@ -9,6 +9,7 @@ import UIKit
 
 class UserGroupsTableViewController: UITableViewController {
     private var userGroups = [Group]()
+    private var allGroups = Group.groupAllCases
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,20 +17,16 @@ class UserGroupsTableViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return userGroups.count
+        userGroups.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UserGroupsTableViewCell", for: indexPath) as! UserGroupsTableViewCell
-        cell.imageGroupImageView.image = UIImage(named: userGroups[indexPath.row].image)
-        cell.groupNameLabel.text = userGroups[indexPath.row].groupName
-        cell.descriptionGroupLabel.text = userGroups[indexPath.row].description
+        let cell = tableView.dequeueReusableCell(UserGroupsTableViewCell.self, for: indexPath)
+        cell.configure(with: userGroups[indexPath.row])
         return cell
     }
     
@@ -38,14 +35,14 @@ class UserGroupsTableViewController: UITableViewController {
             userGroups.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
-        }    
+        }
     }
     
     @IBAction func addGroup(segue: UIStoryboardSegue) {
         guard segue.identifier == "addGroup",
               let source = segue.source as? AllGroupsTableViewController,
               let indexPath = source.tableView.indexPathForSelectedRow else { return }
-        let group = source.allGroups[indexPath.row]
+        let group = allGroups[indexPath.row]
         if !userGroups.contains(group){
             userGroups.append(group)
             self.tableView.reloadData()

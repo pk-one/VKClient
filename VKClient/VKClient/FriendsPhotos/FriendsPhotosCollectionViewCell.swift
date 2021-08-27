@@ -8,6 +8,10 @@
 import UIKit
 
 class FriendsPhotosCollectionViewCell: UICollectionViewCell {
-    @IBOutlet var photosFriendImageView: UIImageView!
+    @IBOutlet private var photosFriendImageView: UIImageView!
+    
+    func configure(with: String) {
+        photosFriendImageView.image = UIImage(named: with)
+    }
 }
 

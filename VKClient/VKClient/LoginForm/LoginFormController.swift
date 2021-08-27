@@ -34,8 +34,7 @@ class LoginFormController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func keyboardWasShown(notification: Notification) {
@@ -80,11 +79,7 @@ class LoginFormController: UIViewController {
     func checkAuth() -> Bool {
         guard let login = loginTextField.text,
               let password = passwordTextField.text else { return false }
-        if login == "" && password == "" {
-            return true
-        } else {
-            return false
-        }
+            return login == "" && password == ""
     }
     
     func showAuthError() {
