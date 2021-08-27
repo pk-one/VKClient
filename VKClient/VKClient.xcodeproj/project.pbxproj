@@ -43,6 +43,7 @@
 		A0B109FB26B0A0D6003DCEA1 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B109FA26B0A0D6003DCEA1 /* Shadow.swift */; };
 		A0B109FD26B2F81C003DCEA1 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B109FC26B2F81C003DCEA1 /* RoundedImageView.swift */; };
 		A0C6372226D8270800C9C536 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C6372126D8270800C9C536 /* Reusable.swift */; };
+		A0C6373026D9326200C9C536 /* SessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C6372F26D9326100C9C536 /* SessionInfo.swift */; };
 		A0FC982926C4001F0035EDE5 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FC982826C4001F0035EDE5 /* LoaderView.swift */; };
 		A0FC982D26C402000035EDE5 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FC982C26C402000035EDE5 /* NewsViewController.swift */; };
 /* End PBXBuildFile section */
@@ -86,6 +87,7 @@
 		A0B109FA26B0A0D6003DCEA1 /* Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadow.swift; sourceTree = "<group>"; };
 		A0B109FC26B2F81C003DCEA1 /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
 		A0C6372126D8270800C9C536 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
+		A0C6372F26D9326100C9C536 /* SessionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionInfo.swift; sourceTree = "<group>"; };
 		A0FC982826C4001F0035EDE5 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		A0FC982C26C402000035EDE5 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,6 +132,7 @@
 				A0B109E026AD7DA0003DCEA1 /* UserGroups */,
 				A0B109DB26AD7CA4003DCEA1 /* AllGroups */,
 				A0B109D526AD7A72003DCEA1 /* Model */,
+				A0C6372F26D9326100C9C536 /* SessionInfo.swift */,
 				A01A3385269A0D3200FC0A63 /* AppDelegate.swift */,
 				A01A3387269A0D3200FC0A63 /* SceneDelegate.swift */,
 				A01A339B269A396400FC0A63 /* Extensions.swift */,
@@ -357,6 +360,7 @@
 				A01A3386269A0D3200FC0A63 /* AppDelegate.swift in Sources */,
 				092F94FC269A376C0030AB4C /* LeftPaddedTextField.swift in Sources */,
 				A01A3388269A0D3200FC0A63 /* SceneDelegate.swift in Sources */,
+				A0C6373026D9326200C9C536 /* SessionInfo.swift in Sources */,
 				A0B109DF26AD7CF7003DCEA1 /* AllGroupsTableViewCell.swift in Sources */,
 				A0B109E426AD7DE3003DCEA1 /* UserGroupsTableViewController.swift in Sources */,
 				A02F902726BB04BE00CD888D /* NewsImagesCollectionViewCell.swift in Sources */,
