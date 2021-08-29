@@ -19,6 +19,8 @@ class UserFriendsTableViewController: UITableViewController {
             groupsUser = groupUsersByFirstLetter(textSearch: textSearch)
         }
     }
+    private let networkService: NetworkService =  NetworkServiceImplementation()
+    private var token = SessionInfo.shared.token!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,7 @@ class UserFriendsTableViewController: UITableViewController {
         lettersControl.addTarget(self, action: #selector(lettersChange(_:)), for: .valueChanged)
         setupSearchBar()
         setupButton()
+        networkService.getFriends(token: token)
     }
     
     private let lettersControl: LettersControl = {

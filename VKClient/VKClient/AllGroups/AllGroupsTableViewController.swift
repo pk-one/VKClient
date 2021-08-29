@@ -10,10 +10,13 @@ import UIKit
 class AllGroupsTableViewController: UITableViewController {
     
     private var allGroups = Group.groupAllCases
+    private let networkService: NetworkService = NetworkServiceImplementation()
+    private let token = SessionInfo.shared.token!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
+        networkService.getGroupSearch(token: token, textSearch: "GeekBrains")
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
