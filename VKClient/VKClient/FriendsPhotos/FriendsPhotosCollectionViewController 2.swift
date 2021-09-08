@@ -13,13 +13,6 @@ class FriendsPhotosCollectionViewController: UICollectionViewController{
     private let countCells = 2
     private let offSet: CGFloat = 2
     private var selectedIndexPath: IndexPath?
-    private let networkService: NetworkService = NetworkServiceImplementation()
-    private let token = SessionInfo.shared.token!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        networkService.getPhotos(token: token, albumId: .profile)
-    }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1

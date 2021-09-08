@@ -10,10 +10,13 @@ import UIKit
 class UserGroupsTableViewController: UITableViewController {
     private var userGroups = [Group]()
     private var allGroups = Group.groupAllCases
+    private var networkSevice: NetworkService = NetworkServiceImplementation()
+    private let token = SessionInfo.shared.token!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
+        networkSevice.getGroup(token: token)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
