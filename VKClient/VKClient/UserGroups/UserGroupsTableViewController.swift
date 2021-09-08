@@ -8,15 +8,20 @@
 import UIKit
 
 class UserGroupsTableViewController: UITableViewController {
-    private var userGroups = [Group]()
-    private var allGroups = Group.groupAllCases
+    
+    private var userGroups = [Groups]()
     private var networkSevice: NetworkService = NetworkServiceImplementation()
     private let token = SessionInfo.shared.token!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
-        networkSevice.getGroup(token: token)
+        networkSevice.getGroup(token: token, completionHandler: { [weak self] groups in
+            self?.userGroups = groups
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        })
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -38,17 +43,6 @@ class UserGroupsTableViewController: UITableViewController {
             userGroups.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
-        }
-    }
-    
-    @IBAction func addGroup(segue: UIStoryboardSegue) {
-        guard segue.identifier == "addGroup",
-              let source = segue.source as? AllGroupsTableViewController,
-              let indexPath = source.tableView.indexPathForSelectedRow else { return }
-        let group = allGroups[indexPath.row]
-        if !userGroups.contains(group){
-            userGroups.append(group)
-            self.tableView.reloadData()
         }
     }
 }

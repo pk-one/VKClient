@@ -8,12 +8,17 @@
 import UIKit
 
 class CustomLikeControl: UIControl {
+   
+    var countLikes: Int = 0 {
+        didSet {
+            likesCountLabel.text = "\(countLikes)"
+        }
+    }
 
     private var isLiked = false
     
     private var likesCountLabel: UILabel = {
         let likesCountLabel = UILabel()
-        likesCountLabel.text = "0"
         likesCountLabel.textColor = UIColor.white
         likesCountLabel.translatesAutoresizingMaskIntoConstraints = false
         return likesCountLabel
@@ -30,7 +35,6 @@ class CustomLikeControl: UIControl {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
         return stackView
     }()
 
@@ -62,7 +66,7 @@ class CustomLikeControl: UIControl {
     
     @objc private func didTapButton() {
         isLiked = !isLiked
-        likesCountLabel.text = isLiked ? "1" : "0"
+        likesCountLabel.text = isLiked ? "\(countLikes + 1)" : "\(countLikes)"
         if isLiked {
             likesCountLabel.textColor = UIColor.red
             setShapeLayer(color: UIColor.red)
@@ -77,6 +81,7 @@ class CustomLikeControl: UIControl {
         stackView.addArrangedSubview(likeButton)
         stackView.addArrangedSubview(likesCountLabel)
         NSLayoutConstraint.activate([
+            likeButton.widthAnchor.constraint(equalToConstant: 25),
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.leftAnchor.constraint(equalTo: leftAnchor),
             stackView.rightAnchor.constraint(equalTo: rightAnchor),

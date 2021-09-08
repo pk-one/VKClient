@@ -10,8 +10,7 @@ import UIKit
 class UserGroupsTableViewCell: UITableViewCell {
     @IBOutlet var imageGroupImageView: UIImageView!
     @IBOutlet var groupNameLabel: UILabel!
-    @IBOutlet var descriptionGroupLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         let tapAvatar = UITapGestureRecognizer(target: self, action: #selector(tappedAvatar))
@@ -29,9 +28,9 @@ class UserGroupsTableViewCell: UITableViewCell {
         imageGroupImageView.layer.add(animation, forKey: nil)
     }
     
-    func configure(with: Group) {
-        imageGroupImageView.image = UIImage(named: with.image)
-        groupNameLabel.text = with.groupName
-        descriptionGroupLabel.text = with.description
+    func configure(with: Groups) {
+        let url = URL(string: with.avatar)
+        imageGroupImageView.kf.setImage(with: url)
+        groupNameLabel.text = with.name
     }
 }
