@@ -8,55 +8,66 @@
 import UIKit
 
 class UserFriendsTableViewController: UITableViewController {
+    //MARK: - Outlets
     @IBOutlet var searchTextField: UITextField!
     @IBOutlet var cancelSearchButton: UIButton!
     @IBOutlet var centerXContraintMagnifyingGlass: NSLayoutConstraint!
     @IBOutlet var trailingConstraintSearchTextField: NSLayoutConstraint!
     
-    private var groupsUser = groupUsersByFirstLetter()
+    //MARK: - Properties
+    private var friends = [Friends]()
+    private var sortedFriends = [Friends]()
+    private var groupFriends = [GroupFriends]()
     private var textSearch: String = "" {
         didSet {
-            groupsUser = groupUsersByFirstLetter(textSearch: textSearch)
+            groupFriendsByFirstLetter(textSearch: textSearch)
         }
     }
     private let networkService: NetworkService =  NetworkServiceImplementation()
-    private var token = SessionInfo.shared.token!
     
+    //MARK: - LifeCircle
     override func viewDidLoad() {
         super.viewDidLoad()
-        ///добавляем аватарку юзера в колекцию фоток
-        addAvatarForCollectionPhotos()
         ///убираем лишние ячейки
         tableView.tableFooterView = UIView()
-        self.navigationController?.view.addSubview(lettersControl)
-        lettersControl.addTarget(self, action: #selector(lettersChange(_:)), for: .valueChanged)
         setupSearchBar()
-        setupButton()
-        networkService.getFriends(token: token)
+        networkService.getFriends(completionHandler: { [weak self] friends in
+            self?.friends = friends
+            self?.groupFriendsByFirstLetter()
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        })
     }
-    
-    private let lettersControl: LettersControl = {
-        let lettersControl = LettersControl()
-        lettersControl.translatesAutoresizingMaskIntoConstraints = false
-        return lettersControl
-    }()
-    ///показываем контрол букв
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(false)
-        self.view.layoutIfNeeded()
-        lettersControl.isHidden = false
-    }
-    ///убираем контрол букв
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(false)
-        lettersControl.isHidden = true
         searchTextField.resignFirstResponder()
     }
-    ///считаем положение контрола
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        setupControl()
+    
+    func groupFriendsByFirstLetter(textSearch: String = ""){
+        if textSearch != "" {
+            sortedFriends = friends.filter {$0.fullName.contains(textSearch)}
+        } else {
+            sortedFriends = friends.sorted {$0.firstName.first! < $1.firstName.first!}
+        }
+        
+        groupFriends.removeAll()
+        
+        for friend in sortedFriends {
+            let firstLetter = String(friend.firstName.first!)
+            if groupFriends.count == 0 {
+                groupFriends.append(GroupFriends(firstLetter: firstLetter, friends: [friend]))
+            } else {
+                if firstLetter == groupFriends.last?.firstLetter {
+                    groupFriends.last?.friends.append(friend)
+                } else {
+                    groupFriends.append(GroupFriends(firstLetter: firstLetter, friends: [friend]))
+                }
+            }
+        }
+        self.tableView.reloadData()
     }
+    
     ///скролл до нужно секции
     @objc private func lettersChange(_ control: LettersControl){
         let indexPath = IndexPath(item: 0, section: control.selectedLetter!)
@@ -64,27 +75,16 @@ class UserFriendsTableViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return groupsUser.count
+        return groupFriends.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groupsUser[section].users.count
-    }
-    //анимация загрузки ячеек
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let degree: Double = 90
-        let rotationAngle = CGFloat(degree * Double.pi / 180)
-        let rotaionTransform = CATransform3DMakeRotation(rotationAngle, 1, 0, 0)
-        cell.layer.transform = rotaionTransform
-        
-        UIView.animate(withDuration: 1, delay: 0.2, options: .curveEaseInOut) {
-            cell.layer.transform = CATransform3DIdentity
-        }
+        return groupFriends[section].friends.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(UserFriendsTableViewCell.self, for: indexPath )
-        let user = self.groupsUser[indexPath.section].users[indexPath.row]
+        let user = self.groupFriends[indexPath.section].friends[indexPath.row]
         cell.configure(with: user)
         return cell
     }
@@ -94,8 +94,8 @@ class UserFriendsTableViewController: UITableViewController {
               let source = segue.source as? UserFriendsTableViewController,
               let destination = segue.destination as? FriendsPhotosCollectionViewController,
               let indexPath = source.tableView.indexPathForSelectedRow else { return }
-        let user = self.groupsUser[indexPath.section].users[indexPath.row]
-        destination.photos = user.photos
+        let friend = groupFriends[indexPath.section].friends[indexPath.row]
+        destination.ownerId = friend.id
     }
     ///задаем название секции и перерисовываем
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -103,45 +103,14 @@ class UserFriendsTableViewController: UITableViewController {
         view.backgroundColor = UIColor.lightGray
         view.alpha = 0.5
         let label = UILabel()
-        label.text = groupsUser[section].firstLetter
+        label.text = groupFriends[section].firstLetter
         label.font = UIFont(name: "Arial", size: 15)
         label.textColor = UIColor.black
         label.frame = CGRect(x: 25, y: 7, width: 100, height: 15)
         view.addSubview(label)
         return view
     }
-    ///метод добавление аватарки в коллекцию фоток
-//    private func addAvatarForCollectionPhotos() {
-//        var users = groupsUser
-//            .flatMap { $0.users }
-//            .filter { $0.avatarImage != "noavatar" }
-//
-//        for (index, _) in users.enumerated() {
-//            users[index].photos.append(users[index].avatarImage)
-//        }
-//    }
-    private func addAvatarForCollectionPhotos() {
-        for (_, sectionItem) in groupsUser.enumerated() {
-            for (userIndex, _) in sectionItem.users.enumerated() {
-                if sectionItem.users[userIndex].avatarImage != "noavatar" {
-                    sectionItem.users[userIndex].photos.append(sectionItem.users[userIndex].avatarImage)
-                }
-            }
-        }
-    }
-    
-    private func setupControl() {
-        let controlSize = lettersControl.bounds.size
-        let xPosition = view.frame.maxX - controlSize.width
-        let yPosition = view.frame.midY - (controlSize.height / 2)
-        let origin = CGPoint(x: xPosition, y: yPosition)
-        lettersControl.frame = CGRect(origin: origin, size: controlSize)
-    }
-    
-    private func setupButton() {
-        cancelSearchButton.layer.cornerRadius = 4
-    }
-    
+        
     private func setupSearchBar() {
         searchTextField.addTarget(self, action: #selector(editingBegan(_:)), for: .editingDidBegin)
         searchTextField.addTarget(self, action: #selector(editingChanged(_:)), for: .editingChanged)
@@ -151,10 +120,9 @@ class UserFriendsTableViewController: UITableViewController {
     @objc private func editingBegan(_ textField: UITextField) {
         let widthSearchField = searchTextField.bounds.size.width
         let widthCancelButton = cancelSearchButton.bounds.size.width
-        self.view.layoutIfNeeded()
+
         UIView.animate(withDuration: 0.3) {
             self.trailingConstraintSearchTextField.constant += 70
-            self.view.layoutIfNeeded()
         }
         UIView.animate(withDuration: 1,
                        delay: 0,
@@ -167,26 +135,22 @@ class UserFriendsTableViewController: UITableViewController {
                        })
         UIView.animate(withDuration: 0.5, delay: 0.3) {
             self.cancelSearchButton.alpha = 1
-            self.view.layoutIfNeeded()
         }
     }
     
     @objc private func touchCancel(_ sender: UIButton) {
         let widthSearchField = searchTextField.bounds.size.width
         let widthCancelButton = cancelSearchButton.bounds.size.width
-        self.view.layoutIfNeeded()
+
         UIView.animate(withDuration: 0.3, animations: {
             self.cancelSearchButton.alpha = 0
             self.textSearch = ""
             self.searchTextField.text = ""
             self.searchTextField.resignFirstResponder()
             self.tableView.reloadData()
-            self.addAvatarForCollectionPhotos()
-            self.view.layoutIfNeeded()
         }) {_ in
             UIView.animate(withDuration: 0.3) {
                 self.trailingConstraintSearchTextField.constant -= 70
-                self.view.layoutIfNeeded()
             }
             UIView.animate(withDuration: 1,
                            delay: 0,
@@ -204,6 +168,5 @@ class UserFriendsTableViewController: UITableViewController {
         guard searchTextField.text != "" else { return }
         self.textSearch = searchTextField.text!
         self.tableView.reloadData()
-        addAvatarForCollectionPhotos()
     }
 }

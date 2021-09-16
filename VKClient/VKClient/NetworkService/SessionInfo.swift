@@ -12,6 +12,6 @@ class SessionInfo {
     
     static let shared = SessionInfo()
     //MARK: - User info
-    var token: String?
-    var userId: Int?
+    var token = ""
+    var userId = 0
 }

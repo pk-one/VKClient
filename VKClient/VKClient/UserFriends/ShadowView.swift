@@ -8,7 +8,7 @@
 import UIKit
 
 //@IBDesignable
-class Shadow: UIView {
+class ShadowView: UIView {
 
     @IBInspectable var shadowColor: UIColor = .black {
         didSet{

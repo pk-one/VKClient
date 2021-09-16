@@ -9,7 +9,6 @@ import UIKit
 
 class LettersControl: UIControl {
     
-    private var groupsUsers = groupUsersByFirstLetter()
     var selectedLetter: Int? = nil {
         didSet {
             sendActions(for: .valueChanged)
@@ -18,22 +17,14 @@ class LettersControl: UIControl {
     private var buttonsLetters: [UIButton] = []
     private var stackView = UIStackView()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupBaseUI()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupBaseUI()
-    }
     ///создаем кнопки
-    private func setupBaseUI() {
-        for friend in groupsUsers {
+    func setupBaseUI(with model: [GroupFriends]) {
+        buttonsLetters.removeAll()
+        for friend in model {
             let button = UIButton()
             button.setTitle(String(friend.firstLetter), for: .normal)
             button.setTitleColor(.lightGray, for: .normal)
-            button.titleLabel?.font = UIFont(name: "Arial", size: 15)
+            button.titleLabel?.font = UIFont(name: "Arial", size: 13)
             button.addTarget(self, action: #selector(selectNewLetter(_:)), for: .touchUpInside)
             buttonsLetters.append(button)
         }
@@ -42,7 +33,7 @@ class LettersControl: UIControl {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.spacing = 5
+        stackView.spacing = 1
         stackView.distribution = .fillEqually
         self.addSubview(stackView)
         NSLayoutConstraint.activate([
