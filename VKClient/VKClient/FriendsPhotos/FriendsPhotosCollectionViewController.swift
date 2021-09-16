@@ -15,20 +15,15 @@ class FriendsPhotosCollectionViewController: UICollectionViewController{
     private let offSet: CGFloat = 2
     private var selectedIndexPath: IndexPath?
     private let networkService: NetworkService = NetworkServiceImplementation()
-    private let token = SessionInfo.shared.token!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        networkService.getPhotos(token: token,  ownerId: ownerId, completionHandler: { [weak self] photos in
+        networkService.getPhotos(ownerId: ownerId, completionHandler: { [weak self] photos in
             self?.photosList = photos
             DispatchQueue.main.async {
                 self?.collectionView.reloadData()
             }
         })
-    }
-    
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -11,21 +11,16 @@ class UserGroupsTableViewController: UITableViewController {
     
     private var userGroups = [Groups]()
     private var networkSevice: NetworkService = NetworkServiceImplementation()
-    private let token = SessionInfo.shared.token!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
-        networkSevice.getGroup(token: token, completionHandler: { [weak self] groups in
+        networkSevice.getGroup(completionHandler: { [weak self] groups in
             self?.userGroups = groups
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         })
-    }
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -16,7 +16,7 @@ class UserFriendsTableViewController: UITableViewController {
     
     //MARK: - Properties
     private var friends = [Friends]()
-    private var sorted = [Friends]()
+    private var sortedFriends = [Friends]()
     private var groupFriends = [GroupFriends]()
     private var textSearch: String = "" {
         didSet {
@@ -24,12 +24,6 @@ class UserFriendsTableViewController: UITableViewController {
         }
     }
     private let networkService: NetworkService =  NetworkServiceImplementation()
-    private var token = SessionInfo.shared.token!
-    private let lettersControl: LettersControl = {
-        let lettersControl = LettersControl()
-        lettersControl.translatesAutoresizingMaskIntoConstraints = false
-        return lettersControl
-    }()
     
     //MARK: - LifeCircle
     override func viewDidLoad() {
@@ -37,45 +31,29 @@ class UserFriendsTableViewController: UITableViewController {
         ///убираем лишние ячейки
         tableView.tableFooterView = UIView()
         setupSearchBar()
-        setupButton()
-        createLettersControl()
-        networkService.getFriends(token: token, completionHandler: { [weak self] friends in
+        networkService.getFriends(completionHandler: { [weak self] friends in
             self?.friends = friends
             self?.groupFriendsByFirstLetter()
             DispatchQueue.main.async {
-                self?.addLettersFromLettersControl()
                 self?.tableView.reloadData()
             }
         })
     }
-    ///показываем контрол букв
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(false)
-        self.view.layoutIfNeeded()
-        lettersControl.isHidden = false
-    }
-    ///убираем контрол букв
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(false)
-        lettersControl.isHidden = true
         searchTextField.resignFirstResponder()
-    }
-    ///считаем положение контрола
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        setupControl()
     }
     
     func groupFriendsByFirstLetter(textSearch: String = ""){
         if textSearch != "" {
-            sorted = friends.filter {$0.fullName.contains(textSearch)}
+            sortedFriends = friends.filter {$0.fullName.contains(textSearch)}
         } else {
-            sorted = friends.sorted {$0.firstName.first! < $1.firstName.first!}
+            sortedFriends = friends.sorted {$0.firstName.first! < $1.firstName.first!}
         }
         
         groupFriends.removeAll()
         
-        for friend in sorted {
+        for friend in sortedFriends {
             let firstLetter = String(friend.firstName.first!)
             if groupFriends.count == 0 {
                 groupFriends.append(GroupFriends(firstLetter: firstLetter, friends: [friend]))
@@ -88,15 +66,6 @@ class UserFriendsTableViewController: UITableViewController {
             }
         }
         self.tableView.reloadData()
-    }
-    
-    private func addLettersFromLettersControl() {
-        lettersControl.setupBaseUI(with: groupFriends)
-    }
-    
-    private func createLettersControl() {
-        self.navigationController?.view.addSubview(lettersControl)
-        lettersControl.addTarget(self, action: #selector(lettersChange(_:)), for: .valueChanged)
     }
     
     ///скролл до нужно секции
@@ -141,19 +110,7 @@ class UserFriendsTableViewController: UITableViewController {
         view.addSubview(label)
         return view
     }
-    
-    private func setupControl() {
-        let controlSize = lettersControl.bounds.size
-        let xPosition = view.frame.maxX - controlSize.width
-        let yPosition = view.frame.midY - (controlSize.height / 2)
-        let origin = CGPoint(x: xPosition, y: yPosition)
-        lettersControl.frame = CGRect(origin: origin, size: controlSize)
-    }
-    
-    private func setupButton() {
-        cancelSearchButton.layer.cornerRadius = 4
-    }
-    
+        
     private func setupSearchBar() {
         searchTextField.addTarget(self, action: #selector(editingBegan(_:)), for: .editingDidBegin)
         searchTextField.addTarget(self, action: #selector(editingChanged(_:)), for: .editingChanged)
@@ -163,11 +120,9 @@ class UserFriendsTableViewController: UITableViewController {
     @objc private func editingBegan(_ textField: UITextField) {
         let widthSearchField = searchTextField.bounds.size.width
         let widthCancelButton = cancelSearchButton.bounds.size.width
-        self.view.layoutIfNeeded()
+
         UIView.animate(withDuration: 0.3) {
             self.trailingConstraintSearchTextField.constant += 70
-            self.lettersControl.isHidden = true
-            self.view.layoutIfNeeded()
         }
         UIView.animate(withDuration: 1,
                        delay: 0,
@@ -180,26 +135,22 @@ class UserFriendsTableViewController: UITableViewController {
                        })
         UIView.animate(withDuration: 0.5, delay: 0.3) {
             self.cancelSearchButton.alpha = 1
-            self.view.layoutIfNeeded()
         }
     }
     
     @objc private func touchCancel(_ sender: UIButton) {
         let widthSearchField = searchTextField.bounds.size.width
         let widthCancelButton = cancelSearchButton.bounds.size.width
-        self.view.layoutIfNeeded()
+
         UIView.animate(withDuration: 0.3, animations: {
             self.cancelSearchButton.alpha = 0
             self.textSearch = ""
             self.searchTextField.text = ""
             self.searchTextField.resignFirstResponder()
-            self.lettersControl.isHidden = false
             self.tableView.reloadData()
-            self.view.layoutIfNeeded()
         }) {_ in
             UIView.animate(withDuration: 0.3) {
                 self.trailingConstraintSearchTextField.constant -= 70
-                self.view.layoutIfNeeded()
             }
             UIView.animate(withDuration: 1,
                            delay: 0,

@@ -10,10 +10,10 @@ import Alamofire
 import SwiftyJSON
 
 protocol NetworkService {
-    func getFriends(token: String, completionHandler: @escaping ([Friends]) -> Void)
-    func getPhotos(token: String, ownerId: Int, completionHandler: @escaping ([Photos]) -> Void)
-    func getGroup(token: String, completionHandler: @escaping ([Groups]) -> Void)
-    func getGroupSearch(token: String, textSearch: String, completionHandler: @escaping ([Groups]) -> Void)
+    func getFriends(completionHandler: @escaping ([Friends]) -> Void)
+    func getPhotos(ownerId: Int, completionHandler: @escaping ([Photos]) -> Void)
+    func getGroup(completionHandler: @escaping ([Groups]) -> Void)
+    func getGroupSearch(textSearch: String, completionHandler: @escaping ([Groups]) -> Void)
 }
 
 enum AlbumID {
@@ -25,7 +25,7 @@ enum AlbumID {
 class NetworkServiceImplementation: NetworkService {
     
     private let host = "https://api.vk.com"
-    
+    private let token = SessionInfo.shared.token
     let session: Session = {
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 60
@@ -33,7 +33,7 @@ class NetworkServiceImplementation: NetworkService {
     }()
     
     //MARK: - GetFriends
-    func getFriends(token: String, completionHandler: @escaping ([Friends]) -> Void) {
+    func getFriends(completionHandler: @escaping ([Friends]) -> Void) {
         let path = "/method/friends.get"
         let params: Parameters = [
             "access_token" : token,
@@ -56,7 +56,7 @@ class NetworkServiceImplementation: NetworkService {
         }
     }
     //MARK:- GetGroup
-    func getGroup(token: String, completionHandler: @escaping ([Groups]) -> Void) {
+    func getGroup(completionHandler: @escaping ([Groups]) -> Void) {
         let path = "/method/groups.get"
         let params: Parameters = [
             "access_token" : token,
@@ -78,7 +78,7 @@ class NetworkServiceImplementation: NetworkService {
         }
     }
     //MARK: - GroupsSearch
-    func getGroupSearch(token: String, textSearch: String, completionHandler: @escaping ([Groups]) -> Void) {
+    func getGroupSearch(textSearch: String, completionHandler: @escaping ([Groups]) -> Void) {
         let path = "/method/groups.search"
         let params: Parameters = [
             "access_token" : token,
@@ -100,7 +100,7 @@ class NetworkServiceImplementation: NetworkService {
     }
     
     //MARK: - GetPhotos
-    func getPhotos(token: String, ownerId: Int, completionHandler: @escaping ([Photos]) -> Void) {
+    func getPhotos(ownerId: Int, completionHandler: @escaping ([Photos]) -> Void) {
         let path = "/method/photos.get"
         let params: Parameters = [
         "owner_id" : ownerId,

@@ -69,8 +69,8 @@ extension AuthVKViewController: WKNavigationDelegate {
         SessionInfo.shared.userId = Int(intUserId)
         decisionHandler(.cancel)
         
-        if SessionInfo.shared.token != nil,
-           SessionInfo.shared.userId != nil {
+        if SessionInfo.shared.token != "",
+           SessionInfo.shared.userId != 0 {
             
             moveToTabBarController()
         }
