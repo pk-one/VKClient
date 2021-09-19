@@ -5,7 +5,9 @@
 //  Created by Pavel Olegovich on 25.07.2021.
 //
 
+import Foundation
 import UIKit
+import RealmSwift
 
 class UserFriendsTableViewController: UITableViewController {
     //MARK: - Outlets
@@ -15,14 +17,15 @@ class UserFriendsTableViewController: UITableViewController {
     @IBOutlet var trailingConstraintSearchTextField: NSLayoutConstraint!
     
     //MARK: - Properties
-    private var friends = [Friends]()
-    private var sortedFriends = [Friends]()
+    private lazy var friends = try? databaseService.get(RealmFriends.self)
+    private var sortedFriends: Results<RealmFriends>?
     private var groupFriends = [GroupFriends]()
     private var textSearch: String = "" {
         didSet {
             groupFriendsByFirstLetter(textSearch: textSearch)
         }
     }
+    private let databaseService: DatabaseService = DatabaseServiceImplementation()
     private let networkService: NetworkService =  NetworkServiceImplementation()
     
     //MARK: - LifeCircle
@@ -31,14 +34,11 @@ class UserFriendsTableViewController: UITableViewController {
         ///убираем лишние ячейки
         tableView.tableFooterView = UIView()
         setupSearchBar()
-        networkService.getFriends(completionHandler: { [weak self] friends in
-            self?.friends = friends
-            self?.groupFriendsByFirstLetter()
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        })
+        networkService.getFriends()
+        groupFriendsByFirstLetter()
+        self.tableView.reloadData()
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(false)
         searchTextField.resignFirstResponder()
@@ -46,13 +46,15 @@ class UserFriendsTableViewController: UITableViewController {
     
     func groupFriendsByFirstLetter(textSearch: String = ""){
         if textSearch != "" {
-            sortedFriends = friends.filter {$0.fullName.contains(textSearch)}
+            sortedFriends = friends?.filter("firstName CONTAINS %@ OR lastName CONTAINS %@",
+                                            textSearch, textSearch)
         } else {
-            sortedFriends = friends.sorted {$0.firstName.first! < $1.firstName.first!}
+            sortedFriends = friends?.sorted(byKeyPath: "firstName")
         }
         
         groupFriends.removeAll()
         
+        if let sortedFriends = sortedFriends {
         for friend in sortedFriends {
             let firstLetter = String(friend.firstName.first!)
             if groupFriends.count == 0 {
@@ -65,6 +67,7 @@ class UserFriendsTableViewController: UITableViewController {
                 }
             }
         }
+    }
         self.tableView.reloadData()
     }
     
