@@ -81,26 +81,24 @@ class NewsTableHeaderView: UITableViewHeaderFooterView {
         ])
     }
     
-    func configure(news: News, groups: Results<RealmGroups>, friends: Results<RealmFriends>) {
-        if news.id < 0 {
-            
-            var idNews = news.id
-            idNews.negate()
-            for i in 0..<groups.count where idNews == groups[i].id {
-                postAuthor.text = groups[i].name
-                guard let avatar = groups[i].avatar else { return }
-                let url = URL(string: avatar)
-                authorImageView.kf.setImage(with: url)
-            }
-        }
-        if news.id > 0 {
-            for i in 0..<friends.count where news.id == friends[i].id {
-                postAuthor.text = "\(friends[i].firstName) \(friends[i].lastName)"
-                guard let avatar = groups[i].avatar else { return }
-                let url = URL(string: avatar)
-                authorImageView.kf.setImage(with: url)
-            }
-        }
+    func configure(news: RealmNews, groups: Results<RealmGroups>, friends: Results<RealmFriends>) {
+                if news.sourceId < 0 {
+                    var idNews = news.sourceId
+                    idNews.negate()
+                    for i in 0..<groups.count where idNews == groups[i].id {
+                        postAuthor.text = groups[i].name
+                        guard let avatar = groups[i].avatar else { return }
+                        let url = URL(string: avatar)
+                        authorImageView.kf.setImage(with: url)
+                    }
+                } else {
+                    for i in 0..<friends.count where news.sourceId == friends[i].id {
+                        postAuthor.text = "\(friends[i].firstName) \(friends[i].lastName)"
+                        guard let avatar = groups[i].avatar else { return }
+                        let url = URL(string: avatar)
+                        authorImageView.kf.setImage(with: url)
+                    }
+                }
         postDate.text = dateFormatter.string(from: news.date)
     }
     

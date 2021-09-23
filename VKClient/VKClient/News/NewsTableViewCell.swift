@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class NewsTableViewCell: UITableViewCell{
     
     private let newsImagesView: UIImageView = {
@@ -25,34 +24,46 @@ class NewsTableViewCell: UITableViewCell{
         return label
     }()
     
-    func configure(model: News, indexPath: IndexPath){
+    func configure(model: RealmNews, indexPath: IndexPath){
         switch indexPath.row {
         case 0:
             if !model.textNews.isEmpty {
                 setupUITextLabel()
                 self.newsTextLabel.text = model.textNews
             } else {
+                if model.imageSizeWidth != 0 {
                 addPhoto(with: model, by: indexPath)
+                }
             }
         case 1:
+            if model.imageSizeWidth != 0 {
             addPhoto(with: model, by: indexPath)
+            }
         default:
             break
         }
     }
     
-    private func addPhoto(with: News, by indexPath: IndexPath) {
+    private func addPhoto(with: RealmNews, by indexPath: IndexPath) {
         self.addSubview(newsImagesView)
-    
+       
+        if with.imageSizeWidth == 0 {
+            return
+        }
+        
+        let height = CGFloat(with.imageSizeHeight*Int(bounds.width)/with.imageSizeWidth)
+       
+
         NSLayoutConstraint.activate([
             newsImagesView.topAnchor.constraint(equalTo: topAnchor),
             newsImagesView.leadingAnchor.constraint(equalTo: leadingAnchor),
             newsImagesView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            newsImagesView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            newsImagesView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            newsImagesView.heightAnchor.constraint(equalToConstant: height),
+            newsImagesView.widthAnchor.constraint(equalToConstant: bounds.width)
         ])
         
-        let image = with.imageNews
-        let url = URL(string: image)
+        let url = URL(string: with.imageNews)
         newsImagesView.kf.setImage(with: url)
     }
     
@@ -70,6 +81,8 @@ class NewsTableViewCell: UITableViewCell{
         super.prepareForReuse()
         self.newsTextLabel.text = nil
         self.newsImagesView.image = nil
+        
+        NSLayoutConstraint.deactivate(newsImagesView.constraints)
+        NSLayoutConstraint.deactivate(newsTextLabel.constraints)
     }
 }
-

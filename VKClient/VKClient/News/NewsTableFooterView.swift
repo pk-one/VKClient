@@ -126,7 +126,7 @@ class NewsTableFooterView: UITableViewHeaderFooterView {
         ])
     }
     
-    func configure(with: News) {
+    func configure(with: RealmNews) {
         likeCountLabel.text = String(with.likeCount)
         commentsCountLabel.text = String(with.commentCount)
         repostCountLabel.text = String(with.commentCount)

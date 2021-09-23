@@ -17,7 +17,7 @@ class UserFriendsTableViewController: UITableViewController {
     @IBOutlet var trailingConstraintSearchTextField: NSLayoutConstraint!
     
     //MARK: - Properties
-    private lazy var friends = try? databaseService.get(RealmFriends.self)
+    private var friends: Results<RealmFriends>?
     private var sortedFriends: Results<RealmFriends>?
     private var groupFriends = [GroupFriends]()
     private var textSearch: String = "" {
@@ -34,9 +34,20 @@ class UserFriendsTableViewController: UITableViewController {
         ///убираем лишние ячейки
         tableView.tableFooterView = UIView()
         setupSearchBar()
-        networkService.getFriends()
+        networkService.getFriends { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let friendsArray):
+                _ = try? self.databaseService.save(friendsArray)
+            }
+        }
+        friends = try? databaseService.get(RealmFriends.self)
         groupFriendsByFirstLetter()
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

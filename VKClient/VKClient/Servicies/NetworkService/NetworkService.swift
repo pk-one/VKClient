@@ -8,12 +8,13 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import RealmSwift
 
 protocol NetworkService {
-    func getNews(completionHandler: @escaping ([News]) -> Void)
-    func getFriends()
+    func getNews(completionHandler: @escaping (Result<[RealmNews], Error>) -> Void)
+    func getFriends(completionHandler: @escaping (Result<[RealmFriends], Error>) -> Void)
     func getPhotos(ownerId: Int, completionHandler: @escaping ([Photos]) -> Void)
-    func getGroup()
+    func getGroup(completionHandler: @escaping (Result<[RealmGroups], Error>) -> Void)
     func getGroupSearch(textSearch: String, completionHandler: @escaping ([Groups]) -> Void)
 }
 
@@ -31,7 +32,7 @@ class NetworkServiceImplementation: NetworkService {
     
     
     //MARK: - GetNews
-    func getNews(completionHandler: @escaping ([News]) -> Void) {
+    func getNews(completionHandler: @escaping (Result<[RealmNews], Error>) -> Void) {
         let path = "/method/newsfeed.get"
         let params: Parameters = [
             "access_token" : token,
@@ -40,19 +41,20 @@ class NetworkServiceImplementation: NetworkService {
         ]
         session.request(host + path, method: .get, parameters: params).responseJSON { response in
             switch response.result {
-            case .failure(_):
-                completionHandler([])
+            case .failure(let error):
+                completionHandler(.failure(error))
             case .success(let value):
                 let json = JSON(value)
                 let newsItems = json["response"]["items"].arrayValue
                 let news = newsItems.map { News($0) }
-                completionHandler(news)
+                let realmNews = news.map { RealmNews ($0) }
+                completionHandler(.success(realmNews))
             }
         }
     }
     
     //MARK: - GetFriends
-    func getFriends() {
+    func getFriends(completionHandler: @escaping (Result<[RealmFriends], Error>) -> Void) {
         let path = "/method/friends.get"
         let params: Parameters = [
             "access_token" : token,
@@ -63,23 +65,21 @@ class NetworkServiceImplementation: NetworkService {
         session.request(host + path, method: .get, parameters: params).responseJSON { response in
             switch response.result {
             case .failure(let error):
-                print(error.localizedDescription)
+                completionHandler(.failure(error))
             case .success(let value):
                 let json = JSON(value)
                 let friendsItems = json["response"]["items"].arrayValue
                 let friends = friendsItems.map { Friends($0) }
                 let realmFriends = friends.map { RealmFriends($0) }
-                do {
-                    _ = try self.databaseService.save(realmFriends)
-                } catch let error{
-                    print(error)
-                }
+                completionHandler(.success(realmFriends))
+                let realm = try? Realm()
+                print(realm?.configuration.fileURL)
             }
         }
     }
     
-    //MARK:- GetGroup
-    func getGroup() {
+    //MARK:- GetGroups
+    func getGroup(completionHandler: @escaping (Result<[RealmGroups], Error>) -> Void) {
         let path = "/method/groups.get"
         let params: Parameters = [
             "access_token" : token,
@@ -89,17 +89,13 @@ class NetworkServiceImplementation: NetworkService {
         session.request(host + path, method: .get, parameters: params).responseJSON { response in
             switch response.result {
             case .failure(let error):
-                print(error.localizedDescription)
+                completionHandler(.failure(error))
             case .success(let value):
                 let json = JSON(value)
                 let groupsItems = json["response"]["items"].arrayValue
                 let groups = groupsItems.map { Groups($0) }
                 let realmGroups = groups.map { RealmGroups($0) }
-                do {
-                    _ = try self.databaseService.save(realmGroups)
-                } catch let error {
-                    print(error)
-                }
+                completionHandler(.success(realmGroups))
             }
         }
     }
