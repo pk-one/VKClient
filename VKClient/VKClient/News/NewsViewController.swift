@@ -6,87 +6,113 @@
 //
 
 import UIKit
+import RealmSwift
+import Kingfisher
 
 class NewsViewController: UIViewController {
     ///MARK: Outlets
 
-    @IBOutlet var newsTableView: UITableView!
     @IBOutlet var vkLoaderView: VKLoaderView!
-    let news = News.allPostCases
+    
+    private var news: Results<RealmNews>?
+    private var friends: Results<RealmFriends>?
+    private var groups: Results<RealmGroups>?
+    private var imageWithCell: UIImage?
+    
     private var selectedLike = [IndexPath : Bool]()
     private var selectedComment = [IndexPath : Bool]()
     private var selectedReposts = [IndexPath : Bool]()
     
+    private let networkService: NetworkService = NetworkServiceImplementation()
+    private let databaseService: DatabaseService = DatabaseServiceImplementation()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        newsTableView.tableFooterView = UIView()
-        newsTableView.allowsSelection = false
-        newsTableView.isHidden = true
-        newsTableView.rowHeight = UITableView.automaticDimension
-        newsTableView.estimatedRowHeight = 44
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0) { [self] in
-            UIView.transition(from: vkLoaderView, to: newsTableView, duration: 0.5, options: .transitionCrossDissolve) { _ in
-                vkLoaderView.removeFromSuperview()
+        self.view.addSubview(tableView)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .secondarySystemBackground
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableView.automaticDimension
+        
+        networkService.getNews { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let newsArray):
+            _ = try? self.databaseService.save(newsArray)
             }
-            newsTableView.isHidden = false
         }
+        news = try? databaseService.get(RealmNews.self).sorted(byKeyPath: "date", ascending: false)
+        friends = try? databaseService.get(RealmFriends.self)
+        groups = try? databaseService.get(RealmGroups.self)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    private let tableView: UITableView = {
+        let table = UITableView(frame: .zero, style: .grouped)
+        table.register(NewsTableViewCell.self, forCellReuseIdentifier: "NewsTableViewCell")
+        table.register(NewsTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "NewsTableHeaderView")
+        table.register(NewsTableFooterView.self, forHeaderFooterViewReuseIdentifier: "NewsTableFooterView")
+        return table
+    }()
+    
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+//        tableView.frame = view.bounds
+        tableView.frame = view.bounds.inset(by: UIEdgeInsets(top: 90, left: 0, bottom: 80, right: 0))
     }
 }
 
 extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return News.allPostCases.count
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "NewsTableHeaderView") as? NewsTableHeaderView
+        guard let news = news, let groups = groups, let friends = friends else { return UIView()}
+        headerView?.configure(news: news[section], groups: groups, friends: friends)
+        return headerView
     }
-
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "NewsTableFooterView") as? NewsTableFooterView
+        guard let news = news else { return UIView() }
+        footerView?.configure(with: news[section])
+        return footerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        60
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        40
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return news?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let news = news else { return 0 }
+        let model = news[section]
+        
+        if model.imageNews.isEmpty && model.textNews.isEmpty {
+            return 0
+        } else if !model.imageNews.isEmpty && !model.textNews.isEmpty {
+            return 2
+        }
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(NewsTableViewCell.self, for: indexPath)
-        cell.configure(with: news[indexPath.row])
-        cell.indexPath = indexPath.row
-        cell.delegate = self
-        cell.configureIndexPath(with: indexPath)
-        ///изображения
-        if let images = news[indexPath.row].imageNews, !images.isEmpty {
-            cell.newsImagesCollectionView.set(photos: images)
-        }
-        ///лайки
-        if let stateHeart = selectedLike[indexPath] {
-            cell.isHeartFilled = stateHeart
-        }
-        ////коменты
-        if let stateComment = selectedComment[indexPath] {
-            cell.isCommentTap = stateComment
-        }
-        ///репост
-        if let stateRepost = selectedReposts[indexPath] {
-            cell.isRepostTap = stateRepost
-        }
+        guard let news = news else { return UITableViewCell() }
+        cell.configure(model: news[indexPath.section], indexPath: indexPath)
         return cell
     }
-    
-    private func formattedCounter(_ counter: Int?) -> String? {
-        guard let counter = counter else { return nil }
-        var counterString = String(counter)
-        if 4...6 ~= counterString.count {
-            counterString = String(counterString.dropLast(3)) + "K"
-        } else if counterString.count > 6 {
-            counterString = String(counterString.dropLast(6)) + "M"
-        }
-        return counterString
-    }
 }
-
-extension NewsViewController: NewsTableViewCellDelegate {
-    func heartWasPressed(in indexPath: IndexPath, and isSelected: Bool) {
-        selectedLike[indexPath] = isSelected
-    }
-    
-    func commentWasPressed(in indexPath: IndexPath, and isSelected: Bool) {
-        selectedComment[indexPath] = isSelected
-    }
-    
-    func repostWasPressed(in indexPath: IndexPath, and isSelected: Bool) {
-        selectedReposts[indexPath] = isSelected
-    }
-}
-
-    

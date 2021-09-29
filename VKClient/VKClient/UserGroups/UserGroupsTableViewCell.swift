@@ -28,8 +28,9 @@ class UserGroupsTableViewCell: UITableViewCell {
         imageGroupImageView.layer.add(animation, forKey: nil)
     }
     
-    func configure(with: Groups) {
-        let url = URL(string: with.avatar)
+    func configure(with: RealmGroups) {
+        guard let avatar = with.avatar else { return }
+        let url = URL(string: avatar)
         imageGroupImageView.kf.setImage(with: url)
         groupNameLabel.text = with.name
     }

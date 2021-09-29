@@ -8,75 +8,98 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import RealmSwift
 
 protocol NetworkService {
-    func getFriends(completionHandler: @escaping ([Friends]) -> Void)
+    func getNews(completionHandler: @escaping (Result<[RealmNews], Error>) -> Void)
+    func getFriends(completionHandler: @escaping (Result<[RealmFriends], Error>) -> Void)
     func getPhotos(ownerId: Int, completionHandler: @escaping ([Photos]) -> Void)
-    func getGroup(completionHandler: @escaping ([Groups]) -> Void)
+    func getGroup(completionHandler: @escaping (Result<[RealmGroups], Error>) -> Void)
     func getGroupSearch(textSearch: String, completionHandler: @escaping ([Groups]) -> Void)
-}
-
-enum AlbumID {
-    case wall
-    case profile
-    case saved
 }
 
 class NetworkServiceImplementation: NetworkService {
     
     private let host = "https://api.vk.com"
     private let token = SessionInfo.shared.token
+    private let databaseService: DatabaseService = DatabaseServiceImplementation()
+    
     let session: Session = {
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 60
         return Session(configuration: config)
     }()
     
-    //MARK: - GetFriends
-    func getFriends(completionHandler: @escaping ([Friends]) -> Void) {
-        let path = "/method/friends.get"
+    
+    //MARK: - GetNews
+    func getNews(completionHandler: @escaping (Result<[RealmNews], Error>) -> Void) {
+        let path = "/method/newsfeed.get"
         let params: Parameters = [
             "access_token" : token,
-            "order" : "hints",
-            "fields" : "city, photo_50, online",
-            "count" : "100",
-            "v" : "5.131"
-        ]
-        session.request(host + path, method: .get, parameters: params).responseJSON { response in
-           switch response.result {
-           case .failure(let error):
-            print(error.localizedDescription)
-            completionHandler([])
-           case .success(let value):
-            let json = JSON(value)
-            let friendsItems = json["response"]["items"].arrayValue
-            let friends = friendsItems.map { Friends($0) }
-            completionHandler(friends)
-            }
-        }
-    }
-    //MARK:- GetGroup
-    func getGroup(completionHandler: @escaping ([Groups]) -> Void) {
-        let path = "/method/groups.get"
-        let params: Parameters = [
-            "access_token" : token,
-            "extended" : 1,
-            "count" : "100",
+            "filters": "post, photo",
             "v" : "5.131"
         ]
         session.request(host + path, method: .get, parameters: params).responseJSON { response in
             switch response.result {
             case .failure(let error):
-                print(error.localizedDescription)
-                completionHandler([])
+                completionHandler(.failure(error))
+            case .success(let value):
+                let json = JSON(value)
+                let newsItems = json["response"]["items"].arrayValue
+                let news = newsItems.map { News($0) }
+                let realmNews = news.map { RealmNews ($0) }
+                completionHandler(.success(realmNews))
+            }
+        }
+    }
+    
+    //MARK: - GetFriends
+    func getFriends(completionHandler: @escaping (Result<[RealmFriends], Error>) -> Void) {
+        let path = "/method/friends.get"
+        let params: Parameters = [
+            "access_token" : token,
+            "order" : "hints",
+            "fields" : "city, photo_50, online",
+            "v" : "5.131"
+        ]
+        session.request(host + path, method: .get, parameters: params).responseJSON { response in
+            switch response.result {
+            case .failure(let error):
+                completionHandler(.failure(error))
+            case .success(let value):
+                let json = JSON(value)
+                let friendsItems = json["response"]["items"].arrayValue
+                let friends = friendsItems.map { Friends($0) }
+                let realmFriends = friends.map { RealmFriends($0) }
+                completionHandler(.success(realmFriends))
+                let realm = try? Realm()
+                print(realm?.configuration.fileURL)
+            }
+        }
+    }
+    
+    //MARK:- GetGroups
+    func getGroup(completionHandler: @escaping (Result<[RealmGroups], Error>) -> Void) {
+        let path = "/method/groups.get"
+        let params: Parameters = [
+            "access_token" : token,
+            "extended" : 1,
+            "v" : "5.131"
+        ]
+        session.request(host + path, method: .get, parameters: params).responseJSON { response in
+            switch response.result {
+            case .failure(let error):
+                completionHandler(.failure(error))
             case .success(let value):
                 let json = JSON(value)
                 let groupsItems = json["response"]["items"].arrayValue
                 let groups = groupsItems.map { Groups($0) }
-                completionHandler(groups)
+                let realmGroups = groups.map { RealmGroups($0) }
+                completionHandler(.success(realmGroups))
             }
         }
     }
+    
     //MARK: - GroupsSearch
     func getGroupSearch(textSearch: String, completionHandler: @escaping ([Groups]) -> Void) {
         let path = "/method/groups.search"
@@ -88,8 +111,8 @@ class NetworkServiceImplementation: NetworkService {
         session.request(host + path, method: .get, parameters: params).responseJSON { response in
             switch response.result {
             case .failure(let error):
-            print(error.localizedDescription)
-            completionHandler([])
+                print(error.localizedDescription)
+                completionHandler([])
             case .success(let value):
                 let json = JSON(value)
                 let groupsSearchItems = json["response"]["items"].arrayValue
@@ -103,11 +126,11 @@ class NetworkServiceImplementation: NetworkService {
     func getPhotos(ownerId: Int, completionHandler: @escaping ([Photos]) -> Void) {
         let path = "/method/photos.get"
         let params: Parameters = [
-        "owner_id" : ownerId,
-        "access_token" : token,
-        "extended" : "1",
-        "album_id" : "wall",
-        "v" : "5.131"
+            "owner_id" : ownerId,
+            "access_token" : token,
+            "extended" : "1",
+            "album_id" : "wall",
+            "v" : "5.131"
         ]
         session.request(host + path, method: .get, parameters: params).responseJSON { response in
             switch response.result {
