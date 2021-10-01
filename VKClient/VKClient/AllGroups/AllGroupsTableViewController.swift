@@ -120,8 +120,11 @@ class AllGroupsTableViewController: UITableViewController {
 
 extension AllGroupsTableViewController: AllGroupsTableViewCellDelegate {
     func addGroup(id: Int, name: String) {
-        let groups = FirebaseGroups(name: name, id: id)
-        let groupsRef = self.ref.child(name.lowercased())
+        let vowels: Set<Character> = [".", "#", "$", "[", "]"]
+        var nameGroup = name
+        nameGroup.removeAll(where: { vowels.contains($0) })
+        let groups = FirebaseGroups(name: nameGroup, id: id)
+        let groupsRef = self.ref.child(nameGroup.lowercased())
         
         groupsRef.setValue(groups.toAnyObject())
     }
