@@ -156,31 +156,13 @@
         <scene sceneID="N1r-3e-hFh">
             <objects>
                 <tableViewController id="He8-sP-uJC" customClass="UserGroupsTableViewController" customModule="VKClient" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Yzm-4S-wP8" customClass="CustomHeader" customModule="VKClient" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Yzm-4S-wP8">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="1nh-HO-Bze">
-                            <rect key="frame" x="0.0" y="0.0" width="390" height="120"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebookgroups_1920" translatesAutoresizingMaskIntoConstraints="NO" id="mbs-1N-3CQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="120"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="120" id="Whn-4W-eI5"/>
-                                    </constraints>
-                                </imageView>
-                            </subviews>
-                            <color key="backgroundColor" red="0.21960783" green="0.5176470876" blue="0.99607843159999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            <constraints>
-                                <constraint firstAttribute="trailing" secondItem="mbs-1N-3CQ" secondAttribute="trailing" id="E0B-f9-0bJ"/>
-                                <constraint firstAttribute="bottom" secondItem="mbs-1N-3CQ" secondAttribute="bottom" id="I4Q-6S-QMI"/>
-                                <constraint firstItem="mbs-1N-3CQ" firstAttribute="leading" secondItem="1nh-HO-Bze" secondAttribute="leading" id="PZO-Bg-olI"/>
-                            </constraints>
-                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserGroupsTableViewCell" id="XxZ-wL-xhO" customClass="UserGroupsTableViewCell" customModule="VKClient" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="164.66666603088379" width="390" height="70"/>
+                                <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XxZ-wL-xhO" id="hg8-ON-ufd">
                                     <rect key="frame" x="0.0" y="0.0" width="390" height="70"/>
@@ -218,7 +200,6 @@
                         <connections>
                             <outlet property="dataSource" destination="He8-sP-uJC" id="Kye-yr-XxP"/>
                             <outlet property="delegate" destination="He8-sP-uJC" id="fu8-SO-LGQ"/>
-                            <outlet property="heightHeaderImageViewConstraint" destination="Whn-4W-eI5" id="Ya7-Jd-T2M"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Группы" id="6oD-Ca-aJQ">
@@ -253,8 +234,15 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="afq-gx-OVk" customClass="RoundedButton" customModule="VKClient" customModuleProvider="target">
-                                    <rect key="frame" x="320" y="7" width="60" height="30"/>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifyingglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="nYm-oe-XRv">
+                                    <rect key="frame" x="180" y="7.9999999999999964" width="30" height="28.333333333333329"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="30" id="jsj-jr-Gzx"/>
+                                        <constraint firstAttribute="height" constant="30" id="n3h-d5-BR9"/>
+                                    </constraints>
+                                </imageView>
+                                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="afq-gx-OVk" customClass="RoundedButton" customModule="VKClient" customModuleProvider="target">
+                                    <rect key="frame" x="320" y="6" width="60" height="30"/>
                                     <color key="backgroundColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="Pna-Pl-TnG"/>
@@ -264,13 +252,6 @@
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                 </button>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifyingglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="nYm-oe-XRv">
-                                    <rect key="frame" x="180" y="7.9999999999999964" width="30" height="28.333333333333329"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="30" id="jsj-jr-Gzx"/>
-                                        <constraint firstAttribute="height" constant="30" id="n3h-d5-BR9"/>
-                                    </constraints>
-                                </imageView>
                             </subviews>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="4Lu-WG-QY9"/>
@@ -293,7 +274,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bIe-VU-oJg">
-                                            <rect key="frame" x="80" y="24.666666666666671" width="290" height="21"/>
+                                            <rect key="frame" x="80" y="24.666666666666671" width="254" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -305,17 +286,32 @@
                                                 <constraint firstAttribute="width" secondItem="y7B-db-Bdt" secondAttribute="height" multiplier="1:1" id="Oga-be-LqV"/>
                                             </constraints>
                                         </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PD0-x0-3Vk">
+                                            <rect key="frame" x="354" y="27" width="16" height="16"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="16" id="K6F-ZG-Xaa"/>
+                                                <constraint firstAttribute="width" secondItem="PD0-x0-3Vk" secondAttribute="height" multiplier="1:1" id="eSE-nb-VPs"/>
+                                            </constraints>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" image="plus.app" catalog="system"/>
+                                            <connections>
+                                                <action selector="addGroupsButtonTapped:" destination="19b-3g-b0g" eventType="touchUpInside" id="V8j-wA-wBl"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="bIe-VU-oJg" firstAttribute="centerY" secondItem="y7B-db-Bdt" secondAttribute="centerY" id="0KX-Ca-sSC"/>
+                                        <constraint firstAttribute="trailing" secondItem="PD0-x0-3Vk" secondAttribute="trailing" constant="20" id="9zZ-bg-tu7"/>
                                         <constraint firstItem="y7B-db-Bdt" firstAttribute="leading" secondItem="uNu-QH-xGb" secondAttribute="leading" constant="20" symbolic="YES" id="Zau-d1-1BY"/>
-                                        <constraint firstAttribute="trailing" secondItem="bIe-VU-oJg" secondAttribute="trailing" constant="20" id="bI8-ve-ZAc"/>
+                                        <constraint firstItem="PD0-x0-3Vk" firstAttribute="leading" secondItem="bIe-VU-oJg" secondAttribute="trailing" constant="20" id="h0C-Ti-A2d"/>
                                         <constraint firstItem="bIe-VU-oJg" firstAttribute="leading" secondItem="y7B-db-Bdt" secondAttribute="trailing" constant="10" id="jTK-fu-rhG"/>
                                         <constraint firstAttribute="bottom" secondItem="y7B-db-Bdt" secondAttribute="bottom" constant="10" id="rsV-K9-ZhL"/>
+                                        <constraint firstItem="PD0-x0-3Vk" firstAttribute="centerY" secondItem="uNu-QH-xGb" secondAttribute="centerY" id="s2b-am-2Q1"/>
                                         <constraint firstItem="y7B-db-Bdt" firstAttribute="top" secondItem="uNu-QH-xGb" secondAttribute="top" constant="10" id="tX0-5T-oEA"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="addGroupsButton" destination="PD0-x0-3Vk" id="8gN-vK-8VE"/>
                                     <outlet property="imageGroupImageView" destination="y7B-db-Bdt" id="zvv-iH-TAm"/>
                                     <outlet property="nameGroupLabel" destination="bIe-VU-oJg" id="JTd-Jc-2ZD"/>
                                     <segue destination="IX9-Mb-cbC" kind="unwind" identifier="addGroup" unwindAction="addGroupWithSegue:" id="OKe-4z-JgJ"/>
@@ -516,6 +512,21 @@
             </objects>
             <point key="canvasLocation" x="850.76923076923072" y="1714.6919431279621"/>
         </scene>
+        <!--News Comments View Controller-->
+        <scene sceneID="9K8-FR-cWm">
+            <objects>
+                <viewController storyboardIdentifier="NewsCommentsViewController" id="DGo-SQ-PnB" customClass="NewsCommentsViewController" customModule="VKClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BRJ-eA-K36">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="LTD-56-IDN"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J5h-sz-Gbt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="28" y="2453"/>
+        </scene>
         <!--Friends Photos Collection View Controller-->
         <scene sceneID="zAM-Fw-Czw">
             <objects>
@@ -691,11 +702,11 @@
     <resources>
         <image name="VK-Logo-2016" width="1600" height="1200"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
-        <image name="facebookgroups_1920" width="1920" height="731"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="note.text" catalog="system" width="128" height="106"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
         <image name="person.3.fill" catalog="system" width="128" height="61"/>
+        <image name="plus.app" catalog="system" width="128" height="114"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

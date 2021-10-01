@@ -1,14 +1,14 @@
 //
-//  Groups.swift
+//  GroupsComments.swift
 //  VKClient
 //
-//  Created by Pavel Olegovich on 02.09.2021.
+//  Created by Pavel Olegovich on 29.09.2021.
 //
 
 import Foundation
 import SwiftyJSON
 
-class Groups{
+class GroupsComments {
     let id: Int
     let name: String
     let avatar: String

@@ -9,49 +9,24 @@ import UIKit
 import RealmSwift
 import Kingfisher
 
-class NewsViewController: UIViewController {
+class NewsViewController: UIViewController{
     ///MARK: Outlets
 
     @IBOutlet var vkLoaderView: VKLoaderView!
     
-    private var news: Results<RealmNews>?
-    private var friends: Results<RealmFriends>?
-    private var groups: Results<RealmGroups>?
-    private var imageWithCell: UIImage?
+    private lazy var groups = try? databaseService.get(RealmGroups.self)
+    private lazy var friends = try? databaseService.get(RealmFriends.self)
+    private lazy var news = try? databaseService.get(RealmNews.self).sorted(byKeyPath: "date", ascending: false)
     
-    private var selectedLike = [IndexPath : Bool]()
-    private var selectedComment = [IndexPath : Bool]()
-    private var selectedReposts = [IndexPath : Bool]()
+    private var notificationToken: NotificationToken?
+    private var myRefreshControll: UIRefreshControl = {
+        let refreshControll = UIRefreshControl()
+        refreshControll.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
+        return refreshControll
+    }()
     
     private let networkService: NetworkService = NetworkServiceImplementation()
     private let databaseService: DatabaseService = DatabaseServiceImplementation()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.addSubview(tableView)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .secondarySystemBackground
-        tableView.estimatedRowHeight = tableView.rowHeight
-        tableView.rowHeight = UITableView.automaticDimension
-        
-        networkService.getNews { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let error):
-                print(error)
-            case .success(let newsArray):
-            _ = try? self.databaseService.save(newsArray)
-            }
-        }
-        news = try? databaseService.get(RealmNews.self).sorted(byKeyPath: "date", ascending: false)
-        friends = try? databaseService.get(RealmFriends.self)
-        groups = try? databaseService.get(RealmGroups.self)
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
     
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -60,6 +35,40 @@ class NewsViewController: UIViewController {
         table.register(NewsTableFooterView.self, forHeaderFooterViewReuseIdentifier: "NewsTableFooterView")
         return table
     }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.addSubview(tableView)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.separatorStyle = .none
+        tableView.allowsSelection = false
+        tableView.backgroundColor = .secondarySystemBackground
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.refreshControl = myRefreshControll
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        notificationToken = news?.observe { [weak self] change in
+            guard let self = self else { return }
+            switch change {
+            case .error(let error):
+                self.show(error: error)
+            case .initial:
+                self.tableView.reloadData()
+            case .update:
+                self.tableView.reloadData()
+                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        notificationToken?.invalidate()
+    }
     
     
     override func viewDidLayoutSubviews() {
@@ -67,21 +76,35 @@ class NewsViewController: UIViewController {
 //        tableView.frame = view.bounds
         tableView.frame = view.bounds.inset(by: UIEdgeInsets(top: 90, left: 0, bottom: 80, right: 0))
     }
+    
+   @objc private func refresh(sender: UIRefreshControl) {
+       networkService.getNews { [weak self] result in
+           guard let self = self else { return }
+           switch result {
+           case .failure(let error):
+               self.show(error: error)
+           case .success(let newsArray):
+           _ = try? self.databaseService.save(newsArray)
+               print(SessionInfo.shared.token)           }
+       }
+        sender.endRefreshing()
+    }
 }
 
 extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "NewsTableHeaderView") as? NewsTableHeaderView
+        let headerView = tableView.dequeueReusableHeaderFooterView(NewsTableHeaderView.self)
         guard let news = news, let groups = groups, let friends = friends else { return UIView()}
-        headerView?.configure(news: news[section], groups: groups, friends: friends)
+        headerView.configure(news: news[section], groups: groups, friends: friends)
         return headerView
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "NewsTableFooterView") as? NewsTableFooterView
+        let footerView = tableView.dequeueReusableHeaderFooterView(NewsTableFooterView.self)
         guard let news = news else { return UIView() }
-        footerView?.configure(with: news[section])
+        footerView.configure(with: news[section])
+        footerView.delegate = self
         return footerView
     }
     
@@ -95,6 +118,23 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return news?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let news = news else {
+            return UITableView.automaticDimension
+        }
+
+        let model = news[indexPath.section]
+
+        if  !model.imageNews.isEmpty && model.textNews.isEmpty && indexPath.row == 0 {
+            let height = CGFloat(model.imageSizeHeight*Int(view.bounds.width)/model.imageSizeWidth)
+            return height + 5
+        } else if !model.imageNews.isEmpty && !model.textNews.isEmpty && indexPath.row == 1 {
+            let height = CGFloat(model.imageSizeHeight*Int(view.bounds.width)/model.imageSizeWidth)
+            return height + 5
+        }
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -114,5 +154,35 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
         guard let news = news else { return UITableViewCell() }
         cell.configure(model: news[indexPath.section], indexPath: indexPath)
         return cell
+    }
+    
+    private func formattedCounter(_ counter: Int?) -> String? {
+            guard let counter = counter else { return nil }
+            var counterString = String(counter)
+            if 4...6 ~= counterString.count {
+                counterString = String(counterString.dropLast(3)) + "K"
+            } else if counterString.count > 6 {
+                counterString = String(counterString.dropLast(6)) + "M"
+            }
+            return counterString
+        }
+}
+
+extension NewsViewController: NewsTableFooterViewDelegate, UINavigationControllerDelegate {
+    func commentWasPressed(with postID: Int, for ownerID: Int) {
+        guard let newsCommentsViewController = storyboard?.instantiateViewController(withIdentifier: "NewsCommentsViewController") as? NewsCommentsViewController else { return }
+        newsCommentsViewController.modalPresentationStyle = .fullScreen
+        newsCommentsViewController.postID = postID
+        newsCommentsViewController.ownerID = ownerID
+        navigationController?.delegate = self
+        navigationController?.pushViewController(newsCommentsViewController, animated: true)
+    }
+    
+    func heartWasPressed(at objectId: Int) {
+        guard let object = try? databaseService.get(RealmNews.self, primaryKey: objectId) else { return }
+        let realm = try! Realm()
+        try? realm.write {
+            object.isDislike.toggle()
+        }
     }
 }

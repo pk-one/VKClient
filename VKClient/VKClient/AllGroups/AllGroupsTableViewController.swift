@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 class AllGroupsTableViewController: UITableViewController {
     
@@ -14,14 +16,29 @@ class AllGroupsTableViewController: UITableViewController {
     @IBOutlet var centerXContraintMagnifyingGlass: NSLayoutConstraint!
     @IBOutlet var trailingConstraintSearchTextField: NSLayoutConstraint!
     
-    private var searchGroups = [Groups]()
+    private var searchGroups = [MyGroups]()
     private let networkService: NetworkService = NetworkServiceImplementation()
+    
+    private var firebaseGroups = [FirebaseGroups]()
+    private let ref = Database.database().reference(withPath: "firebaseGroups")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
         setupButton()
         tableView.tableFooterView = UIView()
+        
+        ref.observe(.value, with: { snapshot in
+            var groups: [FirebaseGroups] = []
+            for child in snapshot.children {
+                if let snapshot = child as? DataSnapshot,
+                   let group = FirebaseGroups(snapshot: snapshot) {
+                    groups.append(group)
+                }
+            }
+            self.firebaseGroups = groups
+            self.tableView.reloadData()
+        })
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -31,6 +48,7 @@ class AllGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(AllGroupsTableViewCell.self, for: indexPath)
         cell.configure(with: searchGroups[indexPath.row])
+        cell.delegate = self
         return cell
     }
     
@@ -97,6 +115,15 @@ class AllGroupsTableViewController: UITableViewController {
                 self?.tableView.reloadData()
             }
         }
+    }
+}
+
+extension AllGroupsTableViewController: AllGroupsTableViewCellDelegate {
+    func addGroup(id: Int, name: String) {
+        let groups = FirebaseGroups(name: name, id: id)
+        let groupsRef = self.ref.child(name.lowercased())
+        
+        groupsRef.setValue(groups.toAnyObject())
     }
 }
 

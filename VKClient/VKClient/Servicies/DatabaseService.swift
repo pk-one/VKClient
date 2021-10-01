@@ -14,7 +14,7 @@ protocol DatabaseService {
     func get<T: Object, KeyType>(_ type: T.Type, primaryKey: KeyType) throws -> T?
     func get<T: Object>(_ type: T.Type) throws -> Results<T>
     func delete<T: Object>(_ item: T) throws -> Realm
-    func deleteAll() throws
+    func deleteAll<T: Object>(_ items: [T]) throws
 }
 
 class DatabaseServiceImplementation: DatabaseService {
@@ -46,13 +46,6 @@ class DatabaseServiceImplementation: DatabaseService {
             let realm = try Realm(configuration: .defaultConfiguration)
             return realm.objects(type)
         }
-    
-//    получение объектов по владельцу
-//    func get<T: Object, KeyType>(_ type: T.Type, ownerId: KeyType) throws -> Results<T> {
-//        let realm = try Realm(configuration: .defaultConfiguration)
-//        return realm.object(ofType: type, forPrimaryKey: ownerId)
-//    }
-    
         
     //удаление объекта из базы
         func delete<T: Object>(_ item: T) throws -> Realm {
@@ -64,11 +57,10 @@ class DatabaseServiceImplementation: DatabaseService {
         }
         
     //удаление всех объектов из базы данных
-        func deleteAll() throws {
-            let realm = try Realm(configuration: .defaultConfiguration)
-            try realm.write {
-                realm.deleteAll()
-            }
+    func deleteAll<T: Object>(_ items: [T]) throws {
+        let realm = try Realm(configuration: .defaultConfiguration)
+        try realm.write {
+            realm.delete(items)
         }
     }
-
+}

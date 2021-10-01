@@ -17,7 +17,7 @@ class UserFriendsTableViewController: UITableViewController {
     @IBOutlet var trailingConstraintSearchTextField: NSLayoutConstraint!
     
     //MARK: - Properties
-    private var friends: Results<RealmFriends>?
+    private lazy var friends = try? databaseService.get(RealmFriends.self)
     private var sortedFriends: Results<RealmFriends>?
     private var groupFriends = [GroupFriends]()
     private var textSearch: String = "" {
@@ -28,31 +28,58 @@ class UserFriendsTableViewController: UITableViewController {
     private let databaseService: DatabaseService = DatabaseServiceImplementation()
     private let networkService: NetworkService =  NetworkServiceImplementation()
     
+    private var notificationToken: NotificationToken?
+    
     //MARK: - LifeCircle
     override func viewDidLoad() {
         super.viewDidLoad()
         ///убираем лишние ячейки
         tableView.tableFooterView = UIView()
         setupSearchBar()
-        networkService.getFriends { [weak self] result in
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+       
+        fetchFriends()
+        
+        notificationToken = friends?.observe { [weak self] change in
             guard let self = self else { return }
-            switch result {
-            case .failure(let error):
-                print(error)
-            case .success(let friendsArray):
-                _ = try? self.databaseService.save(friendsArray)
+            switch change {
+            case .error(let error):
+                self.show(error: error)
+            case .initial:
+                self.tableView.reloadData()
+                self.groupFriendsByFirstLetter()
+            case .update:
+                self.tableView.reloadData()
+                self.groupFriendsByFirstLetter()
             }
-        }
-        friends = try? databaseService.get(RealmFriends.self)
-        groupFriendsByFirstLetter()
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(false)
         searchTextField.resignFirstResponder()
+    }
+    
+    private func fetchFriends() {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        view.addSubview(activityIndicator)
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        activityIndicator.center = self.view.center
+        activityIndicator.startAnimating()
+        
+        networkService.getFriends { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                self.show(error: error)
+            case .success(let friendsArray):
+                _ = try? self.databaseService.save(friendsArray)
+                activityIndicator.stopAnimating()
+            }
+        }
     }
     
     func groupFriendsByFirstLetter(textSearch: String = ""){

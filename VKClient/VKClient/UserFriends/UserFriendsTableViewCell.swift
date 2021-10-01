@@ -13,8 +13,7 @@ class UserFriendsTableViewCell: UITableViewCell {
     @IBOutlet private var cityFriendLabel: UILabel!
     
     func configure(with friends: RealmFriends) {
-        guard let avatar = friends.avatar else { return }
-        let url = URL(string: avatar)
+        let url = URL(string: friends.avatar)
         imageFriendImageView.kf.setImage(with: url)
         fullNameFriendLabel.text = "\(friends.firstName) \(friends.lastName)"
         cityFriendLabel.text = friends.city

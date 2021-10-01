@@ -16,6 +16,7 @@ class News {
     var imageNews: String
     var imageSizeHeight: Int
     var imageSizeWidth: Int
+    
     var likeCount: Int
     var commentCount: Int
     var repostCount: Int

@@ -7,6 +7,7 @@
 import UIKit
 import WebKit
 import SwiftKeychainWrapper
+import FirebaseFirestore
 
 class AuthVKViewController: UIViewController {
     
@@ -26,6 +27,25 @@ class AuthVKViewController: UIViewController {
     }
     
     private func checkAuth() {
+        
+        if let keychainData = KeychainWrapper.standard.string(forKey: "user") {
+            let data = Data(keychainData.utf8)
+            
+            if let decodeUser = decode(json: data, as: KeychainUser.self) {
+                
+                let now = Date().timeIntervalSince1970
+                let isActiveDate = (now - decodeUser.date) < timeToSecnod
+                
+                if isActiveDate {
+                    SessionInfo.shared.token = decodeUser.token
+                    SessionInfo.shared.userId = decodeUser.id
+                    
+                    self.canPresent = true
+                    return
+                }
+            }
+        }
+        
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "oauth.vk.com"
@@ -41,25 +61,8 @@ class AuthVKViewController: UIViewController {
         
         let request = URLRequest(url: urlComponents.url!)
         webview.load(request)
-        
-        if let keychainData = KeychainWrapper.standard.string(forKey: "user") {
-            let data = Data(keychainData.utf8)
-            
-            if let decodeUser = decode(json: data, as: KeychainUser.self) {
-                
-                let now = Date().timeIntervalSince1970
-                let checkInterval = (now - decodeUser.date) >= timeToSecnod
-                
-                if !checkInterval {
-                    SessionInfo.shared.token = decodeUser.token
-                    SessionInfo.shared.userId = decodeUser.id
-                    
-                    self.canPresent = true
-                    return
-                }
-            }
-        }
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         if self.canPresent {
@@ -107,6 +110,7 @@ extension AuthVKViewController: WKNavigationDelegate {
             KeychainWrapper.standard["user"] = encodedUser
             
             moveToTabBarController()
+        
         }
     }
     

@@ -1,13 +1,13 @@
 //
-//  NewsTableViewCell.swift
+//  NewsPostTableViewCell.swift
 //  VKClient
 //
-//  Created by Pavel Olegovich on 03.08.2021.
+//  Created by Pavel Olegovich on 29.09.2021.
 //
 
 import UIKit
 
-class NewsTableViewCell: UITableViewCell{
+class NewsPostTableViewCell: UITableViewCell {
     
     private let newsImagesView: UIImageView = {
         var image = UIImageView()
@@ -32,12 +32,12 @@ class NewsTableViewCell: UITableViewCell{
                 self.newsTextLabel.text = model.textNews
             } else {
                 if model.imageSizeWidth != 0 {
-                addPhoto(with: model, by: indexPath)
+                    addPhoto(with: model, by: indexPath)
                 }
             }
         case 1:
             if model.imageSizeWidth != 0 {
-            addPhoto(with: model, by: indexPath)
+                addPhoto(with: model, by: indexPath)
             }
         default:
             break
@@ -46,13 +46,13 @@ class NewsTableViewCell: UITableViewCell{
     
     private func addPhoto(with: RealmNews, by indexPath: IndexPath) {
         self.addSubview(newsImagesView)
-       
+        
         if with.imageSizeWidth == 0 {
             return
         }
         
         let height = CGFloat(with.imageSizeHeight*Int(bounds.width)/with.imageSizeWidth)
-       
+        
         NSLayoutConstraint.activate([
             newsImagesView.topAnchor.constraint(equalTo: topAnchor),
             newsImagesView.leadingAnchor.constraint(equalTo: leadingAnchor),
