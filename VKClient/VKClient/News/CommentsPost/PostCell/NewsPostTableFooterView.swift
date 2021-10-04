@@ -1,28 +1,25 @@
 //
-//  NewsTableFooterView.swift
+//  NewsPostTableFooterView.swift
 //  VKClient
 //
-//  Created by Pavel Olegovich on 19.09.2021.
+//  Created by Pavel Olegovich on 29.09.2021.
 //
 
 import UIKit
-import Kingfisher
 
-protocol NewsTableFooterViewDelegate: AnyObject {
+protocol NewsPostTableFooterViewDelegate: AnyObject {
     func heartWasPressed(at objectId: Int)
-    func commentWasPressed(with postID: Int, for ownerID: Int )
 }
 
-class NewsTableFooterView: UITableViewHeaderFooterView {
-
+class NewsPostTableFooterView: UITableViewHeaderFooterView {
+    
     var indexPath: Int?
     var selectedIndexPath: IndexPath?
     
     /// Идентификатор объекта
     private var newsPostID = 0
-    private var newsOwnerID = 0
     
-    weak var delegate: NewsTableFooterViewDelegate?
+    weak var delegate: NewsPostTableFooterViewDelegate?
     
     private var likeImage: UIImageView = {
         let likeImage = UIImageView()
@@ -37,21 +34,6 @@ class NewsTableFooterView: UITableViewHeaderFooterView {
         likeLabel.font = UIFont(name: "Arial", size: 18)
         likeLabel.translatesAutoresizingMaskIntoConstraints = false
         return likeLabel
-    }()
-    
-    private var commentsImage: UIImageView = {
-        let commentsImage = UIImageView()
-        commentsImage.image = CellConsts.commentEmpty
-        commentsImage.translatesAutoresizingMaskIntoConstraints = false
-        commentsImage.isUserInteractionEnabled = true
-        return commentsImage
-    }()
-
-    private var commentsCountLabel: UILabel = {
-        let commentsLabel = UILabel()
-        commentsLabel.font = UIFont(name: "Arial", size: 18)
-        commentsLabel.translatesAutoresizingMaskIntoConstraints = false
-        return commentsLabel
     }()
     
     private var repostImage: UIImageView = {
@@ -76,7 +58,7 @@ class NewsTableFooterView: UITableViewHeaderFooterView {
     }()
     
     private var viewsCountLabel: UILabel = {
-         let viewsCountLabel = UILabel()
+        let viewsCountLabel = UILabel()
         viewsCountLabel.font = UIFont(name: "Arial", size: 14)
         viewsCountLabel.translatesAutoresizingMaskIntoConstraints = false
         return viewsCountLabel
@@ -100,8 +82,6 @@ class NewsTableFooterView: UITableViewHeaderFooterView {
         setupUI()
         let tapHeartGR = UITapGestureRecognizer(target: self, action: #selector(heartTap))
         likeImage.addGestureRecognizer(tapHeartGR)
-        let tapCommentGR = UITapGestureRecognizer(target: self, action: #selector(commentTap))
-        commentsImage.addGestureRecognizer(tapCommentGR)
     }
     
     required init?(coder: NSCoder) {
@@ -112,18 +92,16 @@ class NewsTableFooterView: UITableViewHeaderFooterView {
         addSubview(footerView)
         footerView.addSubview(likeImage)
         footerView.addSubview(likeCountLabel)
-        footerView.addSubview(commentsImage)
-        footerView.addSubview(commentsCountLabel)
         footerView.addSubview(repostImage)
         footerView.addSubview(repostCountLabel)
         footerView.addSubview(viewsImage)
         footerView.addSubview(viewsCountLabel)
         NSLayoutConstraint.activate([
-
+            
             footerView.topAnchor.constraint(equalTo: topAnchor),
             footerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             footerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            footerView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.70),
+            footerView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.95),
             
             likeImage.widthAnchor.constraint(equalToConstant: 20),
             likeImage.heightAnchor.constraint(equalToConstant: 20),
@@ -131,21 +109,14 @@ class NewsTableFooterView: UITableViewHeaderFooterView {
             
             likeCountLabel.leadingAnchor.constraint(equalTo: likeImage.trailingAnchor, constant: 5),
             likeCountLabel.widthAnchor.constraint(equalToConstant: 40),
-
-            commentsImage.widthAnchor.constraint(equalToConstant: 20),
-            commentsImage.heightAnchor.constraint(equalToConstant: 20),
-            commentsImage.leadingAnchor.constraint(equalTo: likeCountLabel.trailingAnchor, constant: 5),
-
-            commentsCountLabel.widthAnchor.constraint(equalToConstant: 40),
-            commentsCountLabel.leadingAnchor.constraint(equalTo: commentsImage.trailingAnchor, constant: 5),
-
+            
             repostImage.widthAnchor.constraint(equalToConstant: 20),
             repostImage.heightAnchor.constraint(equalToConstant: 20),
-            repostImage.leadingAnchor.constraint(equalTo: commentsCountLabel.trailingAnchor, constant: 5),
+            repostImage.leadingAnchor.constraint(equalTo: likeCountLabel.trailingAnchor, constant: 5),
             
             repostCountLabel.widthAnchor.constraint(equalToConstant: 50),
             repostCountLabel.leadingAnchor.constraint(equalTo: repostImage.trailingAnchor, constant: 5),
-
+            
             viewsImage.widthAnchor.constraint(equalToConstant: 20),
             viewsImage.heightAnchor.constraint(equalToConstant: 20),
             viewsImage.trailingAnchor.constraint(equalTo: viewsCountLabel.leadingAnchor, constant: -5),
@@ -157,10 +128,7 @@ class NewsTableFooterView: UITableViewHeaderFooterView {
     }
     
     func configure(with: RealmNews) {
-        self.newsPostID = with.postId
-        self.newsOwnerID = with.sourceId
         likeCountLabel.text = formattedCounter(with.likeCount)
-        commentsCountLabel.text = formattedCounter(with.commentCount)
         repostCountLabel.text = formattedCounter(with.repostCount)
         viewsCountLabel.text = formattedCounter(with.viewsCount)
         likeImage.image = with.isDislike ? CellConsts.hearthFilled : CellConsts.hearthEmpty
@@ -171,14 +139,9 @@ class NewsTableFooterView: UITableViewHeaderFooterView {
         delegate?.heartWasPressed(at: newsPostID)
     }
     
-    @objc func commentTap() {
-        delegate?.commentWasPressed(with: newsPostID, for: newsOwnerID)
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         likeImage.image = CellConsts.hearthEmpty
-        commentsImage.image = CellConsts.commentEmpty
         repostImage.image = CellConsts.repostEmpty
     }
     
@@ -198,7 +161,6 @@ class NewsTableFooterView: UITableViewHeaderFooterView {
     private struct CellConsts {
         static let hearthEmpty = UIImage(named: "hearth-no-fill")
         static let hearthFilled = UIImage(named: "hearth-fill")
-        static let commentEmpty = UIImage(named: "comment")
         static let repostEmpty = UIImage(named: "repost")
         static let viewsEmpty = UIImage(named: "eye")
     }
@@ -213,5 +175,4 @@ class NewsTableFooterView: UITableViewHeaderFooterView {
         }
         return counterString
     }
-    
 }

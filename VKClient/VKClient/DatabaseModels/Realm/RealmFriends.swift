@@ -12,7 +12,7 @@ class RealmFriends: Object {
     @Persisted(primaryKey: true) var id: Int
     @Persisted var firstName: String
     @Persisted var lastName: String
-    @Persisted var avatar: String?
+    @Persisted var avatar: String
     @Persisted var city: String?
     
     convenience init(_ model: Friends) {

@@ -16,10 +16,15 @@ class RealmNews: Object {
     @Persisted var imageNews: String
     @Persisted var imageSizeHeight: Int
     @Persisted var imageSizeWidth: Int
+    
     @Persisted var likeCount: Int
     @Persisted var commentCount: Int
-    @Persisted var repostCoubnt: Int
+    @Persisted var repostCount: Int
     @Persisted var viewsCount: Int
+    
+    @Persisted var isDislike = false
+    @Persisted var isComment = false
+    @Persisted var isRepost = false
     
     convenience init(_ model: News) {
         self.init()
@@ -31,8 +36,8 @@ class RealmNews: Object {
         self.imageSizeHeight = model.imageSizeHeight
         self.imageSizeWidth = model.imageSizeWidth
         self.likeCount = model.likeCount
-        self.commentCount = model.likeCount
-        self.repostCoubnt = model.repostCount
+        self.commentCount = model.commentCount
+        self.repostCount = model.repostCount
         self.viewsCount = model.viewsCount
     }
 }

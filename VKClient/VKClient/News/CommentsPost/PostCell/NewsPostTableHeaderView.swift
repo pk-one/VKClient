@@ -1,15 +1,16 @@
 //
-//  NewsTableHeaderView.swift
+//  NewsPostTableHeaderView.swift
 //  VKClient
 //
-//  Created by Pavel Olegovich on 19.09.2021.
+//  Created by Pavel Olegovich on 29.09.2021.
 //
 
 import UIKit
 import Kingfisher
 import RealmSwift
 
-class NewsTableHeaderView: UITableViewHeaderFooterView {
+class NewsPostTableHeaderView: UITableViewHeaderFooterView {
+
     private var dateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.dateFormat = "dd-MM-yyyy' 'HH:mm"

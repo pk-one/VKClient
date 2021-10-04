@@ -29,9 +29,9 @@ class UserGroupsTableViewCell: UITableViewCell {
     }
     
     func configure(with: RealmGroups) {
-        guard let avatar = with.avatar else { return }
-        let url = URL(string: avatar)
+        let url = URL(string: with.avatar)
         imageGroupImageView.kf.setImage(with: url)
         groupNameLabel.text = with.name
     }
+
 }
