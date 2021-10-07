@@ -87,6 +87,7 @@ class NetworkServiceImplementation: NetworkService {
         let path = "/method/groups.get"
         let params: Parameters = [
             "access_token" : token,
+            "fields" : "activity",
             "extended" : 1,
             "v" : "5.131"
         ]

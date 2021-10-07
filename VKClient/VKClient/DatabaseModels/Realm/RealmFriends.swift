@@ -14,6 +14,7 @@ class RealmFriends: Object {
     @Persisted var lastName: String
     @Persisted var avatar: String
     @Persisted var city: String?
+    @Persisted var online: Int
     
     convenience init(_ model: Friends) {
         self.init()
@@ -22,5 +23,6 @@ class RealmFriends: Object {
         self.lastName = model.lastName
         self.avatar = model.avatar
         self.city = model.city
+        self.online = model.online
     }
 }
