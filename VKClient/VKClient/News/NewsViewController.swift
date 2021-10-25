@@ -58,9 +58,9 @@ class NewsViewController: UIViewController{
                 self.show(error: error)
             case .initial:
                 self.tableView.reloadData()
-            case .update:
+            case .update: break
                 self.tableView.reloadData()
-//                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
         }
     }
@@ -85,9 +85,9 @@ class NewsViewController: UIViewController{
                self.show(error: error)
            case .success(let newsArray):
            _ = try? self.databaseService.save(newsArray)
-               print(SessionInfo.shared.token)           }
+               sender.endRefreshing()
+           }
        }
-        sender.endRefreshing()
     }
 }
 
