@@ -10,7 +10,7 @@ import UIKit
 class UserGroupsTableViewCell: UITableViewCell {
     @IBOutlet var imageGroupImageView: UIImageView!
     @IBOutlet var groupNameLabel: UILabel!
-    @IBOutlet var descriptionGroupLabel: UILabel!
+    @IBOutlet var activityGroupLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,9 +29,11 @@ class UserGroupsTableViewCell: UITableViewCell {
         imageGroupImageView.layer.add(animation, forKey: nil)
     }
     
-    func configure(with: Group) {
-        imageGroupImageView.image = UIImage(named: with.image)
-        groupNameLabel.text = with.groupName
-        descriptionGroupLabel.text = with.description
+    func configure(with: RealmGroups) {
+        let url = URL(string: with.avatar)
+        imageGroupImageView.kf.setImage(with: url)
+        groupNameLabel.text = with.name
+        activityGroupLabel.text = with.activity
     }
+
 }

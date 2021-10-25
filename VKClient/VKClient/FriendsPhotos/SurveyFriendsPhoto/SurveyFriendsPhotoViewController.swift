@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import Kingfisher
 
 class SurveyFriendsPhotoViewController: UIViewController {
     
     @IBOutlet var firstImageView: UIImageView!
     @IBOutlet var secondImageView: UIImageView!
     
-    var photos: [String]!
+    var photos: [Photos]!
     var index = 0
     var selectedIndexPath: IndexPath?
     
@@ -71,14 +72,19 @@ class SurveyFriendsPhotoViewController: UIViewController {
         nextPhotoImageView.alpha = 0
         nextPhotoImageView.transform = transformReduction
         
-        currentPhotoImageView.image = UIImage(named: photos[index])
-        nextPhotoImageView.image = UIImage(named: photos[nextPhotoIndex])
+        configurePhotos(with: photos[index], imageView: currentPhotoImageView)
+        configurePhotos(with: photos[nextPhotoIndex], imageView: nextPhotoImageView)
         
         if photos.count > 1 {
             panGesture = UIPanGestureRecognizer (target: self, action: #selector(onPan(_:)))
         self.view.addGestureRecognizer(panGesture)
         }
         self.title = "\(index + 1) из \(photos.count)"
+    }
+    
+    func configurePhotos(with: Photos, imageView: UIImageView) {
+        let url = URL(string: with.url)
+        imageView.kf.setImage(with: url)
     }
     
     @objc private func onPan(_ recognizer: UIPanGestureRecognizer) {
@@ -137,7 +143,7 @@ class SurveyFriendsPhotoViewController: UIViewController {
     }
     
     private func animatePhotoSwap() {
-        self.nextPhotoImageView.image = UIImage(named: photos[nextPhotoIndex])
+        configurePhotos(with: photos[nextPhotoIndex], imageView: nextPhotoImageView)
         
         UIView.animate(withDuration: 0.5) {
             self.currentPhotoImageView.alpha = 0

@@ -34,6 +34,13 @@ extension UITableView {
         }
         return cell
     }
+    
+    func dequeueReusableHeaderFooterView <FooterOrHeader: UITableViewHeaderFooterView>(_: FooterOrHeader.Type) -> FooterOrHeader {
+        guard  let footerOrHeader = self.dequeueReusableHeaderFooterView(withIdentifier: FooterOrHeader.reuseIdentifire) as? FooterOrHeader else {
+            fatalError("{ error: Can`t dequeue a \(FooterOrHeader.reuseIdentifire) }")
+        }
+        return footerOrHeader
+    }
 }
 
 extension UICollectionView {
