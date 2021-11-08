@@ -11,6 +11,8 @@ import FirebaseFirestore
 
 class AuthVKViewController: UIViewController {
     
+    private let dataOperation = DataOperation()
+    
     @IBOutlet var webview: WKWebView! {
         didSet {
             webview.navigationDelegate = self
@@ -18,7 +20,7 @@ class AuthVKViewController: UIViewController {
     }
     
     private var canPresent: Bool = false
-    private let timeToSecnod: Double = 86400.0
+    private let timeToSecnod: Double = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,6 +121,8 @@ extension AuthVKViewController: WKNavigationDelegate {
         
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
+        dataOperation.getGroup()
+        dataOperation.getFriends()
     }
 }
 

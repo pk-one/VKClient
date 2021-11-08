@@ -14,16 +14,15 @@ class FriendsPhotosCollectionViewController: UICollectionViewController{
     private let countCells = 2
     private let offSet: CGFloat = 2
     private var selectedIndexPath: IndexPath?
-    private let networkService: NetworkService = NetworkServiceImplementation()
+    private let networkService = DataOperation()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        networkService.getPhotos(ownerId: ownerId, completionHandler: { [weak self] photos in
-            self?.photosList = photos
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
-        })
+        networkService.getPhotosUser(ownerId: ownerId) { [weak self] photos in
+            guard let self = self else { return }
+            self.photosList = photos
+            self.collectionView.reloadData()
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

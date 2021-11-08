@@ -14,10 +14,6 @@ import FirebaseFirestore
 protocol NetworkService {
     func getNews(completionHandler: @escaping (Result<[RealmNews], Error>) -> Void)
     func getCommentsNewsfeed(ownerId: Int, postId: Int, completionHandler: @escaping (Result<[RealmNewsfeedComments], Error>) -> Void)
-    func getFriends(completionHandler: @escaping (Result<[RealmFriends], Error>) -> Void)
-    func getPhotos(ownerId: Int, completionHandler: @escaping ([Photos]) -> Void)
-    func getGroup(completionHandler: @escaping (Result<[RealmGroups], Error>) -> Void)
-    func getGroupSearch(textSearch: String, completionHandler: @escaping ([MyGroups]) -> Void)
     func getCommentsUsers(ownerId: Int, postId: Int, completionHandler: @escaping (Result<[RealmCommentsUsers], Error>) -> Void)
     func getCommentsGroups(ownerId: Int, postId: Int, completionHandler: @escaping (Result<[RealmCommentsGroups], Error>) -> Void)
 }
@@ -53,99 +49,6 @@ class NetworkServiceImplementation: NetworkService {
                 let news = newsItems.map { News($0) }
                 let realmNews = news.map { RealmNews ($0) }
                 completionHandler(.success(realmNews))
-            }
-        }
-    }
-    
-    //MARK: - GetFriends
-    func getFriends(completionHandler: @escaping (Result<[RealmFriends], Error>) -> Void) {
-        let path = "/method/friends.get"
-        let params: Parameters = [
-            "access_token" : token,
-            "order" : "hints",
-            "fields" : "city, photo_50, online",
-            "v" : "5.131"
-        ]
-        session.request(host + path, method: .get, parameters: params).responseJSON { response in
-            switch response.result {
-            case .failure(let error):
-                completionHandler(.failure(error))
-            case .success(let value):
-                let json = JSON(value)
-                let friendsItems = json["response"]["items"].arrayValue
-                let friends = friendsItems.map { Friends($0) }
-                let realmFriends = friends.map { RealmFriends($0) }
-                completionHandler(.success(realmFriends))
-                let realm = try? Realm()
-                print(realm?.configuration.fileURL)
-            }
-        }
-    }
-    
-    //MARK:- GetGroups
-    func getGroup(completionHandler: @escaping (Result<[RealmGroups], Error>) -> Void) {
-        let path = "/method/groups.get"
-        let params: Parameters = [
-            "access_token" : token,
-            "fields" : "activity",
-            "extended" : 1,
-            "v" : "5.131"
-        ]
-        session.request(host + path, method: .get, parameters: params).responseJSON { response in
-            switch response.result {
-            case .failure(let error):
-                completionHandler(.failure(error))
-            case .success(let value):
-                let json = JSON(value)
-                let groupsItems = json["response"]["items"].arrayValue
-                let groups = groupsItems.map { MyGroups($0) }
-                let realmGroups = groups.map { RealmGroups($0) }
-                completionHandler(.success(realmGroups))
-            }
-        }
-    }
-    
-    //MARK: - GroupsSearch
-    func getGroupSearch(textSearch: String, completionHandler: @escaping ([MyGroups]) -> Void) {
-        let path = "/method/groups.search"
-        let params: Parameters = [
-            "access_token" : token,
-            "q" : textSearch,
-            "v" : "5.131"
-        ]
-        session.request(host + path, method: .get, parameters: params).responseJSON { response in
-            switch response.result {
-            case .failure(let error):
-                print(error.localizedDescription)
-                completionHandler([])
-            case .success(let value):
-                let json = JSON(value)
-                let groupsSearchItems = json["response"]["items"].arrayValue
-                let searchGroups = groupsSearchItems.map { MyGroups($0) }
-                completionHandler(searchGroups)
-            }
-        }
-    }
-    
-    //MARK: - GetPhotos
-    func getPhotos(ownerId: Int, completionHandler: @escaping ([Photos]) -> Void) {
-        let path = "/method/photos.get"
-        let params: Parameters = [
-            "owner_id" : ownerId,
-            "access_token" : token,
-            "extended" : "1",
-            "album_id" : "wall",
-            "v" : "5.131"
-        ]
-        session.request(host + path, method: .get, parameters: params).responseJSON { response in
-            switch response.result {
-            case .failure(let error):
-                completionHandler([])
-            case .success(let value):
-                let json = JSON(value)
-                let photosItems = json["response"]["items"].arrayValue
-                let photos = photosItems.map { Photos($0) }
-                completionHandler(photos)
             }
         }
     }

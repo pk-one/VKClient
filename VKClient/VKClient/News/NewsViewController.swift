@@ -58,7 +58,7 @@ class NewsViewController: UIViewController{
                 self.show(error: error)
             case .initial:
                 self.tableView.reloadData()
-            case .update: break
+            case .update:
                 self.tableView.reloadData()
                 self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }

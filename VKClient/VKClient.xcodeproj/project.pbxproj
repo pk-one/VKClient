@@ -21,6 +21,10 @@
 		A02F902326B9BAA000CD888D /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02F902226B9BAA000CD888D /* News.swift */; };
 		A02F902926BB0A7600CD888D /* CustomHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02F902826BB0A7600CD888D /* CustomHeader.swift */; };
 		A02F902D26BB122F00CD888D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A02F902C26BB122F00CD888D /* Assets.xcassets */; };
+		A04A88C62738323C00748D19 /* GetFriendsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88C52738323C00748D19 /* GetFriendsOperation.swift */; };
+		A04A88C82738330600748D19 /* ParseFriendsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88C72738330600748D19 /* ParseFriendsOperation.swift */; };
+		A04A88CA273837B100748D19 /* GetPhotosUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88C9273837B100748D19 /* GetPhotosUserOperation.swift */; };
+		A04A88CC273838E300748D19 /* ParsePhotosUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88CB273838E300748D19 /* ParsePhotosUserOperation.swift */; };
 		A058FB6D26F3E40500011476 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A058FB6C26F3E40500011476 /* RoundedButton.swift */; };
 		A058FB7026F3EA6100011476 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = A058FB6F26F3EA6100011476 /* SwiftKeychainWrapper */; };
 		A058FB7226F3EB3000011476 /* KeychainUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A058FB7126F3EB3000011476 /* KeychainUser.swift */; };
@@ -77,6 +81,14 @@
 		A0C6378026E7CFE900C9C536 /* MyGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C6377F26E7CFE900C9C536 /* MyGroups.swift */; };
 		A0CE32F727068A86002FB1CB /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = A0CE32F627068A86002FB1CB /* Realm */; };
 		A0CE32F927068A86002FB1CB /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A0CE32F827068A86002FB1CB /* RealmSwift */; };
+		A0CFD1072738107B00A2168C /* GroupRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CFD1062738107B00A2168C /* GroupRouter.swift */; };
+		A0CFD1092738156100A2168C /* UserRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CFD1082738156100A2168C /* UserRouter.swift */; };
+		A0CFD10C2738189000A2168C /* GetGroupOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CFD10B2738189000A2168C /* GetGroupOperation.swift */; };
+		A0CFD10E2738190C00A2168C /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CFD10D2738190C00A2168C /* AsyncOperation.swift */; };
+		A0CFD11227381DF900A2168C /* ParseGroupOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CFD11127381DF900A2168C /* ParseGroupOperation.swift */; };
+		A0CFD11427381F2300A2168C /* DataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CFD11327381F2300A2168C /* DataOperation.swift */; };
+		A0CFD116273824C100A2168C /* GetSearchGroupOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CFD115273824C100A2168C /* GetSearchGroupOperation.swift */; };
+		A0CFD1182738264300A2168C /* ParseSearchGroupOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CFD1172738264200A2168C /* ParseSearchGroupOperation.swift */; };
 		A0FC982926C4001F0035EDE5 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FC982826C4001F0035EDE5 /* LoaderView.swift */; };
 		A0FC982D26C402000035EDE5 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FC982C26C402000035EDE5 /* NewsViewController.swift */; };
 /* End PBXBuildFile section */
@@ -98,6 +110,10 @@
 		A02F902226B9BAA000CD888D /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		A02F902826BB0A7600CD888D /* CustomHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeader.swift; sourceTree = "<group>"; };
 		A02F902C26BB122F00CD888D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A04A88C52738323C00748D19 /* GetFriendsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFriendsOperation.swift; sourceTree = "<group>"; };
+		A04A88C72738330600748D19 /* ParseFriendsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseFriendsOperation.swift; sourceTree = "<group>"; };
+		A04A88C9273837B100748D19 /* GetPhotosUserOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPhotosUserOperation.swift; sourceTree = "<group>"; };
+		A04A88CB273838E300748D19 /* ParsePhotosUserOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsePhotosUserOperation.swift; sourceTree = "<group>"; };
 		A058FB6C26F3E40500011476 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		A058FB7126F3EB3000011476 /* KeychainUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainUser.swift; sourceTree = "<group>"; };
 		A058FB8126F78B3000011476 /* RealmFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmFriends.swift; sourceTree = "<group>"; };
@@ -144,6 +160,14 @@
 		A0C6377B26E7CF8400C9C536 /* Friends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friends.swift; sourceTree = "<group>"; };
 		A0C6377D26E7CFCD00C9C536 /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		A0C6377F26E7CFE900C9C536 /* MyGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGroups.swift; sourceTree = "<group>"; };
+		A0CFD1062738107B00A2168C /* GroupRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRouter.swift; sourceTree = "<group>"; };
+		A0CFD1082738156100A2168C /* UserRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRouter.swift; sourceTree = "<group>"; };
+		A0CFD10B2738189000A2168C /* GetGroupOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetGroupOperation.swift; sourceTree = "<group>"; };
+		A0CFD10D2738190C00A2168C /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		A0CFD11127381DF900A2168C /* ParseGroupOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseGroupOperation.swift; sourceTree = "<group>"; };
+		A0CFD11327381F2300A2168C /* DataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataOperation.swift; sourceTree = "<group>"; };
+		A0CFD115273824C100A2168C /* GetSearchGroupOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSearchGroupOperation.swift; sourceTree = "<group>"; };
+		A0CFD1172738264200A2168C /* ParseSearchGroupOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseSearchGroupOperation.swift; sourceTree = "<group>"; };
 		A0FC982826C4001F0035EDE5 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		A0FC982C26C402000035EDE5 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -230,8 +254,11 @@
 		A058FB8026F78AFB00011476 /* Servicies */ = {
 			isa = PBXGroup;
 			children = (
+				A0CFD1052738104100A2168C /* Router */,
+				A0CFD10A2738185F00A2168C /* Operations */,
 				A0C6376026DC134D00C9C536 /* NetworkService */,
 				A058FB8B26F78DB700011476 /* DatabaseService.swift */,
+				A0CFD10D2738190C00A2168C /* AsyncOperation.swift */,
 			);
 			path = Servicies;
 			sourceTree = "<group>";
@@ -394,6 +421,7 @@
 			children = (
 				A0C6372F26D9326100C9C536 /* SessionInfo.swift */,
 				A0C6376126DC137300C9C536 /* NetworkService.swift */,
+				A0CFD11327381F2300A2168C /* DataOperation.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -404,6 +432,46 @@
 				A0C6376426DC153800C9C536 /* AuthVKViewController.swift */,
 			);
 			path = VKAuth;
+			sourceTree = "<group>";
+		};
+		A0CFD1052738104100A2168C /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				A0CFD1062738107B00A2168C /* GroupRouter.swift */,
+				A0CFD1082738156100A2168C /* UserRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		A0CFD10A2738185F00A2168C /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				A0CFD10F27381DB200A2168C /* RequestData */,
+				A0CFD11027381DC200A2168C /* ParseData */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		A0CFD10F27381DB200A2168C /* RequestData */ = {
+			isa = PBXGroup;
+			children = (
+				A0CFD10B2738189000A2168C /* GetGroupOperation.swift */,
+				A0CFD115273824C100A2168C /* GetSearchGroupOperation.swift */,
+				A04A88C52738323C00748D19 /* GetFriendsOperation.swift */,
+				A04A88C9273837B100748D19 /* GetPhotosUserOperation.swift */,
+			);
+			path = RequestData;
+			sourceTree = "<group>";
+		};
+		A0CFD11027381DC200A2168C /* ParseData */ = {
+			isa = PBXGroup;
+			children = (
+				A0CFD11127381DF900A2168C /* ParseGroupOperation.swift */,
+				A0CFD1172738264200A2168C /* ParseSearchGroupOperation.swift */,
+				A04A88C72738330600748D19 /* ParseFriendsOperation.swift */,
+				A04A88CB273838E300748D19 /* ParsePhotosUserOperation.swift */,
+			);
+			path = ParseData;
 			sourceTree = "<group>";
 		};
 		A0FC982726C3FEB60035EDE5 /* Controls */ = {
@@ -509,6 +577,7 @@
 				A0A00F302705E6C300FBF3A5 /* FirebaseGroups.swift in Sources */,
 				A095C02626CA912F00E26644 /* CustomPushAnimator.swift in Sources */,
 				A0B109EB26AD9125003DCEA1 /* UserFriendsTableViewController.swift in Sources */,
+				A0CFD1182738264300A2168C /* ParseSearchGroupOperation.swift in Sources */,
 				A0A00EFD26FF4C4600FBF3A5 /* UIViewController + Ext.swift in Sources */,
 				A02F902926BB0A7600CD888D /* CustomHeader.swift in Sources */,
 				A0A00F1627050E1500FBF3A5 /* NewsPostTableFooterView.swift in Sources */,
@@ -517,7 +586,10 @@
 				A0B109E226AD7DD4003DCEA1 /* UserGroupsTableViewCell.swift in Sources */,
 				A095C02826CA914F00E26644 /* CustomPopAnimator.swift in Sources */,
 				A0A00F0226FF68BF00FBF3A5 /* NewsfeedComments.swift in Sources */,
+				A04A88CA273837B100748D19 /* GetPhotosUserOperation.swift in Sources */,
 				A01A339C269A396400FC0A63 /* Extensions.swift in Sources */,
+				A04A88C82738330600748D19 /* ParseFriendsOperation.swift in Sources */,
+				A0CFD11227381DF900A2168C /* ParseGroupOperation.swift in Sources */,
 				A0B109ED26AD9132003DCEA1 /* UserFriendsTableViewCell.swift in Sources */,
 				A0C6372226D8270800C9C536 /* Reusable.swift in Sources */,
 				A01A338A269A0D3200FC0A63 /* LoginFormController.swift in Sources */,
@@ -525,9 +597,14 @@
 				A02F901626B6F7C100CD888D /* FriendsGroup.swift in Sources */,
 				A0B109F126AD96A4003DCEA1 /* FriendsPhotosCollectionViewCell.swift in Sources */,
 				A02F900626B4501600CD888D /* CustomLikeControl.swift in Sources */,
+				A0CFD1092738156100A2168C /* UserRouter.swift in Sources */,
 				A0A00F102704B84800FBF3A5 /* RealmCommentsGroups.swift in Sources */,
+				A0CFD10C2738189000A2168C /* GetGroupOperation.swift in Sources */,
+				A04A88C62738323C00748D19 /* GetFriendsOperation.swift in Sources */,
 				A0B109E626AD7DFB003DCEA1 /* AllGroupsTableViewController.swift in Sources */,
 				A0C6378026E7CFE900C9C536 /* MyGroups.swift in Sources */,
+				A0CFD116273824C100A2168C /* GetSearchGroupOperation.swift in Sources */,
+				A0CFD11427381F2300A2168C /* DataOperation.swift in Sources */,
 				A02F901E26B9AF2B00CD888D /* NewsTableViewCell.swift in Sources */,
 				A095C02A26CAAA9A00E26644 /* FullPhotoAnimator.swift in Sources */,
 				A095C01126C7AFD000E26644 /* VKLoaderView.swift in Sources */,
@@ -538,6 +615,7 @@
 				A0A00F0626FFB2BB00FBF3A5 /* NewsCommentsTableViewCell.swift in Sources */,
 				A0C6377C26E7CF8400C9C536 /* Friends.swift in Sources */,
 				A058FB6D26F3E40500011476 /* RoundedButton.swift in Sources */,
+				A0CFD10E2738190C00A2168C /* AsyncOperation.swift in Sources */,
 				A0C6377E26E7CFCD00C9C536 /* Photos.swift in Sources */,
 				A0B109FD26B2F81C003DCEA1 /* RoundedImageView.swift in Sources */,
 				A01A3386269A0D3200FC0A63 /* AppDelegate.swift in Sources */,
@@ -555,12 +633,14 @@
 				A0B109EF26AD9690003DCEA1 /* FriendsPhotosCollectionViewController.swift in Sources */,
 				A058FB7226F3EB3000011476 /* KeychainUser.swift in Sources */,
 				A058FB8226F78B3000011476 /* RealmFriends.swift in Sources */,
+				A04A88CC273838E300748D19 /* ParsePhotosUserOperation.swift in Sources */,
 				A0A00F142705074400FBF3A5 /* NewsPostTableHeaderView.swift in Sources */,
 				A0A00F0026FF632400FBF3A5 /* NewsCommentsViewController.swift in Sources */,
 				A0A00F0E2704A30700FBF3A5 /* GroupsComments.swift in Sources */,
 				A0A00F122705047F00FBF3A5 /* NewsPostTableViewCell.swift in Sources */,
 				A0FC982D26C402000035EDE5 /* NewsViewController.swift in Sources */,
 				A058FB9226F7A4C600011476 /* NewsTableFooterView.swift in Sources */,
+				A0CFD1072738107B00A2168C /* GroupRouter.swift in Sources */,
 				A0B109FB26B0A0D6003DCEA1 /* ShadowView.swift in Sources */,
 				A058FB9426F8CE2B00011476 /* RealmNews.swift in Sources */,
 				A02F900A26B5516700CD888D /* LettersControl.swift in Sources */,

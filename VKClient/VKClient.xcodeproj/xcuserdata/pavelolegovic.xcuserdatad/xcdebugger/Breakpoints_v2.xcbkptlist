@@ -46,8 +46,8 @@
             filePath = "VKClient/Servicies/NetworkService/NetworkService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
             landmarkName = "getCommentsUsers(ownerId:postId:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
