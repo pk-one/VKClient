@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		092F94FC269A376C0030AB4C /* LeftPaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092F94FB269A376C0030AB4C /* LeftPaddedTextField.swift */; };
 		A01A3386269A0D3200FC0A63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A3385269A0D3200FC0A63 /* AppDelegate.swift */; };
-		A01A3388269A0D3200FC0A63 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A3387269A0D3200FC0A63 /* SceneDelegate.swift */; };
 		A01A338A269A0D3200FC0A63 /* LoginFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A3389269A0D3200FC0A63 /* LoginFormController.swift */; };
 		A01A338D269A0D3200FC0A63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A01A338B269A0D3200FC0A63 /* Main.storyboard */; };
 		A01A3392269A0D3400FC0A63 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A01A3390269A0D3400FC0A63 /* LaunchScreen.storyboard */; };
@@ -25,6 +24,9 @@
 		A04A88C82738330600748D19 /* ParseFriendsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88C72738330600748D19 /* ParseFriendsOperation.swift */; };
 		A04A88CA273837B100748D19 /* GetPhotosUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88C9273837B100748D19 /* GetPhotosUserOperation.swift */; };
 		A04A88CC273838E300748D19 /* ParsePhotosUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88CB273838E300748D19 /* ParsePhotosUserOperation.swift */; };
+		A04A88CF2739DA2500748D19 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88CE2739DA2500748D19 /* SplashViewController.swift */; };
+		A04A88D12739DC0200748D19 /* SplashPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88D02739DC0100748D19 /* SplashPresenter.swift */; };
+		A04A88D32739E85A00748D19 /* SplashAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88D22739E85A00748D19 /* SplashAnimator.swift */; };
 		A058FB6D26F3E40500011476 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A058FB6C26F3E40500011476 /* RoundedButton.swift */; };
 		A058FB7026F3EA6100011476 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = A058FB6F26F3EA6100011476 /* SwiftKeychainWrapper */; };
 		A058FB7226F3EB3000011476 /* KeychainUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A058FB7126F3EB3000011476 /* KeychainUser.swift */; };
@@ -97,7 +99,6 @@
 		092F94FB269A376C0030AB4C /* LeftPaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftPaddedTextField.swift; sourceTree = "<group>"; };
 		A01A3382269A0D3200FC0A63 /* VKClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A01A3385269A0D3200FC0A63 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A01A3387269A0D3200FC0A63 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A01A3389269A0D3200FC0A63 /* LoginFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormController.swift; sourceTree = "<group>"; };
 		A01A338C269A0D3200FC0A63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A01A3391269A0D3400FC0A63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -114,6 +115,9 @@
 		A04A88C72738330600748D19 /* ParseFriendsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseFriendsOperation.swift; sourceTree = "<group>"; };
 		A04A88C9273837B100748D19 /* GetPhotosUserOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPhotosUserOperation.swift; sourceTree = "<group>"; };
 		A04A88CB273838E300748D19 /* ParsePhotosUserOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsePhotosUserOperation.swift; sourceTree = "<group>"; };
+		A04A88CE2739DA2500748D19 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		A04A88D02739DC0100748D19 /* SplashPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashPresenter.swift; sourceTree = "<group>"; };
+		A04A88D22739E85A00748D19 /* SplashAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashAnimator.swift; sourceTree = "<group>"; };
 		A058FB6C26F3E40500011476 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		A058FB7126F3EB3000011476 /* KeychainUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainUser.swift; sourceTree = "<group>"; };
 		A058FB8126F78B3000011476 /* RealmFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmFriends.swift; sourceTree = "<group>"; };
@@ -215,6 +219,7 @@
 				A058FB8826F78CEA00011476 /* DatabaseModels */,
 				A0B109D526AD7A72003DCEA1 /* Models */,
 				A0C6376326DC151700C9C536 /* VKAuth */,
+				A04A88CD2739D8A900748D19 /* SplashScreen */,
 				A0C6372026D826FD00C9C536 /* Utils */,
 				A095C02026CA90C400E26644 /* CustomAnimation */,
 				A0FC982726C3FEB60035EDE5 /* Controls */,
@@ -226,7 +231,6 @@
 				A0B109DB26AD7CA4003DCEA1 /* AllGroups */,
 				A058FB8026F78AFB00011476 /* Servicies */,
 				A01A3385269A0D3200FC0A63 /* AppDelegate.swift */,
-				A01A3387269A0D3200FC0A63 /* SceneDelegate.swift */,
 				A01A339B269A396400FC0A63 /* Extensions.swift */,
 				A01A338B269A0D3200FC0A63 /* Main.storyboard */,
 				A01A3390269A0D3400FC0A63 /* LaunchScreen.storyboard */,
@@ -249,6 +253,16 @@
 				A095C01026C7AFD000E26644 /* VKLoaderView.swift */,
 			);
 			path = News;
+			sourceTree = "<group>";
+		};
+		A04A88CD2739D8A900748D19 /* SplashScreen */ = {
+			isa = PBXGroup;
+			children = (
+				A04A88CE2739DA2500748D19 /* SplashViewController.swift */,
+				A04A88D02739DC0100748D19 /* SplashPresenter.swift */,
+				A04A88D22739E85A00748D19 /* SplashAnimator.swift */,
+			);
+			path = SplashScreen;
 			sourceTree = "<group>";
 		};
 		A058FB8026F78AFB00011476 /* Servicies */ = {
@@ -593,14 +607,17 @@
 				A0B109ED26AD9132003DCEA1 /* UserFriendsTableViewCell.swift in Sources */,
 				A0C6372226D8270800C9C536 /* Reusable.swift in Sources */,
 				A01A338A269A0D3200FC0A63 /* LoginFormController.swift in Sources */,
+				A04A88CF2739DA2500748D19 /* SplashViewController.swift in Sources */,
 				A0C6376226DC137300C9C536 /* NetworkService.swift in Sources */,
 				A02F901626B6F7C100CD888D /* FriendsGroup.swift in Sources */,
 				A0B109F126AD96A4003DCEA1 /* FriendsPhotosCollectionViewCell.swift in Sources */,
 				A02F900626B4501600CD888D /* CustomLikeControl.swift in Sources */,
 				A0CFD1092738156100A2168C /* UserRouter.swift in Sources */,
+				A04A88D12739DC0200748D19 /* SplashPresenter.swift in Sources */,
 				A0A00F102704B84800FBF3A5 /* RealmCommentsGroups.swift in Sources */,
 				A0CFD10C2738189000A2168C /* GetGroupOperation.swift in Sources */,
 				A04A88C62738323C00748D19 /* GetFriendsOperation.swift in Sources */,
+				A04A88D32739E85A00748D19 /* SplashAnimator.swift in Sources */,
 				A0B109E626AD7DFB003DCEA1 /* AllGroupsTableViewController.swift in Sources */,
 				A0C6378026E7CFE900C9C536 /* MyGroups.swift in Sources */,
 				A0CFD116273824C100A2168C /* GetSearchGroupOperation.swift in Sources */,
@@ -620,7 +637,6 @@
 				A0B109FD26B2F81C003DCEA1 /* RoundedImageView.swift in Sources */,
 				A01A3386269A0D3200FC0A63 /* AppDelegate.swift in Sources */,
 				092F94FC269A376C0030AB4C /* LeftPaddedTextField.swift in Sources */,
-				A01A3388269A0D3200FC0A63 /* SceneDelegate.swift in Sources */,
 				A0A00F0C2703D6AD00FBF3A5 /* RealmCommentsUsers.swift in Sources */,
 				A0A00F0426FF74D300FBF3A5 /* RealmNewsfeedComments.swift in Sources */,
 				A0C6376526DC153800C9C536 /* AuthVKViewController.swift in Sources */,
