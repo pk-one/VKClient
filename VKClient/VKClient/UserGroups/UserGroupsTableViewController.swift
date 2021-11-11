@@ -10,10 +10,9 @@ import RealmSwift
 
 class UserGroupsTableViewController: UITableViewController {
     
-    private var networkSevice: NetworkService = NetworkServiceImplementation()
     private var databaseService: DatabaseService = DatabaseServiceImplementation()
     
-    let activityIndicator = UIActivityIndicatorView(style: .large)
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
     
     private var groups: Results<RealmGroups>? {
         didSet {
@@ -34,14 +33,13 @@ class UserGroupsTableViewController: UITableViewController {
                 fetchGroups()
         
                 notificationToken = groups?.observe { [weak self] change in
-                    guard let self = self else { return }
                     switch change {
                     case .error(let error):
-                        self.show(error: error)
+                        self?.show(error: error)
                     case .initial:
-                        self.tableView.reloadData()
+                        self?.tableView.reloadData()
                     case .update:
-                        self.tableView.reloadData()
+                        self?.tableView.reloadData()
                     }
                 }
     }

@@ -27,6 +27,15 @@
 		A04A88CF2739DA2500748D19 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88CE2739DA2500748D19 /* SplashViewController.swift */; };
 		A04A88D12739DC0200748D19 /* SplashPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88D02739DC0100748D19 /* SplashPresenter.swift */; };
 		A04A88D32739E85A00748D19 /* SplashAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88D22739E85A00748D19 /* SplashAnimator.swift */; };
+		A04A88D5273D740C00748D19 /* NewsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88D4273D740C00748D19 /* NewsRouter.swift */; };
+		A04A88D7273D77D200748D19 /* GetNewsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88D6273D77D200748D19 /* GetNewsOperation.swift */; };
+		A04A88D9273D77DF00748D19 /* ParseNewsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88D8273D77DF00748D19 /* ParseNewsOperation.swift */; };
+		A04A88DB273DB37000748D19 /* GetCommentsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88DA273DB37000748D19 /* GetCommentsOperation.swift */; };
+		A04A88DD273DB55500748D19 /* ParseCommentsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88DC273DB55500748D19 /* ParseCommentsOperation.swift */; };
+		A04A88DF273DB77700748D19 /* GetUsersCommentsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88DE273DB77700748D19 /* GetUsersCommentsOperation.swift */; };
+		A04A88E1273DB7BA00748D19 /* ParseUsersCommentsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88E0273DB7BA00748D19 /* ParseUsersCommentsOperation.swift */; };
+		A04A88E3273DB88A00748D19 /* GetGroupsCommentsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88E2273DB88900748D19 /* GetGroupsCommentsOperation.swift */; };
+		A04A88E5273DB8AF00748D19 /* ParseGroupsCommentsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04A88E4273DB8AF00748D19 /* ParseGroupsCommentsOperation.swift */; };
 		A058FB6D26F3E40500011476 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A058FB6C26F3E40500011476 /* RoundedButton.swift */; };
 		A058FB7026F3EA6100011476 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = A058FB6F26F3EA6100011476 /* SwiftKeychainWrapper */; };
 		A058FB7226F3EB3000011476 /* KeychainUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A058FB7126F3EB3000011476 /* KeychainUser.swift */; };
@@ -118,6 +127,15 @@
 		A04A88CE2739DA2500748D19 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		A04A88D02739DC0100748D19 /* SplashPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashPresenter.swift; sourceTree = "<group>"; };
 		A04A88D22739E85A00748D19 /* SplashAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashAnimator.swift; sourceTree = "<group>"; };
+		A04A88D4273D740C00748D19 /* NewsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRouter.swift; sourceTree = "<group>"; };
+		A04A88D6273D77D200748D19 /* GetNewsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNewsOperation.swift; sourceTree = "<group>"; };
+		A04A88D8273D77DF00748D19 /* ParseNewsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseNewsOperation.swift; sourceTree = "<group>"; };
+		A04A88DA273DB37000748D19 /* GetCommentsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCommentsOperation.swift; sourceTree = "<group>"; };
+		A04A88DC273DB55500748D19 /* ParseCommentsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseCommentsOperation.swift; sourceTree = "<group>"; };
+		A04A88DE273DB77700748D19 /* GetUsersCommentsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUsersCommentsOperation.swift; sourceTree = "<group>"; };
+		A04A88E0273DB7BA00748D19 /* ParseUsersCommentsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseUsersCommentsOperation.swift; sourceTree = "<group>"; };
+		A04A88E2273DB88900748D19 /* GetGroupsCommentsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetGroupsCommentsOperation.swift; sourceTree = "<group>"; };
+		A04A88E4273DB8AF00748D19 /* ParseGroupsCommentsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseGroupsCommentsOperation.swift; sourceTree = "<group>"; };
 		A058FB6C26F3E40500011476 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		A058FB7126F3EB3000011476 /* KeychainUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainUser.swift; sourceTree = "<group>"; };
 		A058FB8126F78B3000011476 /* RealmFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmFriends.swift; sourceTree = "<group>"; };
@@ -453,6 +471,7 @@
 			children = (
 				A0CFD1062738107B00A2168C /* GroupRouter.swift */,
 				A0CFD1082738156100A2168C /* UserRouter.swift */,
+				A04A88D4273D740C00748D19 /* NewsRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -473,6 +492,10 @@
 				A0CFD115273824C100A2168C /* GetSearchGroupOperation.swift */,
 				A04A88C52738323C00748D19 /* GetFriendsOperation.swift */,
 				A04A88C9273837B100748D19 /* GetPhotosUserOperation.swift */,
+				A04A88D6273D77D200748D19 /* GetNewsOperation.swift */,
+				A04A88DA273DB37000748D19 /* GetCommentsOperation.swift */,
+				A04A88DE273DB77700748D19 /* GetUsersCommentsOperation.swift */,
+				A04A88E2273DB88900748D19 /* GetGroupsCommentsOperation.swift */,
 			);
 			path = RequestData;
 			sourceTree = "<group>";
@@ -484,6 +507,10 @@
 				A0CFD1172738264200A2168C /* ParseSearchGroupOperation.swift */,
 				A04A88C72738330600748D19 /* ParseFriendsOperation.swift */,
 				A04A88CB273838E300748D19 /* ParsePhotosUserOperation.swift */,
+				A04A88D8273D77DF00748D19 /* ParseNewsOperation.swift */,
+				A04A88DC273DB55500748D19 /* ParseCommentsOperation.swift */,
+				A04A88E0273DB7BA00748D19 /* ParseUsersCommentsOperation.swift */,
+				A04A88E4273DB8AF00748D19 /* ParseGroupsCommentsOperation.swift */,
 			);
 			path = ParseData;
 			sourceTree = "<group>";
@@ -592,6 +619,7 @@
 				A095C02626CA912F00E26644 /* CustomPushAnimator.swift in Sources */,
 				A0B109EB26AD9125003DCEA1 /* UserFriendsTableViewController.swift in Sources */,
 				A0CFD1182738264300A2168C /* ParseSearchGroupOperation.swift in Sources */,
+				A04A88E3273DB88A00748D19 /* GetGroupsCommentsOperation.swift in Sources */,
 				A0A00EFD26FF4C4600FBF3A5 /* UIViewController + Ext.swift in Sources */,
 				A02F902926BB0A7600CD888D /* CustomHeader.swift in Sources */,
 				A0A00F1627050E1500FBF3A5 /* NewsPostTableFooterView.swift in Sources */,
@@ -599,7 +627,9 @@
 				A02F902326B9BAA000CD888D /* News.swift in Sources */,
 				A0B109E226AD7DD4003DCEA1 /* UserGroupsTableViewCell.swift in Sources */,
 				A095C02826CA914F00E26644 /* CustomPopAnimator.swift in Sources */,
+				A04A88D7273D77D200748D19 /* GetNewsOperation.swift in Sources */,
 				A0A00F0226FF68BF00FBF3A5 /* NewsfeedComments.swift in Sources */,
+				A04A88DF273DB77700748D19 /* GetUsersCommentsOperation.swift in Sources */,
 				A04A88CA273837B100748D19 /* GetPhotosUserOperation.swift in Sources */,
 				A01A339C269A396400FC0A63 /* Extensions.swift in Sources */,
 				A04A88C82738330600748D19 /* ParseFriendsOperation.swift in Sources */,
@@ -612,6 +642,7 @@
 				A02F901626B6F7C100CD888D /* FriendsGroup.swift in Sources */,
 				A0B109F126AD96A4003DCEA1 /* FriendsPhotosCollectionViewCell.swift in Sources */,
 				A02F900626B4501600CD888D /* CustomLikeControl.swift in Sources */,
+				A04A88D9273D77DF00748D19 /* ParseNewsOperation.swift in Sources */,
 				A0CFD1092738156100A2168C /* UserRouter.swift in Sources */,
 				A04A88D12739DC0200748D19 /* SplashPresenter.swift in Sources */,
 				A0A00F102704B84800FBF3A5 /* RealmCommentsGroups.swift in Sources */,
@@ -628,6 +659,7 @@
 				A095C01426C7B2A700E26644 /* SurveyFriendsPhotoViewController.swift in Sources */,
 				A058FB9026F7A49200011476 /* NewsTableHeaderView.swift in Sources */,
 				A0FC982926C4001F0035EDE5 /* LoaderView.swift in Sources */,
+				A04A88DD273DB55500748D19 /* ParseCommentsOperation.swift in Sources */,
 				A095C02426CA911300E26644 /* CustomNavigationController.swift in Sources */,
 				A0A00F0626FFB2BB00FBF3A5 /* NewsCommentsTableViewCell.swift in Sources */,
 				A0C6377C26E7CF8400C9C536 /* Friends.swift in Sources */,
@@ -638,6 +670,7 @@
 				A01A3386269A0D3200FC0A63 /* AppDelegate.swift in Sources */,
 				092F94FC269A376C0030AB4C /* LeftPaddedTextField.swift in Sources */,
 				A0A00F0C2703D6AD00FBF3A5 /* RealmCommentsUsers.swift in Sources */,
+				A04A88DB273DB37000748D19 /* GetCommentsOperation.swift in Sources */,
 				A0A00F0426FF74D300FBF3A5 /* RealmNewsfeedComments.swift in Sources */,
 				A0C6376526DC153800C9C536 /* AuthVKViewController.swift in Sources */,
 				A058FB8A26F78D0200011476 /* RealmGroups.swift in Sources */,
@@ -650,13 +683,16 @@
 				A058FB7226F3EB3000011476 /* KeychainUser.swift in Sources */,
 				A058FB8226F78B3000011476 /* RealmFriends.swift in Sources */,
 				A04A88CC273838E300748D19 /* ParsePhotosUserOperation.swift in Sources */,
+				A04A88E5273DB8AF00748D19 /* ParseGroupsCommentsOperation.swift in Sources */,
 				A0A00F142705074400FBF3A5 /* NewsPostTableHeaderView.swift in Sources */,
 				A0A00F0026FF632400FBF3A5 /* NewsCommentsViewController.swift in Sources */,
 				A0A00F0E2704A30700FBF3A5 /* GroupsComments.swift in Sources */,
+				A04A88D5273D740C00748D19 /* NewsRouter.swift in Sources */,
 				A0A00F122705047F00FBF3A5 /* NewsPostTableViewCell.swift in Sources */,
 				A0FC982D26C402000035EDE5 /* NewsViewController.swift in Sources */,
 				A058FB9226F7A4C600011476 /* NewsTableFooterView.swift in Sources */,
 				A0CFD1072738107B00A2168C /* GroupRouter.swift in Sources */,
+				A04A88E1273DB7BA00748D19 /* ParseUsersCommentsOperation.swift in Sources */,
 				A0B109FB26B0A0D6003DCEA1 /* ShadowView.swift in Sources */,
 				A058FB9426F8CE2B00011476 /* RealmNews.swift in Sources */,
 				A02F900A26B5516700CD888D /* LettersControl.swift in Sources */,

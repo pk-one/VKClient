@@ -16,10 +16,9 @@ class GetFriendsOperation: AsyncOperation {
     
     override func main() {
         request = AF.request(UserRouter.getFriends).response(queue: DispatchQueue.global()) { [weak self] response in
-            guard let self = self else { return }
-            self.data = response.data
-            self.error = response.error
-            self.state = .finished
+            self?.data = response.data
+            self?.error = response.error
+            self?.state = .finished
         }
     }
     

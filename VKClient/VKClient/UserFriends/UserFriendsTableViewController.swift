@@ -30,9 +30,7 @@ class UserFriendsTableViewController: UITableViewController {
             groupFriendsByFirstLetter(textSearch: textSearch)
         }
     }
-    private let databaseService: DatabaseService = DatabaseServiceImplementation()
-    private let networkService: NetworkService =  NetworkServiceImplementation()
-    
+    private let databaseService: DatabaseService = DatabaseServiceImplementation()    
     private var notificationToken: NotificationToken?
     
     //MARK: - LifeCircle
@@ -49,16 +47,15 @@ class UserFriendsTableViewController: UITableViewController {
         fetchFriends()
         
         notificationToken = friends?.observe { [weak self] change in
-            guard let self = self else { return }
             switch change {
             case .error(let error):
-                self.show(error: error)
+                self?.show(error: error)
             case .initial:
-                self.tableView.reloadData()
-                self.groupFriendsByFirstLetter()
+                self?.tableView.reloadData()
+                self?.groupFriendsByFirstLetter()
             case .update:
-                self.tableView.reloadData()
-                self.groupFriendsByFirstLetter()
+                self?.tableView.reloadData()
+                self?.groupFriendsByFirstLetter()
             }
         }
     }

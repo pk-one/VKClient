@@ -17,9 +17,8 @@ class DataOperation {
     func getGroup() {
         let getGroup = GetGroupOperation()
         let parseGroup = ParseGroupOperation { [weak self] groups in
-            guard let self = self else { return }
             OperationQueue.main.addOperation {
-                _ = try? self.databaseService.save(groups)
+                _ = try? self?.databaseService.save(groups)
             }
         }
         let operations = [getGroup, parseGroup]
@@ -44,9 +43,8 @@ class DataOperation {
     func getFriends() {
         let getFriends = GetFriendsOperation()
         let parseFriends = ParseFriendsOperation { [weak self] friends in
-            guard let self = self else { return }
             OperationQueue.main.addOperation {
-                _ = try? self.databaseService.save(friends)
+                _ = try? self?.databaseService.save(friends)
             }
         }
         let operations = [getFriends, parseFriends]
@@ -64,6 +62,58 @@ class DataOperation {
         }
         let operations = [getPhotosUser, parsePhotosUser]
         parsePhotosUser.addDependency(getPhotosUser)
+        operationQueue.addOperations(operations, waitUntilFinished: false)
+    }
+    
+    //MARK: - GetNews
+    func getNews() {
+        let getNews = GetNewsOperation()
+        let parseNews = ParseNewsOperation {[weak self] news in
+            OperationQueue.main.addOperation {
+                _ = try? self?.databaseService.save(news)
+            }
+        }
+        let operations = [getNews, parseNews]
+        parseNews.addDependency(getNews)
+        operationQueue.addOperations(operations, waitUntilFinished: false)
+    }
+    
+    //MARK: - GetComments
+    func getComments(ownerId: Int, postId: Int) {
+        let getComments = GetCommentsOperation(ownerId: ownerId, postId: postId)
+        let parseComments = ParseCommentsOperation { [weak self] comments in
+            OperationQueue.main.addOperation {
+                _ = try? self?.databaseService.save(comments)
+            }
+        }
+        let operations = [getComments, parseComments]
+        parseComments.addDependency(getComments)
+        operationQueue.addOperations(operations, waitUntilFinished: false)
+    }
+    
+    //MARK: - GetUsersComments
+    func getUsersComments(ownerId: Int, postId: Int) {
+        let getUsersComments = GetUsersCommentsOperation(ownerId: ownerId, postId: postId)
+        let parseUsersComments = ParseCommentsOperation { [weak self] users in
+            OperationQueue.main.addOperation {
+                _ = try? self?.databaseService.save(users)
+            }
+        }
+        let operations = [getUsersComments, parseUsersComments]
+        parseUsersComments.addDependency(getUsersComments)
+        operationQueue.addOperations(operations, waitUntilFinished: false)
+    }
+    
+    //MARK: - GetGroupsComments
+    func getGroupsComments(ownerId: Int, postId: Int) {
+        let getGroupsComments = GetGroupsCommentsOperation(ownerId: ownerId, postId: postId)
+        let parseGroupsComments = ParseGroupsCommentsOperation { [weak self] groups in
+            OperationQueue.main.addOperation {
+                _ = try? self?.databaseService.save(groups)
+            }
+        }
+        let operations = [getGroupsComments, parseGroupsComments]
+        parseGroupsComments.addDependency(getGroupsComments)
         operationQueue.addOperations(operations, waitUntilFinished: false)
     }
 }

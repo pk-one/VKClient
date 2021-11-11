@@ -19,9 +19,8 @@ class FriendsPhotosCollectionViewController: UICollectionViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         networkService.getPhotosUser(ownerId: ownerId) { [weak self] photos in
-            guard let self = self else { return }
-            self.photosList = photos
-            self.collectionView.reloadData()
+            self?.photosList = photos
+            self?.collectionView.reloadData()
         }
     }
     
@@ -42,7 +41,6 @@ class FriendsPhotosCollectionViewController: UICollectionViewController{
         survayViewController.photos = photosList
         survayViewController.index = indexPath.item
         survayViewController.modalPresentationStyle = .fullScreen
-        //survayViewController.selectedIndexPath = selectedIndexPath
         navigationController?.delegate = self
         navigationController?.pushViewController(survayViewController, animated: true)
     }

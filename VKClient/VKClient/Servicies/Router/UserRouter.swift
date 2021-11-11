@@ -10,7 +10,6 @@ import Alamofire
 
 enum UserRouter: URLRequestConvertible {
 
-    
     case getFriends
     case getPhotosFriends(ownerId: Int)
     

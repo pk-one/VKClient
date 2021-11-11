@@ -21,11 +21,11 @@ class GetSearchGroupOperation: AsyncOperation {
     }
     
     override func main() {
-        request = AF.request(GroupRouter.searchGroup(textSearch: textSearch!)).response(queue: DispatchQueue.global()) { [weak self] response in
-            guard let self = self else { return }
-            self.data = response.data
-            self.error = response.error
-            self.state = .finished
+        guard let textSearch = textSearch else { return }
+        request = AF.request(GroupRouter.searchGroup(textSearch: textSearch)).response(queue: DispatchQueue.global()) { [weak self] response in
+            self?.data = response.data
+            self?.error = response.error
+            self?.state = .finished
         }
     }
     

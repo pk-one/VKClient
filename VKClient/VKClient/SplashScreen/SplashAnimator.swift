@@ -41,8 +41,7 @@ class SplashAnimator: SplashAnimatorDescription {
     }
     
     func animateDisappearance(completion: (() -> Void)?) {
-        guard let window = UIApplication.shared.delegate?.window, let mainWindow = window, let logoImage = SplashViewController.logoImage else
-        { fatalError("App Delegage does not have a windown" ) }
+        guard let window = UIApplication.shared.delegate?.window, let mainWindow = window, let logoImage = SplashViewController.logoImage else { return }
         
         foregroundSplashWindow.alpha = 0
         backgroundSplashWindow.isHidden = false
