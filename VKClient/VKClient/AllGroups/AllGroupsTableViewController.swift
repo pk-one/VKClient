@@ -17,7 +17,7 @@ class AllGroupsTableViewController: UITableViewController {
     @IBOutlet var trailingConstraintSearchTextField: NSLayoutConstraint!
     
     private var searchGroups = [MyGroups]()
-    private let networkService: NetworkService = NetworkServiceImplementation()
+    private let networkService = DataOperation()
     
     private var firebaseGroups = [FirebaseGroups]()
     private let ref = Database.database().reference(withPath: "firebaseGroups")
@@ -108,8 +108,8 @@ class AllGroupsTableViewController: UITableViewController {
     }
     
     @objc private func editingChanged(_ sender: UITextField) {
-        guard searchTextField.text != "" else { return }
-        networkService.getGroupSearch(textSearch: searchTextField.text!) { [weak self] searchGroups in
+        guard let textSearch = searchTextField.text else { return }
+        networkService.getGroupSearch(textSearch: textSearch) { [weak self] searchGroups in
             self?.searchGroups = searchGroups
             DispatchQueue.main.async {
                 self?.tableView.reloadData()

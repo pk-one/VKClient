@@ -39,16 +39,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9EF7A011-B946-4651-A6CA-3E1CF48E96CB"
-            shouldBeEnabled = "No"
+            uuid = "6C9E3690-CB3E-4767-BCC4-F6ABDD8A85A9"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VKClient/Servicies/NetworkService/NetworkService.swift"
+            filePath = "VKClient/Servicies/Operations/ParseData/ParseUsersCommentsOperation.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
-            landmarkName = "getCommentsUsers(ownerId:postId:completionHandler:)"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "main()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

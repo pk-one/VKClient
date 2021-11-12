@@ -135,7 +135,8 @@ class SurveyFriendsPhotoViewController: UIViewController {
                 animatePhotoWithTransform(transformDefault)
             }
         } else if currentPanGestureDirection == .bottom {
-            if currentPhotoImageView.frame.midY > view.center.y + 30{                self.navigationController?.popViewController(animated: true)
+            if currentPhotoImageView.frame.midY > view.center.y + 30 {
+                self.navigationController?.popViewController(animated: true)
             } else {
                 animatePhotoWithTransform(transformDefault)
             }

@@ -17,7 +17,12 @@ class UserFriendsTableViewController: UITableViewController {
     @IBOutlet var trailingConstraintSearchTextField: NSLayoutConstraint!
     
     //MARK: - Properties
-    private lazy var friends = try? databaseService.get(RealmFriends.self)
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
+    private var friends: Results<RealmFriends>? {
+        didSet {
+            activityIndicator.stopAnimating()
+        }
+    }
     private var sortedFriends: Results<RealmFriends>?
     private var groupFriends = [GroupFriends]()
     private var textSearch: String = "" {
@@ -25,9 +30,7 @@ class UserFriendsTableViewController: UITableViewController {
             groupFriendsByFirstLetter(textSearch: textSearch)
         }
     }
-    private let databaseService: DatabaseService = DatabaseServiceImplementation()
-    private let networkService: NetworkService =  NetworkServiceImplementation()
-    
+    private let databaseService: DatabaseService = DatabaseServiceImplementation()    
     private var notificationToken: NotificationToken?
     
     //MARK: - LifeCircle
@@ -44,16 +47,15 @@ class UserFriendsTableViewController: UITableViewController {
         fetchFriends()
         
         notificationToken = friends?.observe { [weak self] change in
-            guard let self = self else { return }
             switch change {
             case .error(let error):
-                self.show(error: error)
+                self?.show(error: error)
             case .initial:
-                self.tableView.reloadData()
-                self.groupFriendsByFirstLetter()
+                self?.tableView.reloadData()
+                self?.groupFriendsByFirstLetter()
             case .update:
-                self.tableView.reloadData()
-                self.groupFriendsByFirstLetter()
+                self?.tableView.reloadData()
+                self?.groupFriendsByFirstLetter()
             }
         }
     }
@@ -64,22 +66,13 @@ class UserFriendsTableViewController: UITableViewController {
     }
     
     private func fetchFriends() {
-        let activityIndicator = UIActivityIndicatorView(style: .large)
         view.addSubview(activityIndicator)
         activityIndicator.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         activityIndicator.center = self.view.center
         activityIndicator.startAnimating()
         
-        networkService.getFriends { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let error):
-                self.show(error: error)
-            case .success(let friendsArray):
-                _ = try? self.databaseService.save(friendsArray)
-                activityIndicator.stopAnimating()
-            }
-        }
+        friends = try? databaseService.get(RealmFriends.self)
+      
     }
     
     func groupFriendsByFirstLetter(textSearch: String = ""){

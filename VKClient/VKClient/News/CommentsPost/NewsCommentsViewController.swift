@@ -11,12 +11,12 @@ import Kingfisher
 
 class NewsCommentsViewController: UIViewController {
     
-    private var networkService: NetworkService = NetworkServiceImplementation()
+    private var dataOperation = DataOperation()
     private var databaseService: DatabaseService = DatabaseServiceImplementation()
     
-    private var news: RealmNews?
-    private var friends: Results<RealmFriends>?
-    private var groups: Results<RealmGroups>?
+    private lazy var friends = try? databaseService.get(RealmFriends.self)
+    private lazy var groups = try? databaseService.get(RealmGroups.self)
+    private lazy var news = try? databaseService.get(RealmNews.self, primaryKey: postID)
     
     //проперти для самих коментов
     private var currentComments: Results<RealmNewsfeedComments>?
@@ -26,7 +26,6 @@ class NewsCommentsViewController: UIViewController {
     private var notificationTokenInfo: NotificationToken?
     private var notificationTokenUsers: NotificationToken?
     private var notificationTokenGroups: NotificationToken?
-    
     
     private let token = SessionInfo.shared.token
     
@@ -54,7 +53,7 @@ class NewsCommentsViewController: UIViewController {
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableView.automaticDimension
         
-//        print(token)
+        print(token)
         fetchComments()
         
         notificationTokenInfo = currentComments?.observe { [weak self] change in
@@ -113,44 +112,18 @@ class NewsCommentsViewController: UIViewController {
         activityIndicator.center = self.view.center
         activityIndicator.startAnimating()
         
-        networkService.getCommentsNewsfeed(ownerId: ownerID, postId: postID) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let error):
-                self.show(error: error)
-            case .success(let commentsArray):
-                _ = try? self.databaseService.save(commentsArray)
-                activityIndicator.stopAnimating()
-            }
-        }
+        dataOperation.getComments(ownerId: ownerID, postId: postID)
         
-        networkService.getCommentsUsers(ownerId: ownerID, postId: postID) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let error):
-                self.show(error: error)
-            case .success(let usersCommentsArray):
-                _ = try? self.databaseService.save(usersCommentsArray)
-            }
-        }
+        dataOperation.getUsersComments(ownerId: ownerID, postId: postID)
         
-        networkService.getCommentsGroups(ownerId: ownerID, postId: postID) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let error):
-                self.show(error: error)
-            case .success(let groupsCommentsArray):
-                _ = try? self.databaseService.save(groupsCommentsArray)
-            }
-        }
-        
-        friends = try? databaseService.get(RealmFriends.self)
-        groups = try? databaseService.get(RealmGroups.self)
-        news = try? databaseService.get(RealmNews.self, primaryKey: postID)
+        dataOperation.getGroupsComments(ownerId: ownerID, postId: postID)
         
         usersComments = try? databaseService.get(RealmCommentsUsers.self)
         groupsComments = try? databaseService.get(RealmCommentsGroups.self)
         currentComments = try? databaseService.get(RealmNewsfeedComments.self).filter("postId == %@", postID)
+
+        activityIndicator.stopAnimating()
+        self.tableView.reloadData()
     }
 }
 
