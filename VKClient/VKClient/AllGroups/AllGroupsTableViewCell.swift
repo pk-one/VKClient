@@ -23,7 +23,7 @@ class AllGroupsTableViewCell: UITableViewCell {
     private var selectedID = 0
     private var selectedName: String?
     
-    func configure(with: MyGroups) {
+    func configure(with: GroupsItems) {
         selectedID = with.id
         selectedName = with.name
         let url = URL(string: with.avatar)

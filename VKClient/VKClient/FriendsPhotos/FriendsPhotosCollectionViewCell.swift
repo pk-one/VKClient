@@ -12,9 +12,11 @@ class FriendsPhotosCollectionViewCell: UICollectionViewCell {
     @IBOutlet private var photosFriendImageView: UIImageView!
     @IBOutlet private var customLikeControl: CustomLikeControl!
     
-    func configure(with: Photos) {
-        let url = URL(string: with.url)
+    func configure(with: PhotosItems) {
+        guard let size = with.sizes[3].url ?? with.sizes[2].url else { return }
+        
+        let url = URL(string: size)
         photosFriendImageView.kf.setImage(with: url)
-        customLikeControl.countLikes = with.likes
+        customLikeControl.countLikes = with.likes.count
     }
 }

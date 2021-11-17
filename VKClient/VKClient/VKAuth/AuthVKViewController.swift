@@ -7,7 +7,6 @@
 import UIKit
 import WebKit
 import SwiftKeychainWrapper
-import FirebaseFirestore
 
 class AuthVKViewController: UIViewController {
     

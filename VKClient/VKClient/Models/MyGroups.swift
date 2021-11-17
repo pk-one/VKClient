@@ -6,18 +6,23 @@
 //
 
 import Foundation
-import SwiftyJSON
 
-class MyGroups{
+struct Groups: Codable {
+    let response: GroupsResponse
+}
+
+struct GroupsResponse: Codable {
+    let items: [GroupsItems]
+}
+
+struct GroupsItems: Codable {
     let id: Int
     let name: String?
     let avatar: String
     let activity: String?
     
-    init(_ json: JSON) {
-        self.id = json["id"].intValue
-        self.name = json["name"].stringValue
-        self.avatar = json["photo_50"].stringValue
-        self.activity = json["activity"].stringValue 
+    enum CodingKeys: String, CodingKey {
+        case avatar = "photo_50"
+        case id, name, activity
     }
 }

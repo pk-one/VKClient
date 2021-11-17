@@ -27,7 +27,7 @@ class DataOperation {
     }
     
     //MARK: - GroupsSearch
-    func getGroupSearch(textSearch: String, handler: @escaping ([MyGroups]) -> Void) {
+    func getGroupSearch(textSearch: String, handler: @escaping ([GroupsItems]) -> Void) {
         let getGroup = GetSearchGroupOperation(textSearch: textSearch)
         let parseGroup = ParseSearchGroupOperation { group in
             OperationQueue.main.addOperation {
@@ -53,7 +53,7 @@ class DataOperation {
     }
     
     //MARK: - GetPhotos
-    func getPhotosUser(ownerId: Int, handler: @escaping ([Photos]) -> Void) {
+    func getPhotosUser(ownerId: Int, handler: @escaping ([PhotosItems]) -> Void) {
         let getPhotosUser = GetPhotosUserOperation(ownerId: ownerId)
         let parsePhotosUser = ParsePhotosUserOperation { photos in
             OperationQueue.main.addOperation {
