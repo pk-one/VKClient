@@ -13,6 +13,7 @@
 		A01A338D269A0D3200FC0A63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A01A338B269A0D3200FC0A63 /* Main.storyboard */; };
 		A01A3392269A0D3400FC0A63 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A01A3390269A0D3400FC0A63 /* LaunchScreen.storyboard */; };
 		A01A339C269A396400FC0A63 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A339B269A396400FC0A63 /* Extensions.swift */; };
+		A02ED8DE2746F3D3001C4D3B /* UITableView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02ED8DD2746F3D2001C4D3B /* UITableView + Ext.swift */; };
 		A02F900626B4501600CD888D /* CustomLikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02F900526B4501600CD888D /* CustomLikeControl.swift */; };
 		A02F900A26B5516700CD888D /* LettersControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02F900926B5516700CD888D /* LettersControl.swift */; };
 		A02F901626B6F7C100CD888D /* FriendsGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02F901526B6F7C100CD888D /* FriendsGroup.swift */; };
@@ -107,6 +108,7 @@
 		A01A3391269A0D3400FC0A63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A01A3393269A0D3400FC0A63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A01A339B269A396400FC0A63 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		A02ED8DD2746F3D2001C4D3B /* UITableView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView + Ext.swift"; sourceTree = "<group>"; };
 		A02F900526B4501600CD888D /* CustomLikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLikeControl.swift; sourceTree = "<group>"; };
 		A02F900926B5516700CD888D /* LettersControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LettersControl.swift; sourceTree = "<group>"; };
 		A02F901526B6F7C100CD888D /* FriendsGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsGroup.swift; sourceTree = "<group>"; };
@@ -423,6 +425,7 @@
 			children = (
 				A0C6372126D8270800C9C536 /* Reusable.swift */,
 				A0A00EFC26FF4C4600FBF3A5 /* UIViewController + Ext.swift */,
+				A02ED8DD2746F3D2001C4D3B /* UITableView + Ext.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				A058FB8C26F78DB700011476 /* DatabaseService.swift in Sources */,
 				A0B109E426AD7DE3003DCEA1 /* UserGroupsTableViewController.swift in Sources */,
 				A0B109EF26AD9690003DCEA1 /* FriendsPhotosCollectionViewController.swift in Sources */,
+				A02ED8DE2746F3D3001C4D3B /* UITableView + Ext.swift in Sources */,
 				A058FB7226F3EB3000011476 /* KeychainUser.swift in Sources */,
 				A058FB8226F78B3000011476 /* RealmFriends.swift in Sources */,
 				A04A88CC273838E300748D19 /* ParsePhotosUserOperation.swift in Sources */,

@@ -7,7 +7,17 @@
 
 import UIKit
 
+protocol NewsTableViewCellDelegate: AnyObject {
+    func showMoreTappedButton(indexPath: IndexPath, postId: Int) -> Void
+}
+
 class NewsTableViewCell: UITableViewCell{
+    
+    weak var delegate: NewsTableViewCellDelegate?
+    private var indexPath: IndexPath?
+    private var postId: Int?
+    private var isTappedShow = false
+
     
     private let newsImagesView: UIImageView = {
         var image = UIImageView()
@@ -18,40 +28,41 @@ class NewsTableViewCell: UITableViewCell{
     
     private let newsTextLabel: UILabel = {
         var label = UILabel()
-        label.numberOfLines = 0
-        label.font = UIFont(name: "Arial", size: 13)
-        label.lineBreakMode = .byTruncatingTail
-        label.sizeToFit()
+        label.numberOfLines = 3
+        label.font = UIFont.systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let showMoreButton: UIButton = {
+    private var showMoreButton: UIButton = {
         var button = UIButton()
-        button.setTitle("Показать больше", for: .normal)
         button.setTitleColor(.blue, for: .normal)
+        button.setTitle("Показать больше", for: .normal)
         button.titleLabel?.font = UIFont(name: "Arial", size: 13)
+        button.addTarget(self, action: #selector(showMoreTapped(_:)), for: .touchUpInside)
+        button.isUserInteractionEnabled = true
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private let insets: CGFloat = 10.0
     
     func configure(model: RealmNews, indexPath: IndexPath){
+        self.indexPath = indexPath
+        self.postId = model.postId
         switch indexPath.row {
         case 0:
             if !model.textNews.isEmpty {
-//                let countVisibleLine = newsTextLabel.font.lineHeight * 4
-                setupUITextLabel()
+                setupConstraints()
                 self.newsTextLabel.text = model.textNews
-            } else {
-                if model.imageSizeWidth != 0 {
-                    addPhoto(with: model)
+                if model.textNews.count >= 200 {
+                    setupConstraintsFromShowMoreButton()
                 }
+            } else {
+                    addPhoto(with: model)
             }
         case 1:
-            if model.imageSizeWidth != 0 {
                 addPhoto(with: model)
-            }
         default:
             break
         }
@@ -79,31 +90,43 @@ class NewsTableViewCell: UITableViewCell{
         newsImagesView.kf.setImage(with: url)
     }
     
-    private func setupUITextLabel() {
-        self.addSubview(newsTextLabel)
+    @objc private func showMoreTapped(_ sender: UIButton) {
+        guard let indexPath = indexPath, let postId = postId else { return }
+        isTappedShow.toggle()
+        if isTappedShow {
+            showMoreButton.setTitle("Показать меньше", for: .normal)
+            self.newsTextLabel.numberOfLines = 0
+        } else {
+            showMoreButton.setTitle("Показать больше", for: .normal)
+            self.newsTextLabel.numberOfLines = 3
+        }
+        delegate?.showMoreTappedButton(indexPath: indexPath, postId: postId)
+
+    }
+    
+    private func setupConstraints() {
+        self.contentView.addSubview(newsTextLabel)
         NSLayoutConstraint.activate([
-            newsTextLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            newsTextLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            newsTextLabel.topAnchor.constraint(equalTo: topAnchor),
-            newsTextLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            newsTextLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+            newsTextLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5),
+            newsTextLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -5),
         ])
     }
     
-    private func setupShowMoreButton() {
-        
-        self.addSubview(showMoreButton)
+    private func setupConstraintsFromShowMoreButton() {
+        self.contentView.addSubview(showMoreButton)
+
         NSLayoutConstraint.activate([
-            showMoreButton.topAnchor.constraint(equalTo: newsTextLabel.bottomAnchor, constant: 5),
-            showMoreButton.leadingAnchor.constraint(equalTo: newsTextLabel.leadingAnchor),
-            showMoreButton.trailingAnchor.constraint(equalTo: newsTextLabel.trailingAnchor),
-            showMoreButton.bottomAnchor.constraint(equalTo: bottomAnchor)
+        showMoreButton.topAnchor.constraint(equalTo: newsTextLabel.bottomAnchor, constant: 0),
+        showMoreButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5),
+        showMoreButton.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5)
         ])
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.newsImagesView.image = nil
-        
+        self.newsImagesView.removeFromSuperview()
+        self.newsTextLabel.text = nil
         NSLayoutConstraint.deactivate(newsImagesView.constraints)
     }
 }
