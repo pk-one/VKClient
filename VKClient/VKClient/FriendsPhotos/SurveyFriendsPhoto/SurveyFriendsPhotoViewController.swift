@@ -13,7 +13,7 @@ class SurveyFriendsPhotoViewController: UIViewController {
     @IBOutlet var firstImageView: UIImageView!
     @IBOutlet var secondImageView: UIImageView!
     
-    var photos: [Photos]!
+    var photos: [PhotosItems]!
     var index = 0
     var selectedIndexPath: IndexPath?
     
@@ -82,8 +82,9 @@ class SurveyFriendsPhotoViewController: UIViewController {
         self.title = "\(index + 1) из \(photos.count)"
     }
     
-    func configurePhotos(with: Photos, imageView: UIImageView) {
-        let url = URL(string: with.url)
+    func configurePhotos(with: PhotosItems, imageView: UIImageView) {
+        guard let size = with.sizes[3].url ?? with.sizes[2].url else { return }
+        let url = URL(string: size)
         imageView.kf.setImage(with: url)
     }
     
@@ -135,7 +136,8 @@ class SurveyFriendsPhotoViewController: UIViewController {
                 animatePhotoWithTransform(transformDefault)
             }
         } else if currentPanGestureDirection == .bottom {
-            if currentPhotoImageView.frame.midY > view.center.y + 30{                self.navigationController?.popViewController(animated: true)
+            if currentPhotoImageView.frame.midY > view.center.y + 30 {
+                self.navigationController?.popViewController(animated: true)
             } else {
                 animatePhotoWithTransform(transformDefault)
             }

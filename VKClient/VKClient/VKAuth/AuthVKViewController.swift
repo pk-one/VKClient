@@ -7,9 +7,10 @@
 import UIKit
 import WebKit
 import SwiftKeychainWrapper
-import FirebaseFirestore
 
 class AuthVKViewController: UIViewController {
+    
+    private let dataOperation = DataOperation()
     
     @IBOutlet var webview: WKWebView! {
         didSet {
@@ -119,6 +120,8 @@ extension AuthVKViewController: WKNavigationDelegate {
         
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
+        dataOperation.getGroup()
+        dataOperation.getFriends()
     }
 }
 
