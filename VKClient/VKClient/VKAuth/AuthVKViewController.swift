@@ -7,7 +7,6 @@
 import UIKit
 import WebKit
 import SwiftKeychainWrapper
-import FirebaseFirestore
 
 class AuthVKViewController: UIViewController {
     
@@ -20,7 +19,7 @@ class AuthVKViewController: UIViewController {
     }
     
     private var canPresent: Bool = false
-    private let timeToSecnod: Double = 0.0
+    private let timeToSecnod: Double = 86400.0
     
     override func viewDidLoad() {
         super.viewDidLoad()

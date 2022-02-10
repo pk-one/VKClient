@@ -14,7 +14,7 @@ class RealmGroups: Object {
     @Persisted var avatar: String
     @Persisted var activity: String?
     
-    convenience init(_ model: MyGroups) {
+    convenience init(_ model: GroupsItems) {
         self.init()
         self.id = model.id
         self.name = model.name

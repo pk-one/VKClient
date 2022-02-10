@@ -16,13 +16,13 @@ class RealmFriends: Object {
     @Persisted var city: String?
     @Persisted var online: Int
     
-    convenience init(_ model: Friends) {
+    convenience init(_ model: FriendsItems) {
         self.init()
         self.id = model.id
         self.firstName = model.firstName
         self.lastName = model.lastName
         self.avatar = model.avatar
-        self.city = model.city
+        self.city = model.city?.title
         self.online = model.online
     }
 }

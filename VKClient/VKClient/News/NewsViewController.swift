@@ -37,6 +37,8 @@ class NewsViewController: UIViewController{
         return table
     }()
     
+    private var selectedShowButtonsArray = [Int]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(tableView)
@@ -60,7 +62,7 @@ class NewsViewController: UIViewController{
                 self?.tableView.reloadData()
             case .update:
                 self?.tableView.reloadData()
-                self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+//                self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
         }
     }
@@ -147,8 +149,10 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(NewsTableViewCell.self, for: indexPath)
         guard let allNews = allNews else { return UITableViewCell() }
         cell.configure(model: allNews[indexPath.section], indexPath: indexPath)
+        cell.delegate = self
         return cell
     }
+  
     
     private func formattedCounter(_ counter: Int?) -> String? {
         guard let counter = counter else { return nil }
@@ -178,5 +182,12 @@ extension NewsViewController: NewsTableFooterViewDelegate, UINavigationControlle
         try? realm.write {
             object.isDislike.toggle()
         }
+    }
+}
+
+extension NewsViewController: NewsTableViewCellDelegate {
+    func showMoreTappedButton(indexPath: IndexPath, postId: Int) {
+        self.selectedShowButtonsArray.append(postId)
+        tableView.updateRow(row: indexPath.row, section: indexPath.section)
     }
 }

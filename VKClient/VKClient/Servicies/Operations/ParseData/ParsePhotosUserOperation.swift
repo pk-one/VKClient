@@ -10,18 +10,21 @@ import SwiftyJSON
 
 class ParsePhotosUserOperation: Operation {
     
-    private let completion: ([Photos]) -> Void
+    private let completion: ([PhotosItems]) -> Void
     
-    init(completion: @escaping ([Photos]) -> Void) {
+    init(completion: @escaping ([PhotosItems]) -> Void) {
         self.completion = completion
     }
     
     override func main() {
         guard let getPhotosUserOperation = dependencies.first as? GetPhotosUserOperation,
               let data = getPhotosUserOperation.data else { return }
-        let json = JSON(data)
-        let photosItems = json["response"]["items"].arrayValue
-        let photos = photosItems.map { Photos($0) }
-            completion(photos)
+        
+        do {
+            let photos = try JSONDecoder().decode(Photos.self, from: data)
+            completion(photos.response.items)
+        } catch let jsonError {
+            print(jsonError)
+        }
     }
 }

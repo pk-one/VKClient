@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 class ParseGroupOperation: Operation {
     
@@ -19,10 +18,14 @@ class ParseGroupOperation: Operation {
     override func main() {
         guard let getGroupOperation = dependencies.first as? GetGroupOperation,
               let data = getGroupOperation.data else { return }
-        let json = JSON(data)
-        let groupsItems = json["response"]["items"].arrayValue
-        let groups = groupsItems.map { MyGroups($0) }
-        let realmGroups = groups.map { RealmGroups($0) }
-            completion(realmGroups)
+        
+        do {
+            let groups = try JSONDecoder().decode(Groups.self, from: data)
+            
+            let realmGroups = groups.response.items.map { RealmGroups($0) }
+                completion(realmGroups)
+        } catch let jsonError {
+            print(jsonError)
+        }
     }
 }

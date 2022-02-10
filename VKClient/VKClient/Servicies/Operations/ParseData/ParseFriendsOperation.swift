@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 class ParseFriendsOperation: Operation {
     
@@ -19,10 +18,14 @@ class ParseFriendsOperation: Operation {
     override func main() {
         guard let getFriendsOperation = dependencies.first as? GetFriendsOperation,
               let data = getFriendsOperation.data else { return }
-        let json = JSON(data)
-        let friendsItems = json["response"]["items"].arrayValue
-        let friends = friendsItems.map { Friends($0) }
-        let realmFriends = friends.map { RealmFriends($0) }
-            completion(realmFriends)
+        
+        do {
+            let friends = try JSONDecoder().decode(Friends.self, from: data)
+                        
+            let realmFriends = friends.response.items.map { RealmFriends($0) }
+                completion(realmFriends)
+        } catch let jsonError {
+            print(jsonError)
+        }
     }
 }

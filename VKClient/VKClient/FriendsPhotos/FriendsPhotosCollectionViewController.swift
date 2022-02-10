@@ -10,7 +10,7 @@ import UIKit
 class FriendsPhotosCollectionViewController: UICollectionViewController{
     
     var ownerId: Int!
-    private var photosList = [Photos]()
+    private var photosList = [PhotosItems]()
     private let countCells = 2
     private let offSet: CGFloat = 2
     private var selectedIndexPath: IndexPath?

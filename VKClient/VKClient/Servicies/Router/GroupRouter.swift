@@ -53,7 +53,7 @@ enum GroupRouter: URLRequestConvertible {
         let url = url.appendingPathComponent(path)
         var request = URLRequest(url: url)
         request.method = method
-        
+        print(token)
         return try URLEncoding.default.encode(request, with: parameters)
     }
 }

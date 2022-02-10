@@ -29,9 +29,14 @@ class News {
         self.sourceId = json["source_id"].intValue
         self.date = Date(timeIntervalSince1970: date)
         self.textNews = json["text"].stringValue
-        self.imageNews = json["attachments"][0]["photo"]["sizes"][7]["url"].string ??               json["attachments"][0]["photo"]["sizes"][5]["url"].stringValue
-        self.imageSizeHeight = json["attachments"][0]["photo"]["sizes"][7]["height"].int ?? json["attachments"][0]["photo"]["sizes"][5]["height"].intValue
-        self.imageSizeWidth = json["attachments"][0]["photo"]["sizes"][7]["width"].int ?? json["attachments"][0]["photo"]["sizes"][5]["width"].intValue
+        let sizesArray = json["attachments"][0]["photo"]["sizes"].arrayValue
+        self.imageNews = sizesArray.last?["url"].stringValue ?? ""
+        self.imageSizeHeight = sizesArray.last?["height"].int ?? 0
+        self.imageSizeWidth = sizesArray.last?["width"].int ?? 0
+//        ??               json["attachments"][0]["photo"]["sizes"][5]["url"].stringValue
+//         = json["attachments"][0]["photo"]["sizes"][7]["height"].int ?? json["attachments"][0]["photo"]["sizes"][5]["height"].intValue
+//        self.imageSizeWidth = json["attachments"][0]["photo"]["sizes"][7]["width"].int
+////        json["attachments"][0]["photo"]["sizes"][5]["width"].intValue
         
         self.likeCount = json["likes"]["count"].intValue
         self.commentCount = json["comments"]["count"].intValue

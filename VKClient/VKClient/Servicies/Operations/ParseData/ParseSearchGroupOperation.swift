@@ -6,22 +6,23 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 class ParseSearchGroupOperation: Operation {
     
-    private let completion: ([MyGroups]) -> Void
+    private let completion: ([GroupsItems]) -> Void
     
-    init(completion: @escaping ([MyGroups]) -> Void) {
+    init(completion: @escaping ([GroupsItems]) -> Void) {
         self.completion = completion
     }
     
     override func main() {
         guard let getGroupOperation = dependencies.first as? GetSearchGroupOperation,
               let data = getGroupOperation.data else { return }
-        let json = JSON(data)
-        let groupsSearchItems = json["response"]["items"].arrayValue
-        let searchGroups = groupsSearchItems.map { MyGroups($0) }
-            completion(searchGroups)
+        do {
+            let groups = try JSONDecoder().decode(Groups.self, from: data)
+            completion(groups.response.items)
+        } catch let jsonError {
+            print(jsonError)
+        }
     }
 }

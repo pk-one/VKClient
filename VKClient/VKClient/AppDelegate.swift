@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Firebase
+
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,7 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         }
         
-        FirebaseApp.configure()
         return true
     }
 }
