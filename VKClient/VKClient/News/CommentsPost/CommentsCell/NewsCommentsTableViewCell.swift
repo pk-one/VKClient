@@ -29,14 +29,14 @@ class NewsCommentsTableViewCell: UITableViewCell {
     
     private let authorNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Arial", size: 13)
+        label.font = .arial13()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let textCommentLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Arial", size: 12)
+        label.font = .arial12()
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -52,7 +52,7 @@ class NewsCommentsTableViewCell: UITableViewCell {
     
     private let dateCommentLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Arial", size: 10)
+        label.font = .arial10()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

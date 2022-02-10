@@ -24,7 +24,7 @@ class LettersControl: UIControl {
             let button = UIButton()
             button.setTitle(String(friend.firstLetter), for: .normal)
             button.setTitleColor(.lightGray, for: .normal)
-            button.titleLabel?.font = UIFont(name: "Arial", size: 13)
+            button.titleLabel?.font = .arial13()
             button.addTarget(self, action: #selector(selectNewLetter(_:)), for: .touchUpInside)
             buttonsLetters.append(button)
         }

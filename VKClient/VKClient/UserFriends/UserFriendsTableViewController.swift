@@ -134,12 +134,12 @@ class UserFriendsTableViewController: UITableViewController {
     ///задаем название секции и перерисовываем
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
-        view.backgroundColor = UIColor.lightGray
+        view.backgroundColor = .lightGray
         view.alpha = 0.5
         let label = UILabel()
         label.text = groupFriends[section].firstLetter
-        label.font = UIFont(name: "Arial", size: 15)
-        label.textColor = UIColor.black
+        label.font = .arial15()
+        label.textColor = .standardBlack
         label.frame = CGRect(x: 25, y: 7, width: 100, height: 15)
         view.addSubview(label)
         return view

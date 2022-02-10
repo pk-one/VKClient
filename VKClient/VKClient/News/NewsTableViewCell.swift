@@ -29,7 +29,7 @@ class NewsTableViewCell: UITableViewCell{
     private let newsTextLabel: UILabel = {
         var label = UILabel()
         label.numberOfLines = 3
-        label.font = UIFont.systemFont(ofSize: 13)
+        label.font = .arial13()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -38,7 +38,7 @@ class NewsTableViewCell: UITableViewCell{
         var button = UIButton()
         button.setTitleColor(.blue, for: .normal)
         button.setTitle("Показать больше", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Arial", size: 13)
+        button.titleLabel?.font = .arial13()
         button.addTarget(self, action: #selector(showMoreTapped(_:)), for: .touchUpInside)
         button.isUserInteractionEnabled = true
         button.translatesAutoresizingMaskIntoConstraints = false

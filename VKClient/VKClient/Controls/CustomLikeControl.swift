@@ -19,7 +19,7 @@ class CustomLikeControl: UIControl {
     
     private var likesCountLabel: UILabel = {
         let likesCountLabel = UILabel()
-        likesCountLabel.textColor = UIColor.white
+        likesCountLabel.textColor = .standardWhite
         likesCountLabel.translatesAutoresizingMaskIntoConstraints = false
         return likesCountLabel
     }()
@@ -55,24 +55,24 @@ class CustomLikeControl: UIControl {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupBaseUI()
-        setShapeLayer(color: UIColor.white)
+        setShapeLayer(color: .standardWhite)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupBaseUI()
-        setShapeLayer(color: UIColor.white)
+        setShapeLayer(color: .standardWhite)
     }
     
     @objc private func didTapButton() {
         isLiked = !isLiked
         likesCountLabel.text = isLiked ? "\(countLikes + 1)" : "\(countLikes)"
         if isLiked {
-            likesCountLabel.textColor = UIColor.red
-            setShapeLayer(color: UIColor.red)
+            likesCountLabel.textColor = .standardRed
+            setShapeLayer(color: .standardRed)
         } else {
-            setShapeLayer(color: UIColor.white)
-            likesCountLabel.textColor = UIColor.black
+            setShapeLayer(color: .standardWhite)
+            likesCountLabel.textColor = .standardBlack
         }
     }
     

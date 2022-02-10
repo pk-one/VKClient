@@ -23,7 +23,7 @@ class RoundedImageView: UIImageView {
         layer.cornerRadius = 25
         layer.masksToBounds = true
         layer.borderWidth = 1
-        layer.borderColor = UIColor.white.cgColor
+        layer.borderColor = .standardWhite.cgColor
     }
    
 }
