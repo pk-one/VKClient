@@ -49,6 +49,8 @@
 		A06E25DA27B54A02008FD0A0 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E25D927B54A02008FD0A0 /* UIColor + Extension.swift */; };
 		A06E25DC27B54B0F008FD0A0 /* UIFont + Extension .swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E25DB27B54B0F008FD0A0 /* UIFont + Extension .swift */; };
 		A06E25DF27B5518E008FD0A0 /* FriendsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E25DE27B5518E008FD0A0 /* FriendsAdapter.swift */; };
+		A06E25E227B585A8008FD0A0 /* FriendsViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E25E127B585A8008FD0A0 /* FriendsViewModelFactory.swift */; };
+		A06E25E627B586AF008FD0A0 /* FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E25E527B586AF008FD0A0 /* FriendsViewModel.swift */; };
 		A095C01126C7AFD000E26644 /* VKLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A095C01026C7AFD000E26644 /* VKLoaderView.swift */; };
 		A095C01426C7B2A700E26644 /* SurveyFriendsPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A095C01326C7B2A700E26644 /* SurveyFriendsPhotoViewController.swift */; };
 		A095C02226CA90F200E26644 /* CustomInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A095C02126CA90F200E26644 /* CustomInteractiveTransition.swift */; };
@@ -146,6 +148,8 @@
 		A06E25D927B54A02008FD0A0 /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		A06E25DB27B54B0F008FD0A0 /* UIFont + Extension .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont + Extension .swift"; sourceTree = "<group>"; };
 		A06E25DE27B5518E008FD0A0 /* FriendsAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAdapter.swift; sourceTree = "<group>"; };
+		A06E25E127B585A8008FD0A0 /* FriendsViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewModelFactory.swift; sourceTree = "<group>"; };
+		A06E25E527B586AF008FD0A0 /* FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewModel.swift; sourceTree = "<group>"; };
 		A095C01026C7AFD000E26644 /* VKLoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKLoaderView.swift; sourceTree = "<group>"; };
 		A095C01326C7B2A700E26644 /* SurveyFriendsPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyFriendsPhotoViewController.swift; sourceTree = "<group>"; };
 		A095C02126CA90F200E26644 /* CustomInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInteractiveTransition.swift; sourceTree = "<group>"; };
@@ -230,6 +234,7 @@
 		A01A3384269A0D3200FC0A63 /* VKClient */ = {
 			isa = PBXGroup;
 			children = (
+				A06E25E027B58589008FD0A0 /* Factory */,
 				A058FB8826F78CEA00011476 /* DatabaseModels */,
 				A0B109D526AD7A72003DCEA1 /* Models */,
 				A0C6376326DC151700C9C536 /* VKAuth */,
@@ -315,6 +320,15 @@
 				A06E25DB27B54B0F008FD0A0 /* UIFont + Extension .swift */,
 			);
 			path = UIKit;
+			sourceTree = "<group>";
+		};
+		A06E25E027B58589008FD0A0 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				A06E25E127B585A8008FD0A0 /* FriendsViewModelFactory.swift */,
+				A06E25E527B586AF008FD0A0 /* FriendsViewModel.swift */,
+			);
+			path = Factory;
 			sourceTree = "<group>";
 		};
 		A095C01226C7B28F00E26644 /* SurveyFriendsPhoto */ = {
@@ -648,6 +662,7 @@
 				A0CFD10C2738189000A2168C /* GetGroupOperation.swift in Sources */,
 				A04A88C62738323C00748D19 /* GetFriendsOperation.swift in Sources */,
 				A04A88D32739E85A00748D19 /* SplashAnimator.swift in Sources */,
+				A06E25E227B585A8008FD0A0 /* FriendsViewModelFactory.swift in Sources */,
 				A0B109E626AD7DFB003DCEA1 /* AllGroupsTableViewController.swift in Sources */,
 				A0C6378026E7CFE900C9C536 /* MyGroups.swift in Sources */,
 				A0CFD116273824C100A2168C /* GetSearchGroupOperation.swift in Sources */,
@@ -696,6 +711,7 @@
 				A058FB9226F7A4C600011476 /* NewsTableFooterView.swift in Sources */,
 				A0CFD1072738107B00A2168C /* GroupRouter.swift in Sources */,
 				A04A88E1273DB7BA00748D19 /* ParseUsersCommentsOperation.swift in Sources */,
+				A06E25E627B586AF008FD0A0 /* FriendsViewModel.swift in Sources */,
 				A0B109FB26B0A0D6003DCEA1 /* ShadowView.swift in Sources */,
 				A058FB9426F8CE2B00011476 /* RealmNews.swift in Sources */,
 				A02F900A26B5516700CD888D /* LettersControl.swift in Sources */,
