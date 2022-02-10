@@ -18,20 +18,20 @@ class UserFriendsTableViewController: UITableViewController {
     
     //MARK: - Properties
     private let activityIndicator = UIActivityIndicatorView(style: .large)
-    private var friends: Results<RealmFriends>? {
+    private var friends: [FriendsItems]? {
         didSet {
             activityIndicator.stopAnimating()
         }
     }
-    private var sortedFriends: Results<RealmFriends>?
+    private var sortedFriends: [FriendsItems]?
     private var groupFriends = [GroupFriends]()
     private var textSearch: String = "" {
         didSet {
             groupFriendsByFirstLetter(textSearch: textSearch)
         }
     }
-    private let databaseService: DatabaseService = DatabaseServiceImplementation()    
-    private var notificationToken: NotificationToken?
+    
+    private var friendsAdapter = FriendsAdapter()
     
     //MARK: - LifeCircle
     override func viewDidLoad() {
@@ -39,25 +39,12 @@ class UserFriendsTableViewController: UITableViewController {
         ///убираем лишние ячейки
         tableView.tableFooterView = UIView()
         setupSearchBar()
+        fetchFriends()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       
         fetchFriends()
-        
-        notificationToken = friends?.observe { [weak self] change in
-            switch change {
-            case .error(let error):
-                self?.show(error: error)
-            case .initial:
-                self?.tableView.reloadData()
-                self?.groupFriendsByFirstLetter()
-            case .update:
-                self?.tableView.reloadData()
-                self?.groupFriendsByFirstLetter()
-            }
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -71,16 +58,23 @@ class UserFriendsTableViewController: UITableViewController {
         activityIndicator.center = self.view.center
         activityIndicator.startAnimating()
         
-        friends = try? databaseService.get(RealmFriends.self)
-      
+        friendsAdapter.getFriends { [weak self] result in
+            switch result {
+            case .success(let friends):
+                self?.friends = friends
+                self?.groupFriendsByFirstLetter()
+                self?.activityIndicator.stopAnimating()
+                
+            case .failure(let error):
+                self?.show(error: error)
+            }
+        }
     }
     
     func groupFriendsByFirstLetter(textSearch: String = ""){
-        if textSearch != "" {
-            sortedFriends = friends?.filter("firstName CONTAINS %@ OR lastName CONTAINS %@",
-                                            textSearch, textSearch)
+        if textSearch != "" { sortedFriends = friends?.filter { $0.firstName == textSearch || $0.lastName == textSearch }
         } else {
-            sortedFriends = friends?.sorted(byKeyPath: "firstName")
+            sortedFriends = friends?.sorted(by: { $0.firstName < $1.firstName })
         }
         
         groupFriends.removeAll()

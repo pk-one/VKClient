@@ -121,7 +121,6 @@ extension AuthVKViewController: WKNavigationDelegate {
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
         dataOperation.getGroup()
-        dataOperation.getFriends()
     }
 }
 

@@ -13,10 +13,10 @@ class UserFriendsTableViewCell: UITableViewCell {
     @IBOutlet private var cityNameLabel: UILabel!
     @IBOutlet private var userOnlineImageView: UIImageView!
     
-    func configure(with friend: RealmFriends) {
+    func configure(with friend: FriendsItems) {
         let url = URL(string: friend.avatar)
         imageFriendImageView.kf.setImage(with: url)
-        cityNameLabel.text = friend.city
+        cityNameLabel.text = friend.city?.title
         fullNameFriendLabel.text = "\(friend.firstName) \(friend.lastName)"
         
         if friend.online == 1 {
