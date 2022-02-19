@@ -19,7 +19,7 @@ class NewsPostTableHeaderView: UITableViewHeaderFooterView {
     
     private var postAuthor: UILabel = {
         let postAuthor = UILabel()
-        postAuthor.font = UIFont(name: "Arial", size: 15)
+        postAuthor.font = .arial15()
         postAuthor.translatesAutoresizingMaskIntoConstraints = false
         return postAuthor
     }()
@@ -35,7 +35,7 @@ class NewsPostTableHeaderView: UITableViewHeaderFooterView {
     
     private var postDate: UILabel = {
         let postDate = UILabel()
-        postDate.font = UIFont(name: "Arial", size: 11)
+        postDate.font = .arial11()
         postDate.translatesAutoresizingMaskIntoConstraints = false
         return postDate
     }()

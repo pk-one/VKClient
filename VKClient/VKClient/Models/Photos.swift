@@ -34,19 +34,3 @@ struct PhotosItems: Codable {
         case id, sizes, likes
     }
 }
-
-
-
-
-
-
-//class Photos {
-//
-//
-//    init(_ json: JSON) {
-//        self.id = json["id"].intValue
-//        self.ownerId = json["owner_id"].intValue
-//        self.url = json["sizes"][3]["url"].string ?? json["sizes"][2]["url"].stringValue
-//        self.likes = json["likes"]["count"].intValue
-//    }
-//}

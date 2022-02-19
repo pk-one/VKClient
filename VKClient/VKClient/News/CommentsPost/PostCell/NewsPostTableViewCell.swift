@@ -19,7 +19,7 @@ class NewsPostTableViewCell: UITableViewCell {
     private let newsTextLabel: UILabel = {
         var label = UILabel()
         label.numberOfLines = 0
-        label.font = UIFont(name: "Arial", size: 13)
+        label.font = .arial13()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

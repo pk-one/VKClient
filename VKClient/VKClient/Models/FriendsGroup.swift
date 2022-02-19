@@ -9,9 +9,9 @@ import Foundation
 
 class GroupFriends {
     var firstLetter: String
-    var friends: [RealmFriends]
+    var friends: [FriendsItems]
 
-    init(firstLetter: String, friends: [RealmFriends]) {
+    init(firstLetter: String, friends: [FriendsItems]) {
         self.firstLetter = firstLetter
         self.friends = friends
     }

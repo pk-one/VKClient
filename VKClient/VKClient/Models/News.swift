@@ -33,11 +33,6 @@ class News {
         self.imageNews = sizesArray.last?["url"].stringValue ?? ""
         self.imageSizeHeight = sizesArray.last?["height"].int ?? 0
         self.imageSizeWidth = sizesArray.last?["width"].int ?? 0
-//        ??               json["attachments"][0]["photo"]["sizes"][5]["url"].stringValue
-//         = json["attachments"][0]["photo"]["sizes"][7]["height"].int ?? json["attachments"][0]["photo"]["sizes"][5]["height"].intValue
-//        self.imageSizeWidth = json["attachments"][0]["photo"]["sizes"][7]["width"].int
-////        json["attachments"][0]["photo"]["sizes"][5]["width"].intValue
-        
         self.likeCount = json["likes"]["count"].intValue
         self.commentCount = json["comments"]["count"].intValue
         self.repostCount = json["reposts"]["count"].intValue

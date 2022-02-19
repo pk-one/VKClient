@@ -34,7 +34,7 @@ class NewsTableFooterView: UITableViewHeaderFooterView {
     
     private var likeCountLabel: UILabel = {
         let likeLabel = UILabel()
-        likeLabel.font = UIFont(name: "Arial", size: 18)
+        likeLabel.font = .arial18()
         likeLabel.translatesAutoresizingMaskIntoConstraints = false
         return likeLabel
     }()
@@ -49,7 +49,7 @@ class NewsTableFooterView: UITableViewHeaderFooterView {
 
     private var commentsCountLabel: UILabel = {
         let commentsLabel = UILabel()
-        commentsLabel.font = UIFont(name: "Arial", size: 18)
+        commentsLabel.font = .arial18()
         commentsLabel.translatesAutoresizingMaskIntoConstraints = false
         return commentsLabel
     }()
@@ -63,7 +63,7 @@ class NewsTableFooterView: UITableViewHeaderFooterView {
     
     private var repostCountLabel: UILabel = {
         let repostLabel = UILabel()
-        repostLabel.font = UIFont(name: "Arial", size: 18)
+        repostLabel.font = .arial18()
         repostLabel.translatesAutoresizingMaskIntoConstraints = false
         return repostLabel
     }()
@@ -77,7 +77,7 @@ class NewsTableFooterView: UITableViewHeaderFooterView {
     
     private var viewsCountLabel: UILabel = {
          let viewsCountLabel = UILabel()
-        viewsCountLabel.font = UIFont(name: "Arial", size: 14)
+        viewsCountLabel.font = .arial14()
         viewsCountLabel.translatesAutoresizingMaskIntoConstraints = false
         return viewsCountLabel
     }()

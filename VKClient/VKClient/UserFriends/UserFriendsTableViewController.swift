@@ -18,20 +18,23 @@ class UserFriendsTableViewController: UITableViewController {
     
     //MARK: - Properties
     private let activityIndicator = UIActivityIndicatorView(style: .large)
-    private var friends: Results<RealmFriends>? {
+    private var friends: [FriendsItems]? {
         didSet {
             activityIndicator.stopAnimating()
         }
     }
-    private var sortedFriends: Results<RealmFriends>?
-    private var groupFriends = [GroupFriends]()
+    private var sortedFriends: [FriendsItems]?
+    private var groupFriends: [GroupFriends] = []
     private var textSearch: String = "" {
         didSet {
             groupFriendsByFirstLetter(textSearch: textSearch)
         }
     }
-    private let databaseService: DatabaseService = DatabaseServiceImplementation()    
-    private var notificationToken: NotificationToken?
+    
+    private var friendsAdapter = FriendsAdapter()
+    private let viewModelFactory = FriendsViewModelFactory()
+    
+    private var friendViewModel: [FriendsViewModel] = []
     
     //MARK: - LifeCircle
     override func viewDidLoad() {
@@ -39,25 +42,12 @@ class UserFriendsTableViewController: UITableViewController {
         ///убираем лишние ячейки
         tableView.tableFooterView = UIView()
         setupSearchBar()
+        fetchFriends()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       
         fetchFriends()
-        
-        notificationToken = friends?.observe { [weak self] change in
-            switch change {
-            case .error(let error):
-                self?.show(error: error)
-            case .initial:
-                self?.tableView.reloadData()
-                self?.groupFriendsByFirstLetter()
-            case .update:
-                self?.tableView.reloadData()
-                self?.groupFriendsByFirstLetter()
-            }
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -71,55 +61,60 @@ class UserFriendsTableViewController: UITableViewController {
         activityIndicator.center = self.view.center
         activityIndicator.startAnimating()
         
-        friends = try? databaseService.get(RealmFriends.self)
-      
-    }
-    
-    func groupFriendsByFirstLetter(textSearch: String = ""){
-        if textSearch != "" {
-            sortedFriends = friends?.filter("firstName CONTAINS %@ OR lastName CONTAINS %@",
-                                            textSearch, textSearch)
-        } else {
-            sortedFriends = friends?.sorted(byKeyPath: "firstName")
-        }
-        
-        groupFriends.removeAll()
-        
-        if let sortedFriends = sortedFriends {
-        for friend in sortedFriends {
-            let firstLetter = String(friend.firstName.first!)
-            if groupFriends.count == 0 {
-                groupFriends.append(GroupFriends(firstLetter: firstLetter, friends: [friend]))
-            } else {
-                if firstLetter == groupFriends.last?.firstLetter {
-                    groupFriends.last?.friends.append(friend)
-                } else {
-                    groupFriends.append(GroupFriends(firstLetter: firstLetter, friends: [friend]))
-                }
+        friendsAdapter.getFriends { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let friends):
+                self.friends = friends
+                self.friendViewModel = self.viewModelFactory.constructViewModel(from: friends)
+                self.groupFriendsByFirstLetter()
+                self.activityIndicator.stopAnimating()
+                
+            case .failure(let error):
+                self.show(error: error)
             }
         }
     }
+    
+    func groupFriendsByFirstLetter(textSearch: String = ""){
+        if textSearch != "" { sortedFriends = friends?.filter { $0.firstName == textSearch || $0.lastName == textSearch }
+        } else {
+            sortedFriends = friends?.sorted(by: { $0.firstName < $1.firstName })
+        }
+        
+//        groupFriends.removeAll()
+        
+//        if let sortedFriends = sortedFriends {
+//            for friend in sortedFriends {
+//                let firstLetter = String(friend.firstName.first!)
+//                if groupFriends.count == 0 {
+//                    groupFriends.append(GroupFriends(firstLetter: firstLetter, friends: [friend]))
+//                } else {
+//                    if firstLetter == groupFriends.last?.firstLetter {
+//                        groupFriends.last?.friends.append(friend)
+//                    } else {
+//                        groupFriends.append(GroupFriends(firstLetter: firstLetter, friends: [friend]))
+//                    }
+//                }
+//            }
+//        }
+
         self.tableView.reloadData()
     }
     
-    ///скролл до нужно секции
-    @objc private func lettersChange(_ control: LettersControl){
-        let indexPath = IndexPath(item: 0, section: control.selectedLetter!)
-        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-    }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return groupFriends.count
-    }
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//
+//    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groupFriends[section].friends.count
+        return friendViewModel.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(UserFriendsTableViewCell.self, for: indexPath )
-        let user = self.groupFriends[indexPath.section].friends[indexPath.row]
-        cell.configure(with: user)
+//        let user = self.groupFriends[indexPath.section].friends[indexPath.row]
+        cell.configure(with: friendViewModel[indexPath.row])
         return cell
     }
     
@@ -128,22 +123,22 @@ class UserFriendsTableViewController: UITableViewController {
               let source = segue.source as? UserFriendsTableViewController,
               let destination = segue.destination as? FriendsPhotosCollectionViewController,
               let indexPath = source.tableView.indexPathForSelectedRow else { return }
-        let friend = groupFriends[indexPath.section].friends[indexPath.row]
+        let friend = friendViewModel[indexPath.row]
         destination.ownerId = friend.id
     }
-    ///задаем название секции и перерисовываем
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView()
-        view.backgroundColor = UIColor.lightGray
-        view.alpha = 0.5
-        let label = UILabel()
-        label.text = groupFriends[section].firstLetter
-        label.font = UIFont(name: "Arial", size: 15)
-        label.textColor = UIColor.black
-        label.frame = CGRect(x: 25, y: 7, width: 100, height: 15)
-        view.addSubview(label)
-        return view
-    }
+//    ///задаем название секции и перерисовываем
+//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let view = UIView()
+//        view.backgroundColor = .lightGray
+//        view.alpha = 0.5
+//        let label = UILabel()
+//        label.text = groupFriends[section].firstLetter
+//        label.font = .arial15()
+//        label.textColor = .standardBlack
+//        label.frame = CGRect(x: 25, y: 7, width: 100, height: 15)
+//        view.addSubview(label)
+//        return view
+//    }
         
     private func setupSearchBar() {
         searchTextField.addTarget(self, action: #selector(editingBegan(_:)), for: .editingDidBegin)

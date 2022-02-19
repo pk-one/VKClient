@@ -1,27 +1,18 @@
 //
-//  Extensions.swift
+//  UIColor + Extension.swift
 //  VKClient
 //
-//  Created by Pavel Olegovich on 16.07.2021.
+//  Created by Pavel Olegovich on 10.02.2022.
 //
 
 import Foundation
 import UIKit
 
-extension UIView {
-    func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        self.layer.mask = mask
-    }
-}
-
-public extension UIColor {
+extension UIColor {
     static let varna = UIColor.rgb(40.0, 35.0, 80.0)
 }
 
-public extension UIColor {
+extension UIColor {
     static func rgb(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat) -> UIColor {
         return UIColor.rgba(r, g, b, 1.0)
     }
@@ -37,15 +28,9 @@ extension UIColor {
     static let newsfeedDarkGrey = UIColor(red: 58.0 / 255.0, green: 59.0 / 255.0, blue: 60.0 / 255.0, alpha: 1.0)
     static let newsfeedPaleGrey = UIColor(red: 147.0 / 255.0, green: 158.0 / 255.0, blue: 169.0 / 255.0, alpha: 1.0)
     static let footerGrey = UIColor(red: 161.0 / 255.0, green: 165.0 / 255.0, blue: 169.0 / 255.0, alpha: 1.0)
+    
+    static let standardWhite = UIColor.white
+    static let standardRed = UIColor.red
+    static let standardBlack = UIColor.black
+    static let standardLightGray = UIColor.lightGray
 }
-
-extension UIView {
-    func addBottomBorderWithColor(color: UIColor, width: CGFloat) {
-        let border = CALayer()
-        border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: 0, y: self.frame.size.height - width,
-                              width: self.frame.size.width, height: width)
-        self.layer.addSublayer(border)
-    }
-}
-
