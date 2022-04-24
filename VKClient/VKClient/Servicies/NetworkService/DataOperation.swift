@@ -25,19 +25,7 @@ class DataOperation {
         parseGroup.addDependency(getGroup)
         operationQueue.addOperations(operations, waitUntilFinished: false)
     }
-    
-    //MARK: - GroupsSearch
-    func getGroupSearch(textSearch: String, handler: @escaping ([GroupsItems]) -> Void) {
-        let getGroup = GetSearchGroupOperation(textSearch: textSearch)
-        let parseGroup = ParseSearchGroupOperation { group in
-            OperationQueue.main.addOperation {
-                handler(group)
-            }
-        }
-        let operations = [getGroup, parseGroup]
-        parseGroup.addDependency(getGroup)
-        operationQueue.addOperations(operations, waitUntilFinished: false)
-    }
+
     
     //MARK: - getFriends
     func getFriends() {
@@ -114,6 +102,21 @@ class DataOperation {
         }
         let operations = [getGroupsComments, parseGroupsComments]
         parseGroupsComments.addDependency(getGroupsComments)
+        operationQueue.addOperations(operations, waitUntilFinished: false)
+    }
+}
+
+extension DataOperation: GetSearchGroupProtocol {
+    //MARK: - GroupsSearch
+    func getGroupSearch(textSearch: String, handler: @escaping ([GroupsItems]) -> Void) {
+        let getGroup = GetSearchGroupOperation(textSearch: textSearch)
+        let parseGroup = ParseSearchGroupOperation { group in
+            OperationQueue.main.addOperation {
+                handler(group)
+            }
+        }
+        let operations = [getGroup, parseGroup]
+        parseGroup.addDependency(getGroup)
         operationQueue.addOperations(operations, waitUntilFinished: false)
     }
 }

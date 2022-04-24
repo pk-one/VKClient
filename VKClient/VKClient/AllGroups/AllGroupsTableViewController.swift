@@ -16,14 +16,16 @@ class AllGroupsTableViewController: UITableViewController {
     @IBOutlet var trailingConstraintSearchTextField: NSLayoutConstraint!
     
     private var searchGroups = [GroupsItems]()
-    private let networkService = DataOperation()
+    private var operation: GetSearchGroupProtocol!
+    private var serviceProxy: GetSearchGroupProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        operation = DataOperation()
+        serviceProxy = GetSearchGroupProxy(service: operation)
         setupSearchBar()
         setupButton()
         tableView.tableFooterView = UIView()
-        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -93,7 +95,7 @@ class AllGroupsTableViewController: UITableViewController {
     
     @objc private func editingChanged(_ sender: UITextField) {
         guard let textSearch = searchTextField.text else { return }
-        networkService.getGroupSearch(textSearch: textSearch) { [weak self] searchGroups in
+        serviceProxy?.getGroupSearch(textSearch: textSearch) { [weak self] searchGroups in
             self?.searchGroups = searchGroups
             DispatchQueue.main.async {
                 self?.tableView.reloadData()

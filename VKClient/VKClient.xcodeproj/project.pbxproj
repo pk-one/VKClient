@@ -102,6 +102,8 @@
 		A0CFD1182738264300A2168C /* ParseSearchGroupOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CFD1172738264200A2168C /* ParseSearchGroupOperation.swift */; };
 		A0FC982926C4001F0035EDE5 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FC982826C4001F0035EDE5 /* LoaderView.swift */; };
 		A0FC982D26C402000035EDE5 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FC982C26C402000035EDE5 /* NewsViewController.swift */; };
+		A0FD962C27C146A30056D76E /* GetSearchGroupProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FD962B27C146A30056D76E /* GetSearchGroupProtocol.swift */; };
+		A0FD962E27C147200056D76E /* GetSearchGroupProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FD962D27C147200056D76E /* GetSearchGroupProxy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -196,6 +198,8 @@
 		A0CFD1172738264200A2168C /* ParseSearchGroupOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseSearchGroupOperation.swift; sourceTree = "<group>"; };
 		A0FC982826C4001F0035EDE5 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		A0FC982C26C402000035EDE5 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		A0FD962B27C146A30056D76E /* GetSearchGroupProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSearchGroupProtocol.swift; sourceTree = "<group>"; };
+		A0FD962D27C147200056D76E /* GetSearchGroupProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSearchGroupProxy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +238,7 @@
 		A01A3384269A0D3200FC0A63 /* VKClient */ = {
 			isa = PBXGroup;
 			children = (
+				A0FD962A27C1463E0056D76E /* Proxy */,
 				A06E25E027B58589008FD0A0 /* Factory */,
 				A058FB8826F78CEA00011476 /* DatabaseModels */,
 				A0B109D526AD7A72003DCEA1 /* Models */,
@@ -544,6 +549,15 @@
 			path = Controls;
 			sourceTree = "<group>";
 		};
+		A0FD962A27C1463E0056D76E /* Proxy */ = {
+			isa = PBXGroup;
+			children = (
+				A0FD962B27C146A30056D76E /* GetSearchGroupProtocol.swift */,
+				A0FD962D27C147200056D76E /* GetSearchGroupProxy.swift */,
+			);
+			path = Proxy;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -681,9 +695,11 @@
 				A058FB6D26F3E40500011476 /* RoundedButton.swift in Sources */,
 				A0CFD10E2738190C00A2168C /* AsyncOperation.swift in Sources */,
 				A0C6377E26E7CFCD00C9C536 /* Photos.swift in Sources */,
+				A0FD962E27C147200056D76E /* GetSearchGroupProxy.swift in Sources */,
 				A0B109FD26B2F81C003DCEA1 /* RoundedImageView.swift in Sources */,
 				A01A3386269A0D3200FC0A63 /* AppDelegate.swift in Sources */,
 				092F94FC269A376C0030AB4C /* LeftPaddedTextField.swift in Sources */,
+				A0FD962C27C146A30056D76E /* GetSearchGroupProtocol.swift in Sources */,
 				A0A00F0C2703D6AD00FBF3A5 /* RealmCommentsUsers.swift in Sources */,
 				A04A88DB273DB37000748D19 /* GetCommentsOperation.swift in Sources */,
 				A0A00F0426FF74D300FBF3A5 /* RealmNewsfeedComments.swift in Sources */,
